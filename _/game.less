@@ -1,0 +1,119 @@
+@charset 'utf-8';
+
+@tilesize: 8vh;
+
+html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+	font-size: 18px;
+	line-height: 1.2;
+}
+*, *::before, *::after{
+	box-sizing: inherit;
+}
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #222;
+	color: #666;
+}
+header,
+footer {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1vh 0;
+	border-radius: 6px;
+}
+header {
+	//padding: 1em;
+	//background-color: #666;
+	color: #fff;
+	
+	h1 {
+		margin: 0;
+		padding: 0;
+	}
+}
+main {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+}
+.game {
+	display: flex;
+	flex-flow: row nowrap;
+	position: relative;
+	
+	.map {
+		border: 1vh solid #666;
+		border-radius: 6px;
+		
+		.row {
+			display: grid;
+			grid-template-columns: repeat(9, @tilesize);
+			grid-auto-rows: 1fr;
+			
+			* > {
+				width: @tilesize;
+				height: @tilesize;
+				background-size: cover;
+			}
+		
+			.wall {
+				background-image: url(img/wall.png);
+			}
+			.green {
+				background-image: url(img/path.png);
+			}
+			.character {
+				background-image: url(img/hero.png);
+			}
+			.door {
+				background-image: url(img/lock.png);
+			}
+			.book {
+				background-image: url(img/book.png);
+			}
+			.chest {
+				background-image: url(img/chest.png);
+			}
+			.key {
+				background-image: url(img/key.png);
+			}
+		}
+	}
+	
+	.tools {
+		position: relative;
+		width: 30vh;
+		margin-left: 1vh;
+		padding: 1em;
+		background-color: #666;
+		border: 1vh solid #666;
+		border-radius: 6px;
+		color: #999;
+		
+		.log {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			overflow-y: auto;
+		}
+		.recent {
+			color: #fff;
+		}
+	}
+}

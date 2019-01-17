@@ -1,0 +1,109 @@
+@charset 'utf-8';
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 18px;
+  line-height: 1.2;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  color: #666;
+}
+header,
+footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1vh 0;
+  border-radius: 6px;
+}
+header {
+  color: #fff;
+}
+header h1 {
+  margin: 0;
+  padding: 0;
+}
+main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.game {
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+}
+.game .map {
+  border: 1vh solid #666;
+  border-radius: 6px;
+}
+.game .map .row {
+  display: grid;
+  grid-template-columns: repeat(9, 8vh);
+  grid-auto-rows: 1fr;
+}
+.game .map .row * {
+  width: 8vh;
+  height: 8vh;
+  background-size: cover;
+}
+.game .map .row .wall {
+  background-image: url(img/wall.png);
+}
+.game .map .row .green {
+  background-image: url(img/path.png);
+}
+.game .map .row .character {
+  background-image: url(img/hero.png);
+}
+.game .map .row .door {
+  background-image: url(img/lock.png);
+}
+.game .map .row .book {
+  background-image: url(img/book.png);
+}
+.game .map .row .chest {
+  background-image: url(img/chest.png);
+}
+.game .map .row .key {
+  background-image: url(img/key.png);
+}
+.game .tools {
+  position: relative;
+  width: 30vh;
+  margin-left: 1vh;
+  padding: 1em;
+  background-color: #666;
+  border: 1vh solid #666;
+  border-radius: 6px;
+  color: #999;
+}
+.game .tools .log {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+}
+.game .tools .recent {
+  color: #fff;
+}
