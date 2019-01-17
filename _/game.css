@@ -107,3 +107,23 @@ main {
 .game .tools .recent {
   color: #fff;
 }
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.overlay .dialog {
+  width: 30em;
+  min-height: 150px;
+  padding: 1em 2em;
+  background-color: #fff;
+  color: #000;
+  border-radius: 1em;
+}

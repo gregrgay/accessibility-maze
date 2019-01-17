@@ -110,10 +110,7 @@ function buldMap(elem, data) {
 		}
 		
 		function logAction(str) {
-			var $log = $(".log");
-			$log.children().removeClass("recent");
-			$log.prepend( $("<div/>").addClass("recent").text(str) );
-			$log.scrollTop(0);
+			$(".log").html(str);
 		}
 		
 	});
