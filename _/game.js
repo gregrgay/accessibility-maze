@@ -9,7 +9,7 @@ level1 = [
 	[ "wall", "wall", "wall", "wall", "door", "wall", "wall", "green", "wall" ],
 	[ "wall", "green", "green", "wall", "green", "green", "green", "door", "wall" ],
 	[ "wall", "green", "green", "door", "green", "green", "green", "wall", "wall" ],
-	[ "wall", "chest", "green", "wall", "green", "green", "green", "wall", "wall" ],
+	[ "wall", "chest", "green", "wall", "green", "green", "key", "wall", "wall" ],
 	[ "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall" ],
 ];
 
@@ -23,9 +23,11 @@ $(document).ready(function() {
 
 function buldMap(elem, data) {
 	
-	var $map = $(elem).attr({
-		"tabindex": 0
-	});
+	var $map = $(elem)
+		.empty()
+		.attr({
+			"tabindex": 0
+		});
 	
 	_.each(data, function(row, i) {
 		
@@ -105,6 +107,10 @@ function buldMap(elem, data) {
 			} else if($next.hasClass("book")) {
 				
 				logAction("you found a book");
+				
+			} else if($next.hasClass("chest")) {
+				
+				logAction("you found a locked chest");
 				
 			}
 		}
