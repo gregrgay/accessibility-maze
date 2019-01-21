@@ -5,7 +5,7 @@ level1 = [
 	[ "wall","wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall" ],
 	[ "wall", "wall", "key", "green", "book", "wall", "wall", "wall", "wall" ],
 	[ "wall", "wall", "green", "character", "green", "wall", "green", "green", "door" ],
-	[ "wall", "wall", "green", "green", "green", "wall", "green", "green", "wall" ],
+	[ "wall", "wall", "key", "green", "green", "wall", "green", "green", "wall" ],
 	[ "wall", "wall", "wall", "wall", "door", "wall", "wall", "green", "wall" ],
 	[ "wall", "green", "green", "wall", "green", "green", "green", "door", "wall" ],
 	[ "wall", "green", "green", "door", "green", "green", "green", "wall", "wall" ],
@@ -35,8 +35,8 @@ function buldMap(elem, data) {
 		
 		_.each(row, function(tile, j) {
 			
-			$tile = $("<div/>")
-				.addClass(tile)
+			var $tile = $("<div/>")
+				.addClass("tile " + tile)
 				.data({
 					"row": i,
 					"col": j
@@ -70,7 +70,7 @@ function buldMap(elem, data) {
 				moveCharacter("down");
 				break;
 			default:
-				console.log(event.keyCode)
+				//console.log(event.keyCode)
 				break;
 		}
 		
@@ -94,6 +94,7 @@ function buldMap(elem, data) {
 					keys--;
 					$curr.toggleClass("character green");
 					$next.toggleClass("character door");
+					updateInventory();
 					logAction("you unlocked the door");
 				}
 				
@@ -102,6 +103,7 @@ function buldMap(elem, data) {
 				keys++;
 				$curr.toggleClass("character green");
 				$next.toggleClass("character key");
+				updateInventory();
 				logAction("you got a key");
 				
 			} else if($next.hasClass("book")) {
@@ -113,6 +115,16 @@ function buldMap(elem, data) {
 				logAction("you found a locked chest");
 				
 			}
+		}
+		
+		function updateInventory() {
+			
+			var $stash = $(".inventory").empty();
+			
+			for( var i = 0; i < keys; i++) {
+				$("<div/>").addClass("tile key").appendTo($stash);
+				console.log(i);
+			};
 		}
 		
 		function logAction(str) {
