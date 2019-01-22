@@ -2,15 +2,15 @@ var level1, keys;
 
 
 level1 = [
-	[ "wall","wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall" ],
-	[ "wall", "wall", "key", "green", "book", "wall", "wall", "wall", "wall" ],
-	[ "wall", "wall", "green", "character", "green", "wall", "green", "green", "door" ],
-	[ "wall", "wall", "key", "green", "green", "wall", "green", "green", "wall" ],
-	[ "wall", "wall", "wall", "wall", "door", "wall", "wall", "green", "wall" ],
-	[ "wall", "green", "green", "wall", "green", "green", "green", "door", "wall" ],
-	[ "wall", "green", "green", "door", "green", "green", "green", "wall", "wall" ],
-	[ "wall", "chest", "green", "wall", "green", "green", "key", "wall", "wall" ],
-	[ "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall" ],
+	[ "wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ],
+	[ "wall", "wall",  "key",   "green", "book",  "wall",  "wall",  "wall",  "wall" ],
+	[ "wall", "wall",  "green", "hero",  "green", "wall",  "green", "green", "door" ],
+	[ "wall", "wall",  "key",   "green", "green", "wall",  "green", "green", "wall" ],
+	[ "wall", "wall",  "wall",  "wall",  "door",  "wall",  "wall",  "green", "wall" ],
+	[ "wall", "green", "green", "wall",  "green", "green", "green", "door",  "wall" ],
+	[ "wall", "green", "green", "door",  "green", "green", "green", "wall",  "wall" ],
+	[ "wall", "chest", "green", "wall",  "green", "green", "key",   "wall",  "wall" ],
+	[ "wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ],
 ];
 
 keys = 0;
@@ -49,7 +49,7 @@ function buldMap(elem, data) {
 		var $rows, $curr, $next, pos;
 		
 		$rows = $map.find(".row");
-		$curr = $map.find(".character");
+		$curr = $map.find(".hero");
 		pos = $curr.data();
 		
 		switch(event.keyCode) {
@@ -78,8 +78,8 @@ function buldMap(elem, data) {
 			
 			if ( $next.hasClass("green") ) {
 				
-				$curr.toggleClass("character green");
-				$next.toggleClass("character green");
+				$curr.toggleClass("hero green");
+				$next.toggleClass("hero green");
 				logAction("you moved " + direction);
 				
 			} else if($next.hasClass("wall")) {
@@ -92,8 +92,8 @@ function buldMap(elem, data) {
 					logAction("you found a locked door");
 				} else {
 					keys--;
-					$curr.toggleClass("character green");
-					$next.toggleClass("character door");
+					$curr.toggleClass("hero green");
+					$next.toggleClass("hero door");
 					updateInventory();
 					logAction("you unlocked the door");
 				}
@@ -101,8 +101,8 @@ function buldMap(elem, data) {
 			} else if($next.hasClass("key")) {
 				
 				keys++;
-				$curr.toggleClass("character green");
-				$next.toggleClass("character key");
+				$curr.toggleClass("hero green");
+				$next.toggleClass("hero key");
 				updateInventory();
 				logAction("you got a key");
 				

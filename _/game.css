@@ -57,6 +57,10 @@ main {
   background-image: url(img/path.png);
   background-position: left top;
   background-size: 8vh 8vh;
+  outline: none;
+}
+.game .map:focus {
+  border-color: #fd0;
 }
 .game .map .row {
   display: grid;
@@ -79,7 +83,7 @@ main {
 .game .tools .inventory {
   display: flex;
   flex-flow: row wrap;
-  min-height: 7vh;
+  min-height: 13vh;
   padding: .3vh;
   background-color: rgba(0, 0, 0, 0.15);
   border-radius: 1vh;
@@ -104,7 +108,7 @@ main {
 .wall {
   background-image: url(img/wall.png);
 }
-.character {
+.hero {
   background-image: url(img/hero.png);
 }
 .door {

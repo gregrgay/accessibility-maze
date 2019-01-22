@@ -60,7 +60,12 @@ main {
 		border-radius: 6px;
 		background-image: url(img/path.png);
 		background-position: left top;
-		background-size: @tilesize @tilesize; 
+		background-size: @tilesize @tilesize;
+		outline: none;
+		
+		&:focus {
+			border-color: #fd0;
+		}
 		
 		.row {
 			display: grid;
@@ -86,7 +91,7 @@ main {
 		.inventory {
 			display: flex;
 			flex-flow: row wrap;
-			min-height: 7vh;
+			min-height: 13vh;
 			padding: .3vh;
 			background-color: rgba(0, 0, 0, .15);
 			border-radius: 1vh;
@@ -118,7 +123,7 @@ main {
 .green {
 	//background-image: url(img/path.png);
 }
-.character {
+.hero {
 	background-image: url(img/hero.png);
 }
 .door {
