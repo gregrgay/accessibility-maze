@@ -5,7 +5,7 @@ html {
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
-  font-size: 16px;
+  font-size: 2vh;
   line-height: 1.2;
 }
 *,
@@ -39,91 +39,41 @@ header h1 {
   margin: 0;
   padding: 0;
 }
-main {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-}
-.game {
+.inventory {
   display: flex;
   flex-flow: row nowrap;
-  position: relative;
+  height: 6vh;
 }
-.game .map {
+.inventory .tile {
+  width: 6vh;
+  height: 6vh;
+  margin: 0 .2vh;
+}
+main {
+  position: relative;
+  color: #fff;
+}
+main .map {
   border: 1vh solid #666;
-  border-radius: 6px;
+  border-radius: .3em;
   background-image: url(img/path.png);
   background-position: left top;
   background-size: 8vh 8vh;
   outline: none;
 }
-.game .map:focus {
+main .map:focus {
   border-color: #fd0;
 }
-.game .map .row {
+main .map .row {
   display: grid;
-  grid-template-columns: repeat(9, 8vh);
+  grid-template-columns: repeat(12, 8vh);
   grid-auto-rows: 1fr;
 }
-.game .map .row > * {
+main .map .row > * {
   width: 8vh;
   height: 8vh;
 }
-.game .tools {
-  position: relative;
-  width: 35vh;
-  margin-left: 1vh;
-  padding: .5em;
-  background-color: #666;
-  border: 1vh solid #666;
-  border-radius: 6px;
-}
-.game .tools .inventory {
-  display: flex;
-  flex-flow: row wrap;
-  min-height: 13vh;
-  padding: .3vh;
-  background-color: rgba(0, 0, 0, 0.15);
-  border-radius: 1vh;
-  box-shadow: inset 0px 1px 0px 1px rgba(0, 0, 0, 0.25);
-}
-.game .tools .inventory .tile {
-  width: 6vh;
-  height: 6vh;
-  margin: .2vh;
-  background-color: rgba(0, 0, 0, 0.15);
-  border-radius: .7vh;
-}
-.game .tools .log {
-  padding: .5em 0;
-}
-.game .tools .recent {
-  color: #fff;
-}
-.tile {
-  background-size: cover;
-}
-.wall {
-  background-image: url(img/wall.png);
-}
-.hero {
-  background-image: url(img/hero.png);
-}
-.door {
-  background-image: url(img/lock.png);
-}
-.book {
-  background-image: url(img/book.png);
-}
-.chest {
-  background-image: url(img/chest.png);
-}
-.key {
-  background-image: url(img/key.png);
-}
-.overlay {
+main .overlay {
   position: absolute;
   top: 0;
   right: 0;
@@ -131,15 +81,132 @@ main {
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   pointer-events: none;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
 }
-.overlay .dialog {
+main .overlay.visible {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.2s ease-in-out;
+}
+main .overlay.visible .dialog {
+  transform: scale(1);
+  transition: all 0.2s ease-in-out;
+}
+main .overlay .dialog {
   width: 30em;
   min-height: 150px;
   padding: 1em 2em;
   background-color: #fff;
   color: #000;
-  border-radius: 1em;
+  border-radius: .3em;
+  transform: scale(0.5);
+  transition: none;
+}
+main .overlay .dialog.book {
+  width: 95%;
+  height: 95%;
+  background: transparent url(img/book_bg.png) no-repeat center top;
+  background-size: contain;
+  border-radius: 0;
+  color: #654;
+}
+main .overlay .dialog.book .columns {
+  box-sizing: border-box;
+  height: 85%;
+  margin: 2em;
+  -webkit-columns: 15em 2;
+  -moz-columns: 15em 2;
+  columns: 15em 2;
+  -webkit-column-gap: 4em;
+  -moz-column-gap: 4em;
+  column-gap: 4em;
+  -webkit-column-fill: auto;
+  -moz-column-fill: auto;
+  column-fill: auto;
+}
+main .overlay .dialog.book img {
+  width: 100%;
+  height: auto;
+}
+.tile {
+  background-size: cover;
+}
+.tile.wall {
+  background-image: url(img/wall.png);
+}
+.tile.secret {
+  background-image: url(img/secret.png);
+}
+.tile.hero {
+  background-image: url(img/hero.png);
+  transform-origin: bottom;
+  animation: happyjump .4s infinite;
+}
+.tile.door {
+  background-image: url(img/lock.png);
+}
+.tile.book {
+  background-image: url(img/book.png);
+}
+.tile.chest {
+  background-image: url(img/chest.png);
+}
+.tile.key {
+  background-image: url(img/key.png);
+}
+.tile.exit {
+  background-image: url(img/exit.png);
+  transform-origin: right;
+  animation: bounceright .4s infinite;
+}
+.tile.shaking {
+  animation: shake .2s 2;
+}
+.log {
+  color: #fff;
+}
+@keyframes happyjump {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.95, 1.02, 1);
+  }
+  70% {
+    transform: scale3d(1.02, 0.95, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes bounceright {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  30% {
+    transform: translate3d(-0.3em, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
 }
