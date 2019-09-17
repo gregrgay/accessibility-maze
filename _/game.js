@@ -1,4 +1,4 @@
-var map, items, keys;
+var map, items, inventory, keys;
 
 
 map = [
@@ -7,7 +7,7 @@ map = [
 	[ "wall", "wall",  "green", "hero",   "green", "green", "wall",  "wall",  "green", "green", "green", "exit" ],
 	[ "wall", "wall",  "key",   "green",  "green", "green", "wall",  "wall",  "green", "green", "green", "wall" ],
 	[ "wall", "wall",  "wall",  "wall",   "green", "wall",  "wall",  "wall",  "green", "green", "green", "wall" ],
-	[ "wall", "chest", "green", "wall",   "green", "green", "green", "door",  "green", "green", "green", "wall" ],
+	[ "wall", "chest", "green", "wall",   "green", "green", "green", "green",  "green", "green", "green", "wall" ],
 	[ "wall", "green", "green", "wall",   "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall" ],
 	[ "wall", "green", "green", "secret", "green", "green", "green","wall",  "wall",  "wall",  "wall",  "wall" ],
 	[ "wall", "wall",  "wall",  "wall",   "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ],
@@ -17,7 +17,6 @@ items = [
 	{
 		id: 1,
 		type: "book",
-		title: "diary",
 		classname: "book",
 		pos: {
 			row: 1,
@@ -29,9 +28,31 @@ items = [
 			classname: "book",
 			html: "<div class=\"columns\"> \
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> \
-				<p><img src=\"_/img/fig/figure1-1.png\" alt=\"\"></p> \
+				<p><img src=\"_/img/figures/figure1-1.png\" alt=\"\"></p> \
 				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
-				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
+				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\
+				<p><img src=\"_/img/figures/figure1-2.png\" alt=\"\"></p> \
+				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
+				</div>"
+		}
+	},
+	{
+		id: 2,
+		type: "door",
+		classname: "door",
+		pos: {
+			row: 5,
+			col: 7
+		},
+		requires: [3],
+		unlocked: false,
+		dialog: {
+			classname: "puzzle_01",
+			html: "<div class=\"controls\"> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\" onkeydown=\"alert(event.keyCode)\"></div> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\"></div> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\"></div> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\"></div> \
 				</div>"
 		}
 	}
@@ -122,7 +143,7 @@ function buldMap(elem, map, items) {
 		}
 		
 		function moveCharacter(direction) {
-			var attempts;
+			var attempts, required;
 			
 			if($next.hasClass("wall")) {
 				
@@ -142,15 +163,14 @@ function buldMap(elem, map, items) {
 						window.setTimeout(function(){ $next.removeClass("shaking"); }, 300);
 						logAction("you pushed a strange looking wall");
 					} else {
-						$curr.toggleClass("hero green");
-						$next.toggleClass("secret hero");
-						logAction("you found a secret");
+						$next.toggleClass("secret green");
+						logAction("you found a secret passage");
 					}
 				}
 			
 			} else if ( $next.hasClass("door") ) {
 				
-				if ( keys == 0 ) {
+				/*if ( keys == 0 ) {
 					logAction("you found a locked door");
 				} else {
 					keys--;
@@ -158,6 +178,12 @@ function buldMap(elem, map, items) {
 					$next.toggleClass("hero door");
 					updateInventory();
 					logAction("you unlocked the door");
+				}*/
+				
+				required = $next.data("required");
+				
+				if ( !$next.data("unlocked") ) {
+					openDialog($next.data("dialog"));
 				}
 				
 			} else if ( $next.hasClass("key") ) {
@@ -170,8 +196,8 @@ function buldMap(elem, map, items) {
 				
 			} else if ( $next.hasClass("book") ) {
 				
-				logAction("you found a " + $next.data("title"));
-				openDialog($next.data("dialog").html);
+				logAction("you found a diary");
+				openDialog($next.data("dialog"));
 				
 			} else if ( $next.hasClass("chest") ) {
 				
@@ -189,13 +215,14 @@ function buldMap(elem, map, items) {
 	});
 };
 
-function openDialog(html) {
-	$(".overlay .dialog").html(html);
+function openDialog(data) {
+	$(".overlay .dialog").addClass(data.classname).html(data.html);
 	$(".overlay").addClass("visible");
 }
 
 function closeDialog() {
 	$(".overlay").removeClass("visible");
+	$(".overlay .dialog").removeClass().addClass("dialog");
 }
 
 function updateInventory() {

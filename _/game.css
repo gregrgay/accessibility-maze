@@ -30,7 +30,6 @@ footer {
   justify-content: space-between;
   align-items: center;
   margin: 1vh 0;
-  border-radius: 6px;
 }
 header {
   color: #fff;
@@ -55,7 +54,9 @@ main {
 }
 main .map {
   border: 1vh solid #666;
-  border-radius: .3em;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  border-radius: 0.3em;
   background-image: url(img/path.png);
   background-position: left top;
   background-size: 8vh 8vh;
@@ -98,13 +99,19 @@ main .overlay.visible .dialog {
   transform: scale(1);
   transition: all 0.2s ease-in-out;
 }
+main .overlay.visible .dialog.book,
+main .overlay.visible .dialog.puzzle_01 {
+  transition: none;
+}
 main .overlay .dialog {
   width: 30em;
   min-height: 150px;
   padding: 1em 2em;
   background-color: #fff;
   color: #000;
-  border-radius: .3em;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  border-radius: 0.3em;
   transform: scale(0.5);
   transition: none;
 }
@@ -113,6 +120,8 @@ main .overlay .dialog.book {
   height: 95%;
   background: transparent url(img/book_bg.png) no-repeat center top;
   background-size: contain;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
   border-radius: 0;
   color: #654;
 }
@@ -133,6 +142,49 @@ main .overlay .dialog.book .columns {
 main .overlay .dialog.book img {
   width: 100%;
   height: auto;
+}
+main .overlay .dialog.puzzle_01 {
+  width: 100%;
+  height: 100%;
+  background: #333 url(img/puzzles/puzzle_01.png) no-repeat center top;
+  background-size: contain;
+  border: 1vh solid #9ab;
+  -webkit-border-radius: 1vh;
+  -moz-border-radius: 1vh;
+  border-radius: 1vh;
+  box-shadow: 0 0 1vh 0.5vh rgba(0, 0, 0, 0.5);
+  transform: scale(1);
+}
+main .overlay .dialog.puzzle_01 .controls {
+  position: absolute;
+  top: 20vh;
+  bottom: 13vh;
+  right: 31vh;
+  width: 5vw;
+  padding: 2.5vh 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+main .overlay .dialog.puzzle_01 .controls .togglebutton {
+  width: 5vh;
+  height: 5vh;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: .3em solid #333;
+  background-color: #664;
+  cursor: pointer;
+  box-shadow: inset .2em .2em 0 #fff;
+}
+main .overlay .dialog.puzzle_01 .controls .togglebutton:focus {
+  background-color: #997;
+}
+main .overlay .dialog.puzzle_01 .controls .togglebutton.pressed {
+  background-color: #ffc;
+  border-color: #fff;
+  box-shadow: 0 0 1em .3em #fff;
 }
 .tile {
   background-size: cover;
@@ -201,10 +253,10 @@ main .overlay .dialog.book img {
     transform: rotate(0);
   }
   25% {
-    transform: rotate(2deg);
+    transform: rotate(4deg);
   }
   75% {
-    transform: rotate(-2deg);
+    transform: rotate(-4deg);
   }
   100% {
     transform: rotate(0);
