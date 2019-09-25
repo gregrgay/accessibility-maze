@@ -46,7 +46,7 @@ header h1 {
 .inventory .tile {
   width: 6vh;
   height: 6vh;
-  margin: 0 .2vh;
+  margin: 0 0.2vh;
 }
 main {
   position: relative;
@@ -104,6 +104,7 @@ main .overlay.visible .dialog.puzzle_01 {
   transition: none;
 }
 main .overlay .dialog {
+  position: relative;
   width: 30em;
   min-height: 150px;
   padding: 1em 2em;
@@ -159,13 +160,13 @@ main .overlay .dialog.puzzle_01 .controls {
   position: absolute;
   top: 20vh;
   bottom: 13vh;
-  right: 31vh;
-  width: 5vw;
+  right: 0;
+  width: 39%;
   padding: 2.5vh 0;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 main .overlay .dialog.puzzle_01 .controls .togglebutton {
   width: 5vh;
@@ -173,18 +174,18 @@ main .overlay .dialog.puzzle_01 .controls .togglebutton {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  border: .3em solid #333;
+  border: 0.3em solid #333;
   background-color: #664;
   cursor: pointer;
-  box-shadow: inset .2em .2em 0 #fff;
+  box-shadow: inset 0.2em 0.2em 0 #fff;
 }
 main .overlay .dialog.puzzle_01 .controls .togglebutton:focus {
   background-color: #997;
 }
-main .overlay .dialog.puzzle_01 .controls .togglebutton.pressed {
+main .overlay .dialog.puzzle_01 .controls .togglebutton[aria-pressed=true] {
   background-color: #ffc;
   border-color: #fff;
-  box-shadow: 0 0 1em .3em #fff;
+  box-shadow: 0 0 1em 0.3em #fff;
 }
 .tile {
   background-size: cover;
@@ -198,7 +199,7 @@ main .overlay .dialog.puzzle_01 .controls .togglebutton.pressed {
 .tile.hero {
   background-image: url(img/hero.png);
   transform-origin: bottom;
-  animation: happyjump .4s infinite;
+  animation: happyjump 0.4s infinite;
 }
 .tile.door {
   background-image: url(img/lock.png);
@@ -215,10 +216,10 @@ main .overlay .dialog.puzzle_01 .controls .togglebutton.pressed {
 .tile.exit {
   background-image: url(img/exit.png);
   transform-origin: right;
-  animation: bounceright .4s infinite;
+  animation: bounceright 0.4s infinite;
 }
 .tile.shaking {
-  animation: shake .2s 2;
+  animation: shake 0.2s 2;
 }
 .log {
   color: #fff;
@@ -262,3 +263,4 @@ main .overlay .dialog.puzzle_01 .controls .togglebutton.pressed {
     transform: rotate(0);
   }
 }
+/*# sourceMappingURL=game.css.map */

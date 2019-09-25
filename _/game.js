@@ -49,10 +49,10 @@ items = [
 		dialog: {
 			classname: "puzzle_01",
 			html: "<div class=\"controls\"> \
-					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\" onkeydown=\"alert(event.keyCode)\"></div> \
-					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\"></div> \
-					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\"></div> \
-					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\"></div> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\" onkeydown=\"validatePuzzle(event,'puzzle_01')\"></div> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\" onkeydown=\"validatePuzzle(event,'puzzle_01')\"></div> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\" onkeydown=\"validatePuzzle(event,'puzzle_01')\"></div> \
+					<div class=\"togglebutton\" role=\"button\" aria-pressed=\"false\" tabindex=\"0\" onkeydown=\"validatePuzzle(event,'puzzle_01')\"></div> \
 				</div>"
 		}
 	}
@@ -214,6 +214,23 @@ function buldMap(elem, map, items) {
 		
 	});
 };
+
+function validatePuzzle(event, puzzle) {
+	var btn;
+	
+	switch(event.keyCode) {
+		
+		case 13:
+		case 32:
+			btn = $(event.currentTarget).attr({
+				"aria-pressed": true,
+				"tabindex": -1,
+				"disabled": "disabled"
+			});
+			break;
+	}
+	console.log(event.currentTarget);
+}
 
 function openDialog(data) {
 	$(".overlay .dialog").addClass(data.classname).html(data.html);
