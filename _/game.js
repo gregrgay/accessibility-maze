@@ -217,9 +217,9 @@ function buldMap(elem, map, items) {
 
 function validatePuzzle(event, puzzle) {
 	var btn;
-	
+
 	switch(event.keyCode) {
-		
+
 		case 13:
 		case 32:
 			btn = $(event.currentTarget).attr({
@@ -232,6 +232,7 @@ function validatePuzzle(event, puzzle) {
 	console.log(event.currentTarget);
 }
 
+}
 function openDialog(data) {
 	$(".overlay .dialog").addClass(data.classname).html(data.html);
 	$(".overlay").addClass("visible");
@@ -249,7 +250,7 @@ function updateInventory() {
 	for( var i = 0; i < keys; i++) {
 		$("<div/>").addClass("tile key").appendTo($stash);
 		console.log(i);
-	};
+	}
 }
 
 function logAction(str) {
