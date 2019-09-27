@@ -84,120 +84,141 @@ main {
 			}
 		}
 	}
-	.overlay {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		background-color: rgba(0, 0, 0, .5);
-		pointer-events: none;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		opacity: 0;
-		visibility: hidden;
-		transition: none;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, .5);
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: none;
+	
+	&.visible {
+		transform: scale(1);
+		opacity: 1;
+		visibility: visible;
+		transition: all .2s ease-in-out;
+	}
+	
+	.dialog {
+		width: 30em;
+		min-height: 150px;
+		padding: 1em 2em;
+		background-color: transparent;
+		.border-radius(.3em);
 		
-		&.visible {
-			transform: scale(1);
-			opacity: 1;
-			visibility: visible;
-			transition: all .2s ease-in-out;
+		&.book {
+			width: 95%;
+			height: 95%;
+			background: transparent url(img/book_bg.png) no-repeat center top;
+			background-size: contain;
+			.border-radius(0);
+			color: #654;
 			
-			.dialog {
-				transform: scale(1);
-				transition: all .2s ease-in-out;
-				
-				&.book,
-				&.puzzle_01 {
-					transition: none;
-				}
+			.columns {
+				box-sizing: border-box;
+				height: 85%;
+				margin: 2em;
+				-webkit-columns: 15em 2;
+				-moz-columns: 15em 2;
+				columns: 15em 2;
+				-webkit-column-gap: 4em;
+				-moz-column-gap: 4em;
+				column-gap: 4em;
+				-webkit-column-fill: auto;
+				-moz-column-fill: auto;
+				column-fill: auto;
+			}
+			img {
+				width: 100%;
+				height: auto;
 			}
 		}
-		
-		.dialog {
-			width: 30em;
-			min-height: 150px;
-			padding: 1em 2em;
-			background-color: #fff;
-			color: #000;
-			.border-radius(.3em);
-			transform: scale(.5);
-			transition: none;
+		&.puzzle_01 {
+			width: 100%;
+			height: 100%;
+			background: #333 url(img/dialogs/puzzle_01.png) no-repeat center top;
+			background-size: contain;
+			border: 1vh solid #9ab;
+			.border-radius(1vh);
+			box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
+			transform: scale(1);
 			
-			&.book {
-				width: 95%;
-				height: 95%;
-				background: transparent url(img/book_bg.png) no-repeat center top;
-				background-size: contain;
-				.border-radius(0);
-				color: #654;
+			.display {
+				position: absolute;
+				top: 10vh;
+				right: 0;
+				width: 38%;
+				padding-right: 14%;
+				font-size: 1.6em;
+				text-align: center;
+				letter-spacing: .2em;
+				color: red;
 				
-				.columns {
-					box-sizing: border-box;
-					height: 85%;
-					margin: 2em;
-					-webkit-columns: 15em 2;
-					-moz-columns: 15em 2;
-					columns: 15em 2;
-					-webkit-column-gap: 4em;
-					-moz-column-gap: 4em;
-					column-gap: 4em;
-					-webkit-column-fill: auto;
-					-moz-column-fill: auto;
-					column-fill: auto;
+				&.unlocked {
+					color: green;
 				}
-				img {
-					width: 100%;
-					height: auto;
+				
+				&.blinking {
+					animation: .5s blink 3;
 				}
 			}
-			&.puzzle_01 {
-				width: 100%;
-				height: 100%;
-				background: #333 url(img/puzzles/puzzle_01.png) no-repeat center top;
-				background-size: contain;
-				border: 1vh solid #9ab;
-				.border-radius(1vh);
-				box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
-				transform: scale(1);
+			.controls {
+				position: absolute;
+				top: 20vh;
+				bottom: 13vh;
+				right: 0;
+				width: 39%;
+				padding: 2.5vh 0;
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: space-between;
+				align-items: flex-start;
 				
-				.controls {
-					position: absolute;
-					top: 20vh;
-					bottom: 13vh;
-					right: 31vh;
-					width: 5vw;
-					padding: 2.5vh 0;
-					display: flex;
-					flex-flow: column nowrap;
-					justify-content: space-between;
-					align-items: center;
+				.togglebutton {
+					width: 5vh;
+					height: 5vh;
+					.border-radius(50%);
+					border: .3em solid #333;
+					background-color: #664;
+					cursor: pointer;
+					box-shadow: inset .2em .2em 0 #fff;
 					
-					.togglebutton {
-						width: 5vh;
-						height: 5vh;
-						.border-radius(50%);
-						border: .3em solid #333;
-						background-color: #664;
-						cursor: pointer;
-						box-shadow: inset .2em .2em 0 #fff;
-						
-						&:focus {
-							background-color: #997;
-						}
-						&[aria-pressed=true] {
-							background-color: #ffc;
-							border-color: #fff;
-							box-shadow: 0 0 1em .3em #fff;
-						}
+					&:focus {
+						background-color: #997;
+					}
+					&[aria-pressed=true] {
+						background-color: #ffc;
+						border-color: #fff;
+						box-shadow: 0 0 1em .3em #fff;
 					}
 				}
 			}
 		}
+		
+		&.chest {
+			width: 100%;
+			height: 100%;
+			background: #333 url(img/dialogs/chest_closed.png) no-repeat center top;
+			background-size: contain;
+			border: 1vh solid #9ab;
+			.border-radius(1vh);
+			box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
+			transform: scale(1);
+			
+			&.unlocked {
+				background-image: url(img/dialogs/chest_open.png);
+			}
+		}
 	}
-	
 }
 
 .tile {
@@ -282,6 +303,18 @@ main {
 	}
 	100% {
 		transform: rotate(0);
+	}
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
 	}
 }
 
