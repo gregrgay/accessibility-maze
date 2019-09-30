@@ -202,9 +202,31 @@ main {
 					}
 				}
 			}
+			.panel {
+				display: none;
+				position: absolute;
+				top: 18vh;
+				bottom: 13vh;
+				right: 0;
+				width: 31%;
+				
+				img {
+					height: 100%;
+					width: auto;
+				}
+			}
+			
+			&.unlocked {
+				.panel {
+					display: block;
+				}
+			}
 		}
 		
 		&.chest {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			width: 100%;
 			height: 100%;
 			background: #333 url(img/dialogs/chest_closed.png) no-repeat center top;
@@ -212,11 +234,33 @@ main {
 			border: 1vh solid #9ab;
 			.border-radius(1vh);
 			box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
-			transform: scale(1);
+			
+			.panel_01 {
+				display: none;
+				width: 7vh;
+				height: auto;
+				margin: 5vh 0 0 2vh;
+				transform: rotate(58deg);
+			}
 			
 			&.unlocked {
 				background-image: url(img/dialogs/chest_open.png);
+				
+				.panel_01 {
+					display: block;
+				}
 			}
+		}
+		
+		&.exit {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100%;
+			border: 1vh solid #9ab;
+			.border-radius(1vh);
+			box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
 		}
 	}
 }
@@ -246,6 +290,9 @@ main {
 	}
 	&.chest {
 		background-image: url(img/chest.png);
+	}
+	&.panel_01 {
+		background-image: url(img/panel_01.png);
 	}
 	&.key {
 		background-image: url(img/key.png);
