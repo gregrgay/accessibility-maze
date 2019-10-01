@@ -97,10 +97,11 @@ function buildMap(elem, level) {
                 nextTile.toggleClass("hero green");
                 logAction("you moved " + direction);
 
-            } else if (nextTile.hasClass("exit")) {
+            } else if (nextTile.data("type") == "exit") {
 
                 currentTile.toggleClass("hero green");
                 nextTile.toggleClass("hero exit");
+				openDialog(nextTile.data());
                 logAction("you reached the exit ");
 
             } else if (nextTile.hasClass("wall")) {
@@ -131,15 +132,14 @@ function buildMap(elem, level) {
                 }
 
             } else if (nextTile.data("type") == "puzzle" ||
-                nextTile.data("type") == "book" ||
-                nextTile.data("type") == "exit") {
+                nextTile.data("type") == "book") {
 
-                if (!nextTile.data("solved")) {
-                    openDialog(nextTile.data());
-                    logAction("you found" + nextTile.data("info"));
-                }
+				if (!nextTile.data("solved")) {
+					openDialog(nextTile.data());
+					logAction("you found" + nextTile.data("info"));
+				}
 
-            } else if (nextTile.data("type") == "item") {
+			} else if (nextTile.data("type") == "item") {
 
                 if (!nextTile.data("unlocked")) {
                     currentTile.toggleClass("hero green");
@@ -161,10 +161,9 @@ function buildMap(elem, level) {
 function openDialog(data) {
 	var $dlg;
 
-	$dlg = $(".overlay .dialog").addClass(data.dialog.classname).html(data.dialog.html).on("keydown", function(event) {
-	    event.stopPropagation();
+	currentPuzzle = data;
 
-    });
+	$dlg = $(".overlay .dialog").addClass(data.dialog.classname).html(data.dialog.html);
 
 	_.each(data.requires, function(elem, ind, list) {
 		var found =  _.findWhere(inventory, {id: elem});
@@ -179,14 +178,15 @@ function openDialog(data) {
 		$dlg.addClass("unlocked");
 		data.unlocked = true;
 	}
-	if (typeof data.actions.onReady === "function") {
-		data.actions.onReady($dlg);
-	}
-	currentPuzzle = data;
+
 	$(".map").attr({
 		tabindex: -1
 	}).blur();
 	$(".overlay").addClass("visible");
+
+	if (typeof data.actions.onReady === "function") {
+		data.actions.onReady($dlg);
+	}
 }
 
 function closeDialog() {

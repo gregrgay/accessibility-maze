@@ -68,10 +68,40 @@ levels = [
                         </div>"
                 },
                 data: {
+                    current: 0,
                     sequence: [2,0,1,3],
                     selected: []
                 },
                 actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                        $dlg.off("keydown").on("keydown", function(event) {
+                            var $puzzle, $focusable, current;
+                            $focusable = $dlg.find("[tabindex=0]");
+                            current = currentPuzzle.data.current;
+                            switch(event.keyCode) {
+                                case 38: // up
+                                    if (current > 0) {
+                                        current--;
+                                    } else {
+                                        current = $focusable.length - 1;
+                                    }
+                                    break;
+                                case 40: // down
+                                    if (current < $focusable.length - 1) {
+                                        current++;
+                                    } else {
+                                        current = 0;
+                                    }
+                                    break;
+                                default:
+                                    event.preventDefault();
+                                    break;
+                            }
+                            currentPuzzle.data.current = current;
+                            $focusable.eq(current).focus();
+                        });
+                    },
                     toggleButton: function (event) {
                         var $puzzle, $btn, ind;
                         switch (event.keyCode) {
@@ -154,8 +184,15 @@ levels = [
                         onkeydown='currentPuzzle.actions.getPanel(event)''>"
                 },
                 actions: {
-                    onReady: function() {
-
+                    onReady: function($dlg) {
+                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                        $dlg.on("keydown", function(event) {
+                            switch(event.keyCode) {
+                                default:
+                                    event.preventDefault();
+                                    break;
+                            }
+                        });
                     },
                     getPanel: function(event) {
                         switch (event.keyCode) {
@@ -200,10 +237,140 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "exit",
+                    html: "<div > \
+                            <h2>Congratulations!</h2>\
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget iaculis sem. Cras leo diam, ornare ut ornare nec, tempus nec ligula. Aenean sed diam non velit gravida efficitur. Nunc aliquam quam at ligula venenatis tristique. Quisque tincidunt in nisi pulvinar pellentesque. Praesent vel porta massa. Curabitur egestas et neque sed dapibus. Praesent condimentum mi ac ligula porttitor, non imperdiet urna semper. Etiam mi orci, finibus sed turpis eget, vehicula feugiat quam. Curabitur sollicitudin aliquam ligula, at porttitor mi efficitur vel.</p> \
+                            <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. Nunc ac cursus leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla id condimentum ligula. Phasellus quis ligula massa. Nullam fringilla orci libero, id ultrices urna consequat eu. Sed imperdiet eget felis sit amet aliquam. Vivamus ac arcu ac lectus pulvinar pulvinar id ut sapien.</p> \
+                        </div> \
+                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>"
+                },
+                data: {},
+                actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                    },
+                    gotoNextLevel: function(event) {
+                        switch (event.keyCode) {
+                            case 13:
+                            case 32:
+                                currentLevel++;
+                                buildMap(".map", levels[currentLevel]);
+                                closeDialog();
+                                logAction("you moved to the next level");
+                                break;
+                            default:
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                        }
+                    }
+                }
+            },
+            {
+                id: 7,
+                type: "item",
+                info: " a pink gem stone",
+                classname: "gem pink",
+                pos: {
+                    row: 7,
+                    col: 6
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
                     html: ""
                 },
                 data: {},
                 actions: {}
+            },
+            {
+                id: 8,
+                type: "item",
+                info: " a blue gem stone",
+                classname: "gem blue",
+                pos: {
+                    row: 5,
+                    col: 2
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 7,
+                type: "item",
+                info: " a yellow gem stone",
+                classname: "gem yellow",
+                pos: {
+                    row: 2,
+                    col: 8
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: ""
+                },
+                data: {},
+                actions: {}
+            }
+        ]
+    },
+    {
+        map: [
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "hero", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"]
+        ],
+        items: [
+            {
+                id: 1,
+                type: "exit",
+                info: " the exit",
+                classname: "exit",
+                pos: {
+                    row: 6,
+                    col: 11
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "exit",
+                    html: "<div > \
+                            <h2>Congratulations!</h2>\
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget iaculis sem. Cras leo diam, ornare ut ornare nec, tempus nec ligula. Aenean sed diam non velit gravida efficitur. Nunc aliquam quam at ligula venenatis tristique. Quisque tincidunt in nisi pulvinar pellentesque. Praesent vel porta massa. Curabitur egestas et neque sed dapibus. Praesent condimentum mi ac ligula porttitor, non imperdiet urna semper. Etiam mi orci, finibus sed turpis eget, vehicula feugiat quam. Curabitur sollicitudin aliquam ligula, at porttitor mi efficitur vel.</p> \
+                            <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. Nunc ac cursus leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla id condimentum ligula. Phasellus quis ligula massa. Nullam fringilla orci libero, id ultrices urna consequat eu. Sed imperdiet eget felis sit amet aliquam. Vivamus ac arcu ac lectus pulvinar pulvinar id ut sapien.</p> \
+                        </div> \
+                        <div><button>Next Level</button></div>"
+                },
+                data: {},
+                actions: {
+                    gotoNextLevel: function(event) {
+                        switch (event.keyCode) {
+                            case 13:
+                            case 32:
+                                currentLevel++;
+                                buildMap(".map", levels[currentLevel]);
+                                break;
+                        }
+                    }
+                }
             }
         ]
     }
