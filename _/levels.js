@@ -113,6 +113,7 @@ levels = [
                                 });
                                 $puzzle = $btn.parents('.puzzle_01');
                                 ind = $puzzle.find(".togglebutton").index($btn);
+                                playSound("click", .5, 0);
                                 currentPuzzle.data.selected.push(ind);
                                 currentPuzzle.actions.validatePuzzle($puzzle);
                                 break;
@@ -134,6 +135,7 @@ levels = [
                                 $display.addClass("blinking").html("ERROR").on("animationend", function(e) {
                                     $(this).removeClass("blinking").html("LOCKED");
                                 });
+                                playSound("error", .5, 0);
                                 currentPuzzle.data.selected = [];
                                 $buttons.attr({
                                     "aria-pressed": false
@@ -200,6 +202,7 @@ levels = [
                             case 32:
                                 inventory.push( _.findWhere(levels[currentLevel].items, {id: 5}) );
                                 updateInventory();
+                                playSound("getItem", .5, 0);
                                 $(event.currentTarget).hide();
                                 currentPuzzle.dialog.html = "";
                                 break;
@@ -248,6 +251,7 @@ levels = [
                 actions: {
                     onReady: function($dlg) {
                         setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                        playSound("win", 1, 0);
                     },
                     gotoNextLevel: function(event) {
                         switch (event.keyCode) {

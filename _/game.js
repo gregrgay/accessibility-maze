@@ -7,7 +7,7 @@ inventory = [];
 $(document).ready(function() {
 	
 	buildMap(".map", levels[currentLevel]);
-	
+    loadSounds();
 	$(document).on("keydown", function(event) {
 		switch(event.keyCode) {
 			case 27: // escape
@@ -147,6 +147,7 @@ function buildMap(elem, level) {
                     nextTile.data("unlocked", true);
                     inventory.push(nextTile.data());
                     updateInventory();
+                    playSound("getItem", .5, 0);
                     logAction("you found" + nextTile.data("info"));
                 } else {
                     currentTile.toggleClass("hero green");
@@ -210,5 +211,35 @@ function updateInventory() {
 function logAction(str) {
 	$(".log").html(str);
 }
-		
-		
+
+function loadSounds() {
+    var queue, assets, sounds;
+    console.log('load');
+    queue = new createjs.LoadQueue();
+    queue.installPlugin(createjs.Sound);
+    assets = [
+        {id:"themeMusic", src:"_/snd/theme_music.mp3"},
+        {id:"click", src:"_/snd/click.mp3"},
+        {id:"getItem", src:"_/snd/get_item.mp3"},
+        {id:"error", src:"_/snd/error.mp3"},
+        {id:"win", src:"_/snd/cheer.mp3"}
+    ];
+    queue.on("complete", function() {
+        playSound("themeMusic", .5, -1);
+    }, this);
+    queue.loadManifest(assets);
+}
+
+function playSound(name, volume, loop) {
+    var props;
+    if(window[name]) {
+        window[name].play();
+    } else {
+        props = new createjs.PlayPropsConfig().set({
+            loop: loop ? -1 : 0,
+            volume: volume
+        });
+        window[name] = createjs.Sound.play(name, props);
+    }
+
+}
