@@ -107,6 +107,21 @@ main .map .row > * {
 .overlay .dialog h2 {
   text-align: center;
 }
+.overlay .dialog .hint {
+  display: none;
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  width: 45%;
+  padding: 1em;
+  background-color: #ffc;
+  color: #000;
+  border: 2px solid #000;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  border-radius: 0.3em;
+  box-shadow: 0.4em 0.4em 0 rgba(0, 0, 0, 0.15);
+}
 .overlay .dialog.book {
   width: 95%;
   height: 95%;

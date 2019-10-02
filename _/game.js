@@ -183,6 +183,10 @@ function openDialog(data) {
 		data.unlocked = true;
 	}
 
+    if ( !data.unlocked && data.dialog.hint.length ) {
+        $dlg.find(".hint").text(data.dialog.hint).show();
+    }
+
 	$(".map").attr({
 		tabindex: -1
 	}).blur();
@@ -217,7 +221,6 @@ function logAction(str) {
 
 function loadSounds() {
     var queue, assets, sounds;
-    console.log('load');
     queue = new createjs.LoadQueue();
     queue.installPlugin(createjs.Sound);
     assets = [

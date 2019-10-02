@@ -35,7 +35,8 @@ levels = [
                             <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\
                             <p><img src='_/img/figures/figure1-2.png' alt=''></p> \
                             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
-                        </div>"
+                        </div>",
+                    hint: ""
                 },
                 data: {
 
@@ -58,14 +59,16 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "puzzle_01",
-                    html: "<div class='display'>LOCKED</div> \
+                    html: "<div class='hint'></div> \
+                            <div class='display'>LOCKED</div> \
                             <div class='panel'><img src='_/img/dialogs/panel_01.png' alt=''></div> \
                             <div class='controls'> \
                             <div class='togglebutton' role='button' aria-pressed='false' tabindex='0' onkeydown='currentPuzzle.actions.toggleButton(event)'></div> \
                             <div class='togglebutton' role='button' aria-pressed='false' tabindex='0' onkeydown='currentPuzzle.actions.toggleButton(event)'></div> \
                             <div class='togglebutton' role='button' aria-pressed='false' tabindex='0' onkeydown='currentPuzzle.actions.toggleButton(event)'></div> \
                             <div class='togglebutton' role='button' aria-pressed='false' tabindex='0' onkeydown='currentPuzzle.actions.toggleButton(event)'></div> \
-                        </div>"
+                        </div>",
+                    hint: "The door is locked. You need to enter a key combination to open it."
                 },
                 data: {
                     current: 0,
@@ -155,14 +158,11 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "",
-                    html: ""
+                    html: "",
+                    hint: ""
                 },
-                data: {
-
-                },
-                actions: {
-
-                }
+                data: {},
+                actions: {}
             },
             {
                 id: 4,
@@ -178,8 +178,10 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "chest",
-                    html: "<img class='panel_01' src='_/img/dialogs/panel_01.png' alt='an engraved panel' tabindex='0' \
-                        onkeydown='currentPuzzle.actions.getPanel(event)''>"
+                    html: "<div class='hint'></div> \
+                            <img class='panel_01' src='_/img/dialogs/panel_01.png' alt='an engraved panel' tabindex='0' \
+                        onkeydown='currentPuzzle.actions.getPanel(event)''>",
+                    hint: "The chest is locked. You need a golden key to open it."
                 },
                 actions: {
                     onReady: function($dlg) {
@@ -217,7 +219,8 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "",
-                    html: ""
+                    html: "",
+                    hint: ""
                 },
                 data: {},
                 actions: {}
@@ -241,12 +244,23 @@ levels = [
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget iaculis sem. Cras leo diam, ornare ut ornare nec, tempus nec ligula. Aenean sed diam non velit gravida efficitur. Nunc aliquam quam at ligula venenatis tristique. Quisque tincidunt in nisi pulvinar pellentesque. Praesent vel porta massa. Curabitur egestas et neque sed dapibus. Praesent condimentum mi ac ligula porttitor, non imperdiet urna semper. Etiam mi orci, finibus sed turpis eget, vehicula feugiat quam. Curabitur sollicitudin aliquam ligula, at porttitor mi efficitur vel.</p> \
                             <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. Nunc ac cursus leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla id condimentum ligula. Phasellus quis ligula massa. Nullam fringilla orci libero, id ultrices urna consequat eu. Sed imperdiet eget felis sit amet aliquam. Vivamus ac arcu ac lectus pulvinar pulvinar id ut sapien.</p> \
                         </div> \
-                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>"
+                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
+                    hint: ""
                 },
                 data: {},
                 actions: {
                     onReady: function($dlg) {
-                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                        setTimeout( function() {
+                                $dlg.find("[tabindex=0]:visible:eq(0)").focus();
+                                $dlg.on("keydown", function(event) {
+                                    switch(event.keyCode) {
+                                        case 27: // escape
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                            break;
+                                    }
+                                });
+                            }, 300 );
                         playSound("win", 1, 0);
                     },
                     gotoNextLevel: function(event) {
@@ -280,7 +294,8 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "",
-                    html: ""
+                    html: "",
+                    hint: ""
                 },
                 data: {},
                 actions: {}
@@ -299,7 +314,8 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "",
-                    html: ""
+                    html: "",
+                    hint: ""
                 },
                 data: {},
                 actions: {}
@@ -318,7 +334,8 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "",
-                    html: ""
+                    html: "",
+                    hint: ""
                 },
                 data: {},
                 actions: {}
@@ -357,7 +374,8 @@ levels = [
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget iaculis sem. Cras leo diam, ornare ut ornare nec, tempus nec ligula. Aenean sed diam non velit gravida efficitur. Nunc aliquam quam at ligula venenatis tristique. Quisque tincidunt in nisi pulvinar pellentesque. Praesent vel porta massa. Curabitur egestas et neque sed dapibus. Praesent condimentum mi ac ligula porttitor, non imperdiet urna semper. Etiam mi orci, finibus sed turpis eget, vehicula feugiat quam. Curabitur sollicitudin aliquam ligula, at porttitor mi efficitur vel.</p> \
                             <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. Nunc ac cursus leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla id condimentum ligula. Phasellus quis ligula massa. Nullam fringilla orci libero, id ultrices urna consequat eu. Sed imperdiet eget felis sit amet aliquam. Vivamus ac arcu ac lectus pulvinar pulvinar id ut sapien.</p> \
                         </div> \
-                        <div><button>Next Level</button></div>"
+                        <div><button>Next Level</button></div>",
+                    hint: ""
                 },
                 data: {},
                 actions: {
