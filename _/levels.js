@@ -8,7 +8,7 @@ levels = [
             [ "wall", "wall",  "green", "hero",   "green", "green", "wall",  "wall",  "green", "green", "green", "green" ],
             [ "wall", "wall",  "green",   "green",  "green", "green", "wall",  "wall",  "green", "green", "green", "wall" ],
             [ "wall", "wall",  "wall",  "wall",   "green", "wall",  "wall",  "wall",  "green", "green", "green", "wall" ],
-            [ "wall", "key", "green", "wall",   "green", "green", "green", "green",  "green", "green", "green", "wall" ],
+            [ "wall", "green", "green", "wall",   "green", "green", "green", "green",  "green", "green", "green", "wall" ],
             [ "wall", "green", "green", "wall",   "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall" ],
             [ "wall", "green", "green", "secret", "green", "green", "green","wall",  "wall",  "wall",  "wall",  "wall" ],
             [ "wall", "wall",  "wall",  "wall",   "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ]
@@ -103,20 +103,20 @@ levels = [
                         });
                     },
                     toggleButton: function (event) {
-                        var $puzzle, $btn, ind;
-                        switch (event.keyCode) {
-                            case 13:
-                            case 32:
-                                $btn = $(event.currentTarget).attr({
-                                    "aria-pressed": true,
-                                    "disabled": "disabled"
-                                });
-                                $puzzle = $btn.parents('.puzzle_01');
-                                ind = $puzzle.find(".togglebutton").index($btn);
-                                playSound("click", .5, 0);
-                                currentPuzzle.data.selected.push(ind);
-                                currentPuzzle.actions.validatePuzzle($puzzle);
-                                break;
+                        var $puzzle, isEnabled, $btn, ind;
+                        isEnabled = !$(event.currentTarget).prop("disabled") || true;
+                        if ( !$(event.currentTarget).prop("disabled") ) {
+                            switch (event.keyCode) {
+                                case 13:
+                                case 32:
+                                    $btn = $(event.currentTarget).attr({ "aria-pressed": true }).prop({ "disabled": true });
+                                    $puzzle = $btn.parents('.puzzle_01');
+                                    ind = $puzzle.find(".togglebutton").index($btn);
+                                    playSound("click", .5, 0);
+                                    currentPuzzle.data.selected.push(ind);
+                                    currentPuzzle.actions.validatePuzzle($puzzle);
+                                    break;
+                            }
                         }
                     },
                     validatePuzzle: function($puzzle) {
@@ -126,20 +126,16 @@ levels = [
                         if ($buttons.filter("div[aria-pressed='false']").length == 0) {
                             if (currentPuzzle.data.selected.toString() == currentPuzzle.data.sequence.toString()) {
                                 $display.addClass("unlocked").html("UNLOCKED");
-                                $buttons.attr({
-                                    "aria-pressed": false
-                                });
+                                $buttons.attr({ "aria-pressed": false });
                                 nextTile.data.solved = true;
                                 nextTile.toggleClass("door green");
                             } else {
                                 $display.addClass("blinking").html("ERROR").on("animationend", function(e) {
                                     $(this).removeClass("blinking").html("LOCKED");
                                 });
+                                $buttons.attr({ "aria-pressed": false }).prop({ "disabled": false });
                                 playSound("error", .5, 0);
                                 currentPuzzle.data.selected = [];
-                                $buttons.attr({
-                                    "aria-pressed": false
-                                }).removeAttr("disabled");
                             }
                         }
                     }
@@ -151,7 +147,7 @@ levels = [
                 info: " a key",
                 classname: "key",
                 pos: {
-                    row: 5,
+                    row: 7,
                     col: 1
                 },
                 requires: [],

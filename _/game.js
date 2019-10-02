@@ -117,6 +117,7 @@ function buildMap(elem, level) {
                     window.setTimeout(function () {
                         nextTile.removeClass("shaking");
                     }, 300);
+                    playSound("wall", 1, 0);
                     logAction("you ran into a strange looking wall");
                 } else {
                     if (nextTile.data("attempts") < 2) {
@@ -124,9 +125,11 @@ function buildMap(elem, level) {
                         window.setTimeout(function () {
                             nextTile.removeClass("shaking");
                         }, 300);
+                        playSound("wall", 1, 0);
                         logAction("you pushed a strange looking wall");
                     } else {
                         nextTile.toggleClass("secret green");
+                        playSound("explosion", .8, 0);
                         logAction("you found a secret passage");
                     }
                 }
@@ -222,10 +225,12 @@ function loadSounds() {
         {id:"click", src:"_/snd/click.mp3"},
         {id:"getItem", src:"_/snd/get_item.mp3"},
         {id:"error", src:"_/snd/error.mp3"},
-        {id:"win", src:"_/snd/cheer.mp3"}
+        {id:"win", src:"_/snd/cheer.mp3"},
+        {id:"wall", src:"_/snd/wall.mp3"},
+        {id:"explosion", src:"_/snd/explosion.mp3"}
     ];
     queue.on("complete", function() {
-        playSound("themeMusic", .5, -1);
+        playSound("themeMusic", .3, -1);
     }, this);
     queue.loadManifest(assets);
 }
