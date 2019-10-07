@@ -78,7 +78,7 @@ levels = [
                 actions: {
                     onReady: function($dlg) {
                         setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
-                        $dlg.off("keydown").on("keydown", function(event) {
+                        $dlg.off("keydown.game").on("keydown.game", function(event) {
                             var $puzzle, $focusable, current;
                             $focusable = $dlg.find("[tabindex=0]");
                             current = currentPuzzle.data.current;
@@ -186,7 +186,7 @@ levels = [
                 actions: {
                     onReady: function($dlg) {
                         setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
-                        $dlg.on("keydown", function(event) {
+                        $dlg.off("keydown.game").on("keydown.game", function(event) {
                             switch(event.keyCode) {
                                 default:
                                     event.preventDefault();
@@ -252,7 +252,7 @@ levels = [
                     onReady: function($dlg) {
                         setTimeout( function() {
                                 $dlg.find("[tabindex=0]:visible:eq(0)").focus();
-                                $dlg.on("keydown", function(event) {
+                                $dlg.off("keydown.game").on("keydown.game", function(event) {
                                     switch(event.keyCode) {
                                         case 27: // escape
                                             event.preventDefault();

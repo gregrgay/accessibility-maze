@@ -8,7 +8,7 @@ $(document).ready(function() {
 	
 	buildMap(".map", levels[currentLevel]);
     loadSounds();
-	$(document).on("keydown", function(event) {
+	$(document).on("keydown.game", function(event) {
 		switch(event.keyCode) {
 			case 27: // escape
 				event.preventDefault();
@@ -59,7 +59,7 @@ function buildMap(elem, level) {
 		}
 	});
 	
-	$map.on("keydown", function(event) {
+	$map.off("keydown.game").on("keydown.game", function(event) {
 		var $rows, pos;
 
         $rows = $map.find(".row");
