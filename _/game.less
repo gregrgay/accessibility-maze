@@ -129,7 +129,7 @@ main {
 			color: #000;
 			border: 2px solid #000;
 			.border-radius(.3em);
-			box-shadow: .4em .4em 0 rgba(0, 0, 0, .15);
+			box-shadow: .2em .4em 0 rgba(0, 0, 0, .15);
 		}
 		&.book {
 			width: 95%;
@@ -156,86 +156,6 @@ main {
 			img {
 				width: 100%;
 				height: auto;
-			}
-		}
-		&.puzzle_01 {
-			width: 100%;
-			height: 100%;
-			background: #333 url(img/dialogs/puzzle_01.png) no-repeat center top;
-			background-size: contain;
-			border: 1vh solid #9ab;
-			.border-radius(1vh);
-			box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
-			transform: scale(1);
-			
-			.display {
-				position: absolute;
-				top: 10vh;
-				right: 0;
-				width: 38%;
-				padding-right: 14%;
-				font-size: 1.6em;
-				text-align: center;
-				letter-spacing: .2em;
-				color: red;
-				
-				&.unlocked {
-					color: green;
-				}
-				
-				&.blinking {
-					animation: .5s blink 3;
-				}
-			}
-			.controls {
-				position: absolute;
-				top: 20vh;
-				bottom: 13vh;
-				right: 0;
-				width: 39%;
-				padding: 2.5vh 0;
-				display: flex;
-				flex-flow: column nowrap;
-				justify-content: space-between;
-				align-items: flex-start;
-				
-				.togglebutton {
-					width: 5vh;
-					height: 5vh;
-					.border-radius(50%);
-					border: .3em solid #333;
-					background-color: #664;
-					cursor: pointer;
-					box-shadow: inset .2em .2em 0 #fff;
-					
-					&:focus {
-						background-color: #997;
-					}
-					&[aria-pressed=true] {
-						background-color: #ffc;
-						border-color: #fff;
-						box-shadow: 0 0 1em .3em #fff;
-					}
-				}
-			}
-			.panel {
-				display: none;
-				position: absolute;
-				top: 18vh;
-				bottom: 13vh;
-				right: 0;
-				width: 31%;
-				
-				img {
-					height: 100%;
-					width: auto;
-				}
-			}
-			
-			&.unlocked {
-				.panel {
-					display: block;
-				}
 			}
 		}
 		
@@ -291,6 +211,92 @@ main {
 				.border-radius(1vh);
 			}
 		}
+		
+		&.puzzle_01 {
+			width: 100%;
+			height: 100%;
+			background: #333 url(img/dialogs/puzzle_01.png) no-repeat center top;
+			background-size: contain;
+			border: 1vh solid #9ab;
+			.border-radius(1vh);
+			box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
+			transform: scale(1);
+			
+			.display {
+				position: absolute;
+				top: 10vh;
+				right: 0;
+				width: 38%;
+				padding-right: 14%;
+				font-size: 1.6em;
+				text-align: center;
+				letter-spacing: .2em;
+				color: red;
+				
+				&.unlocked {
+					color: green;
+				}
+			}
+			.controls {
+				position: absolute;
+				top: 20vh;
+				bottom: 13vh;
+				right: 0;
+				width: 39%;
+				padding: 2.5vh 0;
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: space-between;
+				align-items: flex-start;
+				
+				.togglebutton {
+					width: 5vh;
+					height: 5vh;
+					.border-radius(50%);
+					border: .3em solid #333;
+					background-color: #664;
+					cursor: pointer;
+					box-shadow: inset .2em .2em 0 #fff;
+					
+					&:focus {
+						background-color: #997;
+					}
+					&[aria-pressed=true] {
+						background-color: #ffc;
+						border-color: #fff;
+						box-shadow: 0 0 1em .3em #fff;
+					}
+				}
+			}
+			.panel {
+				display: none;
+				position: absolute;
+				top: 18vh;
+				bottom: 13vh;
+				right: 0;
+				width: 31%;
+				
+				img {
+					height: 100%;
+					width: auto;
+				}
+			}
+			
+			&.unlocked {
+				.panel {
+					display: block;
+				}
+			}
+		}
+		
+		&.puzzle_02 {
+			background-color: #ffc;
+			color: #000;
+			border: 2px solid #000;
+			.border-radius(.3em);
+			box-shadow: .2em .4em 0 rgba(0, 0, 0, .15);
+		}
+		
 	}
 }
 
@@ -354,6 +360,9 @@ main {
 
 .log {
 	color: #fff;
+}
+&.blink_three {
+	animation: .5s blink 3;
 }
 
 @keyframes happyjump {

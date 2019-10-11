@@ -36,10 +36,16 @@ function buildMap(elem, level) {
 		
 		_.each(row, function(tile, j) {
 			
-			var $tile = $("<div/>")
+			var isGem, $tile;
+
+			isGem = tile.indexOf("gem") >=0;
+			$tile = $("<div/>")
 				.addClass("tile " + tile)
 				.data({
-					"pos": {
+					"type": isGem ? "item" : tile,
+                    "info": isGem ? " a gem" : "",
+                    "classname": tile,
+                    "pos": {
 						"row": i,
 						"col": j
 					}
@@ -104,7 +110,7 @@ function buildMap(elem, level) {
 				openDialog(nextTile.data());
                 logAction("you reached the exit ");
 
-            } else if (nextTile.hasClass("wall")) {
+            } else if (nextTile.data("type") == "wall") {
 
                 logAction("you ran into wall");
 
@@ -128,7 +134,15 @@ function buildMap(elem, level) {
                         playSound("wall", 1, 0);
                         logAction("you pushed a strange looking wall");
                     } else {
-                        nextTile.toggleClass("secret green");
+                        console.log(nextTile.data);
+                        nextTile.toggleClass("secret " + nextTile.data("data").hidden.classname).data({
+                            type: nextTile.data("data").hidden.type,
+                            info: nextTile.data("data").hidden.info,
+                            classname: nextTile.data("data").hidden.classname
+                        });
+
+                        console.log( nextTile.data() );
+
                         playSound("explosion", .8, 0);
                         logAction("you found a secret passage");
                     }

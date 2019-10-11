@@ -120,7 +120,7 @@ main .map .row > * {
   -webkit-border-radius: 0.3em;
   -moz-border-radius: 0.3em;
   border-radius: 0.3em;
-  box-shadow: 0.4em 0.4em 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0.2em 0.4em 0 rgba(0, 0, 0, 0.15);
 }
 .overlay .dialog.book {
   width: 95%;
@@ -149,81 +149,6 @@ main .map .row > * {
 .overlay .dialog.book img {
   width: 100%;
   height: auto;
-}
-.overlay .dialog.puzzle_01 {
-  width: 100%;
-  height: 100%;
-  background: #333 url(img/dialogs/puzzle_01.png) no-repeat center top;
-  background-size: contain;
-  border: 1vh solid #9ab;
-  -webkit-border-radius: 1vh;
-  -moz-border-radius: 1vh;
-  border-radius: 1vh;
-  box-shadow: 0 0 1vh 0.5vh rgba(0, 0, 0, 0.5);
-  transform: scale(1);
-}
-.overlay .dialog.puzzle_01 .display {
-  position: absolute;
-  top: 10vh;
-  right: 0;
-  width: 38%;
-  padding-right: 14%;
-  font-size: 1.6em;
-  text-align: center;
-  letter-spacing: 0.2em;
-  color: red;
-}
-.overlay .dialog.puzzle_01 .display.unlocked {
-  color: green;
-}
-.overlay .dialog.puzzle_01 .display.blinking {
-  animation: 0.5s blink 3;
-}
-.overlay .dialog.puzzle_01 .controls {
-  position: absolute;
-  top: 20vh;
-  bottom: 13vh;
-  right: 0;
-  width: 39%;
-  padding: 2.5vh 0;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.overlay .dialog.puzzle_01 .controls .togglebutton {
-  width: 5vh;
-  height: 5vh;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  border: 0.3em solid #333;
-  background-color: #664;
-  cursor: pointer;
-  box-shadow: inset 0.2em 0.2em 0 #fff;
-}
-.overlay .dialog.puzzle_01 .controls .togglebutton:focus {
-  background-color: #997;
-}
-.overlay .dialog.puzzle_01 .controls .togglebutton[aria-pressed=true] {
-  background-color: #ffc;
-  border-color: #fff;
-  box-shadow: 0 0 1em 0.3em #fff;
-}
-.overlay .dialog.puzzle_01 .panel {
-  display: none;
-  position: absolute;
-  top: 18vh;
-  bottom: 13vh;
-  right: 0;
-  width: 31%;
-}
-.overlay .dialog.puzzle_01 .panel img {
-  height: 100%;
-  width: auto;
-}
-.overlay .dialog.puzzle_01.unlocked .panel {
-  display: block;
 }
 .overlay .dialog.chest {
   display: flex;
@@ -277,6 +202,87 @@ main .map .row > * {
   -webkit-border-radius: 1vh;
   -moz-border-radius: 1vh;
   border-radius: 1vh;
+}
+.overlay .dialog.puzzle_01 {
+  width: 100%;
+  height: 100%;
+  background: #333 url(img/dialogs/puzzle_01.png) no-repeat center top;
+  background-size: contain;
+  border: 1vh solid #9ab;
+  -webkit-border-radius: 1vh;
+  -moz-border-radius: 1vh;
+  border-radius: 1vh;
+  box-shadow: 0 0 1vh 0.5vh rgba(0, 0, 0, 0.5);
+  transform: scale(1);
+}
+.overlay .dialog.puzzle_01 .display {
+  position: absolute;
+  top: 10vh;
+  right: 0;
+  width: 38%;
+  padding-right: 14%;
+  font-size: 1.6em;
+  text-align: center;
+  letter-spacing: 0.2em;
+  color: red;
+}
+.overlay .dialog.puzzle_01 .display.unlocked {
+  color: green;
+}
+.overlay .dialog.puzzle_01 .controls {
+  position: absolute;
+  top: 20vh;
+  bottom: 13vh;
+  right: 0;
+  width: 39%;
+  padding: 2.5vh 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.overlay .dialog.puzzle_01 .controls .togglebutton {
+  width: 5vh;
+  height: 5vh;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 0.3em solid #333;
+  background-color: #664;
+  cursor: pointer;
+  box-shadow: inset 0.2em 0.2em 0 #fff;
+}
+.overlay .dialog.puzzle_01 .controls .togglebutton:focus {
+  background-color: #997;
+}
+.overlay .dialog.puzzle_01 .controls .togglebutton[aria-pressed=true] {
+  background-color: #ffc;
+  border-color: #fff;
+  box-shadow: 0 0 1em 0.3em #fff;
+}
+.overlay .dialog.puzzle_01 .panel {
+  display: none;
+  position: absolute;
+  top: 18vh;
+  bottom: 13vh;
+  right: 0;
+  width: 31%;
+}
+.overlay .dialog.puzzle_01 .panel img {
+  height: 100%;
+  width: auto;
+}
+.overlay .dialog.puzzle_01.unlocked .panel {
+  display: block;
+}
+.overlay .dialog.puzzle_02 {
+  background-color: #ffc;
+  color: #000;
+  border: 2px solid #000;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  border-radius: 0.3em;
+  box-shadow: 0.2em 0.4em 0 rgba(0, 0, 0, 0.15);
 }
 .tile {
   background-size: cover;
@@ -332,6 +338,9 @@ main .map .row > * {
 }
 .log {
   color: #fff;
+}
+.blink_three {
+  animation: 0.5s blink 3;
 }
 @keyframes happyjump {
   0% {

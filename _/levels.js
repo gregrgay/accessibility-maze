@@ -5,11 +5,11 @@ levels = [
         map: [
             ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
             ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
-            ["wall", "green", "green", "green", "green", "wall",  "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "hero",  "green", "green", "wall",  "green", "wall",  "wall",  "wall",  "green", "wall"],
-            ["wall", "green", "green", "green", "green", "wall",  "green", "wall",  "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "wall",  "green", "wall",  "green", "wall",  "wall",  "wall"],
+            ["wall", "gem yellow", "wall", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
+            ["wall", "wall", "wall", "green", "hero", "wall",  "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "wall",  "green", "green", "wall",  "green", "wall",  "wall",  "wall",  "green", "wall"],
+            ["wall", "green", "wall", "green", "green", "wall",  "green", "wall",  "green", "green", "green", "wall"],
+            ["wall", "gem blue", "wall", "green", "green", "wall",  "green", "wall",  "green", "wall",  "wall",  "wall"],
             ["wall", "green", "green", "green", "green", "green", "green", "wall",  "green", "green", "green", "green"],
             ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"]
         ],
@@ -31,19 +31,39 @@ levels = [
                     html: "<div > \
                             <h2>Congratulations!</h2>\
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget iaculis sem. Cras leo diam, ornare ut ornare nec, tempus nec ligula. Aenean sed diam non velit gravida efficitur. Nunc aliquam quam at ligula venenatis tristique. Quisque tincidunt in nisi pulvinar pellentesque. Praesent vel porta massa. Curabitur egestas et neque sed dapibus. Praesent condimentum mi ac ligula porttitor, non imperdiet urna semper. Etiam mi orci, finibus sed turpis eget, vehicula feugiat quam. Curabitur sollicitudin aliquam ligula, at porttitor mi efficitur vel.</p> \
-                            <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. Nunc ac cursus leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla id condimentum ligula. Phasellus quis ligula massa. Nullam fringilla orci libero, id ultrices urna consequat eu. Sed imperdiet eget felis sit amet aliquam. Vivamus ac arcu ac lectus pulvinar pulvinar id ut sapien.</p> \
+                            <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. </p> \
                         </div> \
-                        <div><button>Next Level</button></div>",
+                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
                     hint: ""
                 },
                 data: {},
                 actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() {
+                            $dlg.find("[tabindex=0]:visible:eq(0)").focus();
+                            $dlg.off("keydown.game").on("keydown.game", function(event) {
+                                switch(event.keyCode) {
+                                    case 27: // escape
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        break;
+                                }
+                            });
+                        }, 300 );
+                        playSound("win", 1, 0);
+                    },
                     gotoNextLevel: function(event) {
                         switch (event.keyCode) {
                             case 13:
                             case 32:
                                 currentLevel++;
                                 buildMap(".map", levels[currentLevel]);
+                                closeDialog();
+                                logAction("you moved to the next level");
+                                break;
+                            default:
+                                event.preventDefault();
+                                event.stopPropagation();
                                 break;
                         }
                     }
@@ -63,7 +83,7 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "puzzle_02",
-                    html: "",
+                    html: "<p>This door must be cotrolled remotely...</p>",
                     hint: ""
                 },
                 data: {},
@@ -96,7 +116,6 @@ levels = [
                     timer: 4000
                 },
                 actions: {
-
                     toggleSwitch: function($switch) {
 
                         if (!window.switchTimer) {
@@ -104,7 +123,6 @@ levels = [
                             toggleState();
 
                             if( !$switch.data("data").off ) {
-                                console.log('on ' + $switch.data("data").timer);
                                 window.switchTimer = window.setTimeout( function() {
                                     toggleState();
                                     window.clearTimeout(window.switchTimer);
@@ -114,13 +132,157 @@ levels = [
                         }
 
                         function toggleState() {
-                            $switch.data("data").off = !$switch.data("data").off;
+                            var door_tile, door_elem;
+
+                            door_tile = _.findWhere(levels[currentLevel].items, {id: $switch.data("data").controls} );
+                            door_elem = $('.map .row').eq(door_tile.pos.row).find('.tile').eq(door_tile.pos.col);
+
+                           $switch.data("data").off = !$switch.data("data").off;
                             $switch.toggleClass("off", $switch.data("data").off);
+
+                            if ( $switch.data("data").off ) {
+                                door_elem.toggleClass("green door").addClass(" blink_three");
+                            } else {
+                                door_elem.toggleClass("green door").removeClass(" blink_three");
+                            }
                         }
 
                     }
 
                 }
+            },
+            {
+                id: 4,
+                type: "item",
+                info: " a key",
+                classname: "key",
+                pos: {
+                    row: 7,
+                    col: 8
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 5,
+                type: "puzzle",
+                info: " a chest",
+                classname: "chest",
+                pos: {
+                    row: 5,
+                    col: 3
+                },
+                requires: [4],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "chest",
+                    html: "<div class='hint'></div> \
+                            <img class='panel_01' src='_/img/dialogs/panel_01.png' alt='an engraved panel' tabindex='0' \
+                        onkeydown='currentPuzzle.actions.getPanel(event)''>",
+                    hint: "The chest is locked. You need a golden key to open it."
+                },
+                actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                        $dlg.off("keydown.game").on("keydown.game", function(event) {
+                            switch(event.keyCode) {
+                                default:
+                                    event.preventDefault();
+                                    break;
+                            }
+                        });
+                    },
+                    getPanel: function(event) {
+                        switch (event.keyCode) {
+                            case 13:
+                            case 32:
+                                inventory.push( _.findWhere(levels[currentLevel].items, {id: 8}) );
+                                updateInventory();
+                                playSound("getItem", .5, 0);
+                                $(event.currentTarget).hide();
+                                currentPuzzle.dialog.html = "";
+                                break;
+                        }
+                    }
+                }
+            },
+            {
+                id: 6,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 4,
+                    col: 1
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "item",
+                        info: " a gem",
+                        classname: "gem pink"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 7,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 5,
+                    col: 1
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "green",
+                        info: "",
+                        classname: "green"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 8,
+                type: "item",
+                info: " an engraved panel",
+                classname: "panel_01",
+                pos: {},
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
             }
         ]
     },
@@ -133,7 +295,7 @@ levels = [
             [ "wall", "wall",  "wall",  "wall",   "green", "wall",  "wall",  "wall",  "green", "green", "green", "wall" ],
             [ "wall", "green", "green", "wall",   "green", "green", "green", "green", "green", "green", "green", "wall" ],
             [ "wall", "green", "green", "wall",   "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall" ],
-            [ "wall", "green", "green", "secret", "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall" ],
+            [ "wall", "green", "green", "green",  "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall" ],
             [ "wall", "wall",  "wall",  "wall",   "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ]
         ],
         items: [
@@ -461,6 +623,32 @@ levels = [
                     hint: ""
                 },
                 data: {},
+                actions: {}
+            },
+            {
+                id: 10,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 7,
+                    col: 3
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "green",
+                        info: "",
+                        classname: "green"
+                    }
+                },
                 actions: {}
             }
         ]
