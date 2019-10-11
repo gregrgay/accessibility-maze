@@ -324,6 +324,12 @@ main .map .row > * {
 .tile.gem.yellow {
   background-image: url(img/gem_yellow.png);
 }
+.tile.lever {
+  background-image: url(img/lever_on.png);
+}
+.tile.lever.off {
+  background-image: url(img/lever_off.png);
+}
 .log {
   color: #fff;
 }

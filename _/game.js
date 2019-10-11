@@ -137,10 +137,14 @@ function buildMap(elem, level) {
             } else if (nextTile.data("type") == "puzzle" ||
                 nextTile.data("type") == "book") {
 
-				if (!nextTile.data("solved")) {
-					openDialog(nextTile.data());
-					logAction("you found" + nextTile.data("info"));
-				}
+                if (!nextTile.data("solved")) {
+                    openDialog(nextTile.data());
+                    logAction("you found" + nextTile.data("info"));
+                }
+
+            } else if (nextTile.data("type") == "switch") {
+
+                nextTile.data("actions").toggleSwitch(nextTile);
 
 			} else if (nextTile.data("type") == "item") {
 
