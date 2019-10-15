@@ -171,10 +171,17 @@ main .map .row > * {
   margin: 5vh 0 0 2vh;
   transform: rotate(58deg);
 }
+.overlay .dialog.chest .nitrogen {
+  display: none;
+  width: 7vh;
+  height: auto;
+  margin: 3vh 0 0 2vh;
+}
 .overlay .dialog.chest.unlocked {
   background-image: url(img/dialogs/chest_open.png);
 }
-.overlay .dialog.chest.unlocked .panel_01 {
+.overlay .dialog.chest.unlocked .panel_01,
+.overlay .dialog.chest.unlocked .nitrogen {
   display: block;
 }
 .overlay .dialog.exit {
@@ -310,6 +317,9 @@ main .map .row > * {
 .tile.panel_01 {
   background-image: url(img/panel_01.png);
 }
+.tile.nitrogen {
+  background-image: url(img/nitrogen.png);
+}
 .tile.key {
   background-image: url(img/key.png);
 }
@@ -332,6 +342,9 @@ main .map .row > * {
 }
 .tile.lever {
   background-image: url(img/lever_on.png);
+}
+.tile.lever.frozen {
+  background-image: url(img/lever_on_frozen.png);
 }
 .tile.lever.off {
   background-image: url(img/lever_off.png);

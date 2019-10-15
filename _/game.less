@@ -178,11 +178,18 @@ main {
 				margin: 5vh 0 0 2vh;
 				transform: rotate(58deg);
 			}
+			.nitrogen {
+				display: none;
+				width: 7vh;
+				height: auto;
+				margin: 3vh 0 0 2vh;
+			}
 			
 			&.unlocked {
 				background-image: url(img/dialogs/chest_open.png);
 				
-				.panel_01 {
+				.panel_01,
+				.nitrogen {
 					display: block;
 				}
 			}
@@ -329,6 +336,9 @@ main {
 	&.panel_01 {
 		background-image: url(img/panel_01.png);
 	}
+	&.nitrogen {
+		background-image: url(img/nitrogen.png);
+	}
 	&.key {
 		background-image: url(img/key.png);
 	}
@@ -352,6 +362,9 @@ main {
 	&.lever {
 		background-image: url(img/lever_on.png);
 		
+		&.frozen {
+			background-image: url(img/lever_on_frozen.png);
+		}
 		&.off {
 			background-image: url(img/lever_off.png);
 		}

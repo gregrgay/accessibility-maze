@@ -187,10 +187,10 @@ function openDialog(data) {
 
 	$dlg = $(".overlay .dialog").addClass(data.dialog.classname).html(data.dialog.html);
 
-	_.each(data.requires, function(elem, ind, list) {
+	_.each(currentPuzzle.requires, function(elem, ind, list) {
 		var found =  _.findWhere(inventory, {id: elem});
 		if( found ) {
-			data.requires.splice(ind, 1);
+            currentPuzzle.requires.splice(ind, 1);
 			inventory.splice(_.indexOf(inventory, found), 1);
 		}
 	})

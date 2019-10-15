@@ -5,9 +5,9 @@ levels = [
         map: [
             ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
             ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "gem yellow", "wall", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
-            ["wall", "wall", "wall", "green", "hero", "wall",  "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "wall",  "green", "green", "wall",  "green", "wall",  "wall",  "wall",  "green", "wall"],
+            ["hero", "green", "wall", "green", "wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
+            ["wall", "wall", "wall", "green", "wall", "green",  "green", "green", "green", "green", "gem pink", "wall"],
+            ["wall", "green", "wall",  "green", "wall", "wall",  "green", "wall",  "wall",  "wall",  "green", "wall"],
             ["wall", "green", "wall", "green", "green", "wall",  "green", "wall",  "green", "green", "green", "wall"],
             ["wall", "gem blue", "wall", "green", "green", "wall",  "green", "wall",  "green", "wall",  "wall",  "wall"],
             ["wall", "green", "green", "green", "green", "green", "green", "wall",  "green", "green", "green", "green"],
@@ -59,6 +59,8 @@ levels = [
                                 currentLevel++;
                                 buildMap(".map", levels[currentLevel]);
                                 closeDialog();
+                                inventory = [];
+                                updateInventory();
                                 logAction("you moved to the next level");
                                 break;
                             default:
@@ -96,13 +98,13 @@ levels = [
             {
                 id: 3,
                 type: "switch",
-                info: " a lever",
+                info: " a switch",
                 classname: "lever off",
                 pos: {
                     row: 1,
                     col: 10
                 },
-                requires: [],
+                requires: [8],
                 unlocked: false,
                 solved: false,
                 dialog: {
@@ -118,16 +120,35 @@ levels = [
                 actions: {
                     toggleSwitch: function($switch) {
 
+                        var timerRatio = 1;
+
+                        currentPuzzle = $switch.data();
+
                         if (!window.switchTimer) {
 
                             toggleState();
 
+                            _.each(currentPuzzle.requires, function(elem, ind, list) {
+                                var found =  _.findWhere(inventory, {id: elem});
+                                if( found ) {
+                                    currentPuzzle.requires.splice(ind, 1);
+                                }
+                            });
+
                             if( !$switch.data("data").off ) {
+
+                                if(currentPuzzle.requires.length > 0) {
+                                    timerRatio =  1;
+                                } else {
+                                    timerRatio =  2;
+                                    $switch.addClass('frozen');
+                                }
+
                                 window.switchTimer = window.setTimeout( function() {
                                     toggleState();
                                     window.clearTimeout(window.switchTimer);
                                     window.switchTimer = null;
-                                }, $switch.data("data").timer);
+                                }, $switch.data("data").timer * timerRatio);
                             }
                         }
 
@@ -137,7 +158,7 @@ levels = [
                             door_tile = _.findWhere(levels[currentLevel].items, {id: $switch.data("data").controls} );
                             door_elem = $('.map .row').eq(door_tile.pos.row).find('.tile').eq(door_tile.pos.col);
 
-                           $switch.data("data").off = !$switch.data("data").off;
+                            $switch.data("data").off = !$switch.data("data").off;
                             $switch.toggleClass("off", $switch.data("data").off);
 
                             if ( $switch.data("data").off ) {
@@ -145,6 +166,8 @@ levels = [
                             } else {
                                 door_elem.toggleClass("green door").removeClass(" blink_three");
                             }
+
+                            playSound("click", .5, 0);
                         }
 
                     }
@@ -178,7 +201,7 @@ levels = [
                 classname: "chest",
                 pos: {
                     row: 5,
-                    col: 3
+                    col: 4
                 },
                 requires: [4],
                 unlocked: false,
@@ -186,7 +209,7 @@ levels = [
                 dialog: {
                     classname: "chest",
                     html: "<div class='hint'></div> \
-                            <img class='panel_01' src='_/img/dialogs/panel_01.png' alt='an engraved panel' tabindex='0' \
+                            <img class='nitrogen' src='_/img/dialogs/nitrogen.png' alt='a freeze spray' tabindex='0' \
                         onkeydown='currentPuzzle.actions.getPanel(event)''>",
                     hint: "The chest is locked. You need a golden key to open it."
                 },
@@ -236,7 +259,7 @@ levels = [
                     hidden: {
                         type: "item",
                         info: " a gem",
-                        classname: "gem pink"
+                        classname: "gem yellow"
                     }
                 },
                 actions: {}
@@ -270,8 +293,8 @@ levels = [
             {
                 id: 8,
                 type: "item",
-                info: " an engraved panel",
-                classname: "panel_01",
+                info: " a freeze spray",
+                classname: "nitrogen",
                 pos: {},
                 requires: [],
                 unlocked: false,
@@ -283,8 +306,49 @@ levels = [
                 },
                 data: {},
                 actions: {}
+            },
+            {
+                id: 9,
+                type: "book",
+                info: " a book",
+                classname: "book",
+                pos: {
+                    row: 3,
+                    col: 5
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "book",
+                    html: "<div class='columns'> \
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\
+                        </div>",
+                    hint: ""
+                },
+                data: {
+
+                },
+                actions: {
+
+                }
             }
         ]
+    },
+    {
+        map: [
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["hero", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"]
+        ],
+        items: []
     },
     {
         map: [
