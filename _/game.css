@@ -314,6 +314,9 @@ main .map .row > * {
 .tile.chest {
   background-image: url(img/chest.png);
 }
+.tile.chest.open {
+  background-image: url(img/chest_open.png);
+}
 .tile.panel_01 {
   background-image: url(img/panel_01.png);
 }

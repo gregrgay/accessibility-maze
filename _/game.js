@@ -246,7 +246,8 @@ function loadSounds() {
         {id:"click", src:"_/snd/click.mp3"},
         {id:"getItem", src:"_/snd/get_item.mp3"},
         {id:"error", src:"_/snd/error.mp3"},
-        {id:"win", src:"_/snd/cheer.mp3"},
+        {id:"success", src:"_/snd/success.mp3"},
+        {id:"win", src:"_/snd/ding.mp3"},
         {id:"wall", src:"_/snd/wall.mp3"},
         {id:"explosion", src:"_/snd/explosion.mp3"}
     ];

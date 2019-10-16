@@ -130,6 +130,7 @@ levels = [
                             if (currentPuzzle.data.selected.toString() == currentPuzzle.data.sequence.toString()) {
                                 $display.addClass("unlocked").html("UNLOCKED");
                                 $buttons.attr({ "aria-pressed": false });
+                                playSound("success", 1, 0);
                                 nextTile.data.solved = true;
                                 nextTile.toggleClass("door green");
                             } else {
