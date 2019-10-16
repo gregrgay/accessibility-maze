@@ -511,20 +511,22 @@ levels = [
                             if( !$switch.data("data").off ) {
 
                                 if(currentPuzzle.requires.length > 0) {
-                                    timerRatio =  1;
+                                    startTimer();
                                 } else {
-                                    timerRatio =  2;
-                                    $switch.addClass('frozen');
+                                    $switch.addClass("frozen");
+                                    window.switchTimer = window.setTimeout( startTimer, $switch.data("data").timer);
                                 }
 
-                                window.switchTimer = window.setTimeout( function() {
-                                    toggleState();
-                                    window.clearTimeout(window.switchTimer);
-                                    window.switchTimer = null;
-                                }, $switch.data("data").timer * timerRatio);
                             }
                         }
-
+                        function startTimer() {
+                            $switch.removeClass("frozen");
+                            window.switchTimer = window.setTimeout( function() {
+                                toggleState();
+                                window.clearTimeout(window.switchTimer);
+                                window.switchTimer = null;
+                            }, $switch.data("data").timer * timerRatio);
+                        }
                         function toggleState() {
                             var door_tile, door_elem;
 
