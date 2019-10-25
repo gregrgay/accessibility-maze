@@ -5,21 +5,17 @@ inventory = [];
 
 
 $(document).ready(function() {
-	
+
 	buildMap(".map", levels[currentLevel]);
     loadSounds();
 	$(document).on("keydown.game", function(event) {
-		switch(event.keyCode) {
-			case 27: // escape
-				event.preventDefault();
-				event.stopPropagation();
-				closeDialog();
-				break;
-			default:
-				break;
-		}
+		if (event.keyCode === 27) {
+            event.preventDefault();
+            event.stopPropagation();
+            closeDialog();
+        }
 	});
-		
+
 });
 
 function buildMap(elem, level) {
@@ -29,7 +25,7 @@ function buildMap(elem, level) {
 		.attr({
 			"tabindex": 0
 		}).focus();
-	
+
 	_.each(level.map, function(row, i) {
 		
 		var $row =  $("<div/>").addClass("row").appendTo($map);
@@ -95,7 +91,7 @@ function buildMap(elem, level) {
         }
 
         function moveCharacter(direction) {
-            var attempts, requires;
+            var attempts;
 
             if (nextTile.hasClass("green")) {
 

@@ -29,12 +29,13 @@ levels = [
                 dialog: {
                     classname: "book",
                     html: "<div class='columns'> \
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> \
-                            <p><img src='_/img/figures/figure1-1.png' alt=''></p> \
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\
+                            <p>Last month the main water pipe burst. Because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p>\
+                            <p>When the job was done, I decided to keep the same compbnation:</p> \
                             <p><img src='_/img/figures/figure1-2.png' alt=''></p> \
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
+                            <p>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p> \
+                            <p><img src='_/img/figures/figure1-1.png' alt=''></p> \
+                            <p>Of course, marker lines get easily erased, so I asked my colleague, Tom, to create a metal plate with the connecting lines permanently etched on it. The plate is detachable and can be replaced with another one if the wiring changes again.</p>\
+                            <p>I hope nobody will mix up the buttons anymore!</p>\
                         </div>",
                     hint: ""
                 },
@@ -207,6 +208,7 @@ levels = [
 	                                $(event.currentTarget).hide();
 	                                currentPuzzle.dialog.html = "";
 	                                currentPuzzle.solved = true;
+	                                nextTile.addClass("open");
 	                            }
                                 break;
                         }

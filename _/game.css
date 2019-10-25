@@ -142,7 +142,6 @@ main .map .row > * {
   -webkit-column-gap: 4em;
   -moz-column-gap: 4em;
   column-gap: 4em;
-  -webkit-column-fill: auto;
   -moz-column-fill: auto;
   column-fill: auto;
 }
