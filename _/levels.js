@@ -29,12 +29,12 @@ levels = [
                 dialog: {
                     classname: "book",
                     html: "<div class='columns'> \
-                            <p><u>Monday</u></p>\
+                            <p><u>Monday, April 1</u></p>\
                             <p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p>\
                             <p>I thought leaving the same combination would make it easier to remember:</p>  \
                             <p><img src='_/img/figures/figure1-2.png' alt=''></p> \
                             <p>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p> \
-                            <p><u>Friday</u></p>\
+                            <p><u>Friday, April 19</u></p>\
                             <p>As it turns out, marker lines get easily erased, so I asked my colleague, Tom, to create a metal plate with the connecting lines permanently etched on it.</p>\
                             <p><img src='_/img/figures/figure1-1.png' alt=''></p> \
                             <p>The plate is detachable and can be stored away when not in use.</p>\
