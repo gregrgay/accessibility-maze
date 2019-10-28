@@ -31,7 +31,7 @@ levels = [
                     html: "<div class='columns'> \
                             <p><u>Monday</u></p>\
                             <p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p>\
-                            <p>I thought leaving the same compination would make it easier to remember:</p> \
+                            <p>I thought leaving the same combination would make it easier to remember:</p>  \
                             <p><img src='_/img/figures/figure1-2.png' alt=''></p> \
                             <p>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p> \
                             <p><u>Friday</u></p>\
