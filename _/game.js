@@ -9,7 +9,7 @@ $(document).ready(function() {
 	buildMap(".map", levels[currentLevel]);
     loadSounds();
 	$(document).on("keydown.game", function(event) {
-		if (event.keyCode === 27) {
+		if (event.keyCode === 27 && $(".dialog").is(":visible")) {
             event.preventDefault();
             event.stopPropagation();
             closeDialog();
