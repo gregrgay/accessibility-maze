@@ -123,7 +123,11 @@ function buildMap(elem, level) {
 						break;
 
             		case "bubble":
-	            
+						
+						nextTile.addClass("wobble");
+						window.setTimeout(function() {
+							$(".wobble").removeClass("wobble");
+						}, 300)
 						logAction("you ran into a bubble");
 						break;
 	            

@@ -359,7 +359,7 @@ main .map .row > * {
   background-image: url(img/bubble.png);
 }
 .tile.bubble:hover,
-tile.bubble.wobble {
+.tile.bubble.wobble {
   animation: wobble 0.3s 1;
 }
 .log {
