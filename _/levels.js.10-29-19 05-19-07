@@ -3,266 +3,6 @@ var levels;
 levels = [
     {
         map: [
-            ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
-            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall", "green", "wall"],
-            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
-            ["wall", "wall", "wall", "green", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall"],
-            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
-            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
-            ["hero", "green", "green", "green", "wall", "wall", "bubble", "bubble", "green", "bubble", "bubble", "wall"],
-            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall"]
-        ],
-        items: [
-            {
-                id: 1,
-                type: "book",
-                info: " a book",
-                classname: "book",
-                pos: {
-                    row: 1,
-                    col: 3
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "book",
-                    html: "<div class='columns'> \
-                            <p><u>Monday, April 1</u></p>\
-                            <p>...</p>\
-                        </div>",
-                    hint: ""
-                },
-                data: {
-
-                },
-                actions: {
-
-                }
-            },
-            {
-                id: 2,
-                type: "secret",
-                info: " a secret",
-                classname: "secret",
-                pos: {
-                    row: 1,
-                    col: 9
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {
-                    hidden: {
-                        type: "green",
-                        info: "",
-                        classname: "green"
-                    }
-                },
-                actions: {}
-            },
-            {
-                id: 3,
-                type: "item",
-                info: " a yellow gem stone",
-                classname: "gem yellow",
-                pos: {
-                    row: 1,
-                    col: 10
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {},
-                actions: {}
-            },
-            {
-                id: 4,
-                type: "secret",
-                info: " a secret",
-                classname: "secret",
-                pos: {
-                    row: 2,
-                    col: 10
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {
-                    hidden: {
-                        type: "item",
-                        info: " a gem",
-                        classname: "gem blue"
-                    }
-                },
-                actions: {}
-            },
-            {
-                id: 5,
-                type: "secret",
-                info: " a secret",
-                classname: "secret",
-                pos: {
-                    row: 2,
-                    col: 2
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {
-                    hidden: {
-                        type: "green",
-                        info: "",
-                        classname: "green"
-                    }
-                },
-                actions: {}
-            },
-            {
-                id: 6,
-                type: "item",
-                info: " a pink gem stone",
-                classname: "gem pink",
-                pos: {
-                    row: 5,
-                    col: 1
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {},
-                actions: {}
-            },
-            {
-                id: 7,
-                type: "item",
-                info: " a key",
-                classname: "key",
-                pos: {
-                    row: 2,
-                    col: 1
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {},
-                actions: {}
-            },
-            {
-                id: 8,
-                type: "door",
-                info: " a closed door",
-                classname: "door",
-                pos: {
-                    row: 4,
-                    col: 7
-                },
-                requires: [7],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "puzzle_02",
-                    html: "<p>You need a golden key to open this door.</p>",
-                    hint: ""
-                },
-                data: {},
-                actions: {
-                    onReady: function($dlg) {
-                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
-                    }
-                }
-            },
-            {
-                id: 10,
-                type: "exit",
-                info: " the exit",
-                classname: "exit down",
-                pos: {
-                    row: 8,
-                    col: 8
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "exit",
-                    html: "<div > \
-                            <h2>LESSON 3: Do not rely on one input device only. All content must be operable regardless of the input device used.</h2>\
-                            <p>...</p> \
-                        </div> \
-                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
-                    hint: ""
-                },
-                data: {},
-                actions: {
-                    onReady: function($dlg) {
-                        setTimeout( function() {
-                            $dlg.find("[tabindex=0]:visible:eq(0)").focus();
-                            $dlg.off("keydown.game").on("keydown.game", function(event) {
-                                switch(event.keyCode) {
-                                    case 27: // escape
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                        break;
-                                }
-                            });
-                        }, 300 );
-                        playSound("win", 1, 0);
-                    },
-                    gotoNextLevel: function(event) {
-                        switch (event.keyCode) {
-                            case 13:
-                            case 32:
-                                currentLevel++;
-                                buildMap(".map", levels[currentLevel]);
-                                closeDialog();
-                                inventory = [];
-                                updateInventory();
-                                logAction("you moved to the next level");
-                                break;
-                            default:
-                                event.preventDefault();
-                                event.stopPropagation();
-                                break;
-                        }
-                    }
-                }
-            }
-        ]
-    },
-    {
-        map: [
             [ "wall", "wall",  "wall",  "wall",   "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ],
             [ "wall", "wall",  "green", "green",  "green", "green", "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ],
             [ "wall", "wall",  "green", "hero",   "green", "green", "wall",  "wall",  "green", "green", "green", "green" ],
@@ -516,7 +256,7 @@ levels = [
                                 People who use screen readers might not perceive the connection.</p>\
                             <p>To make those controls accessible, each one of them must be properly associated with a \
                                 corresponding label. Since engraved metal plates don't work well on the Web, you'll need to \
-                                learn special techniques to make those connections.</p> \ \
+                                learn special techniques to make those connections.</p> \
                         </div> \
                         <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
                     hint: ""
@@ -676,7 +416,7 @@ levels = [
                             <p>Not everyone can interact with websites or devices at the same speed. Some people with cognitive disabilities, or mobility impairments \
                             might require more time to complete a task.</p> \
                             <p>It is important to always provide a way to slow down, or completely stop any moving or self-updating content on the Web. This would include auto-scrolling text, \
-                            automated slide shows and carousels, audio and video content, etc.</p> \
+                            automated slide shows and carousels, audio and video content, etc.</p>\
                         </div> \
                         <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
                     hint: ""
@@ -730,7 +470,7 @@ levels = [
                 solved: false,
                 dialog: {
                     classname: "puzzle_02",
-                    html: "<p>This door must be cotrolled remotely...</p>",
+                    html: "<p>This door must be controlled remotely...</p>",
                     hint: ""
                 },
                 data: {},
@@ -786,7 +526,7 @@ levels = [
                                     startTimer();
                                 } else {
                                     $switch.addClass("frozen");
-                                    window.switchTimer = window.setTimeout( startTimer, $switch.data("data").timer * 2);
+                                    window.switchTimer = window.setTimeout( startTimer, $switch.data("data").timer);
                                 }
 
                             }
@@ -882,6 +622,7 @@ levels = [
 	                                $(event.currentTarget).hide();
 	                                currentPuzzle.dialog.html = "";
 	                                currentPuzzle.solved = true;
+                                    nextTile.addClass("open");
 	                            }
                                 break;
                         }
@@ -990,5 +731,19 @@ levels = [
                 }
             }
         ]
+    },
+    {
+        map: [
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["hero", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"]
+        ],
+        items: []
     }
 ];

@@ -46,6 +46,12 @@ function buildMap(elem, level) {
 						"col": j
 					}
 				});
+			if (tile == 'bubble') {
+				$tile.on("click.game", function(){
+					playSound("pop", 1, 0);
+					$tile.off("click.game").toggleClass("bubble green");
+				});
+			}
 			$row.append($tile);
 		});
 	});
@@ -99,79 +105,114 @@ function buildMap(elem, level) {
                 nextTile.toggleClass("hero green");
                 logAction("you moved " + direction);
 
-            } else if (nextTile.data("type") == "exit") {
+            } else {
+	            
+	            switch (nextTile.data("type")) {
+		            
+		            case "exit":
 
-                currentTile.toggleClass("hero green");
-                nextTile.toggleClass("hero exit");
-				openDialog(nextTile.data());
-                logAction("you reached the exit ");
+		                currentTile.toggleClass("hero green");
+		                nextTile.toggleClass("hero exit");
+						openDialog(nextTile.data());
+		                logAction("you reached the exit ");
+		                break;
 
-            } else if (nextTile.data("type") == "wall") {
+					case "wall":
 
-                logAction("you ran into wall");
+						logAction("you ran into wall");
+						break;
 
-            } else if (nextTile.hasClass("secret")) {
+            		case "bubble":
+	            
+						logAction("you ran into a bubble");
+						break;
+	            
+	        		case "secret":
+		
+		                attempts = nextTile.data("attempts");
+		
+		                if (isNaN(attempts)) {
+		                    nextTile.data({"attempts": 1}).addClass("shaking");
+		                    window.setTimeout(function () {
+		                        nextTile.removeClass("shaking");
+		                    }, 300);
+		                    playSound("wall", 1, 0);
+		                    logAction("you ran into a strange looking wall");
+		                } else {
+		                    if (nextTile.data("attempts") < 2) {
+		                        nextTile.data({"attempts": ++attempts}).addClass("shaking");
+		                        window.setTimeout(function () {
+		                            nextTile.removeClass("shaking");
+		                        }, 300);
+		                        playSound("wall", 1, 0);
+		                        logAction("you pushed a strange looking wall");
+		                    } else {
+		                        nextTile.toggleClass("secret " + nextTile.data("data").hidden.classname).data({
+		                            type: nextTile.data("data").hidden.type,
+		                            info: nextTile.data("data").hidden.info,
+		                            classname: nextTile.data("data").hidden.classname
+		                        });
+		                        playSound("explosion", .8, 0);
+		                        logAction("you found a secret passage");
+		                    }
+		                }
+		                break;
 
-                attempts = nextTile.data("attempts");
+			         case "puzzle":
+					 case "book":
 
-                if (isNaN(attempts)) {
-                    nextTile.data({"attempts": 1}).addClass("shaking");
-                    window.setTimeout(function () {
-                        nextTile.removeClass("shaking");
-                    }, 300);
-                    playSound("wall", 1, 0);
-                    logAction("you ran into a strange looking wall");
-                } else {
-                    if (nextTile.data("attempts") < 2) {
-                        nextTile.data({"attempts": ++attempts}).addClass("shaking");
-                        window.setTimeout(function () {
-                            nextTile.removeClass("shaking");
-                        }, 300);
-                        playSound("wall", 1, 0);
-                        logAction("you pushed a strange looking wall");
-                    } else {
-                        console.log(nextTile.data);
-                        nextTile.toggleClass("secret " + nextTile.data("data").hidden.classname).data({
-                            type: nextTile.data("data").hidden.type,
-                            info: nextTile.data("data").hidden.info,
-                            classname: nextTile.data("data").hidden.classname
-                        });
+		                if (!nextTile.data("solved")) {
+		                    openDialog(nextTile.data());
+		                    logAction("you found" + nextTile.data("info"));
+		                }
+		                break;
 
-                        console.log( nextTile.data() );
+					case "door":
+		
+		                if (!nextTile.data("unlocked")) {
+			                _.each(nextTile.data("requires"), function (item, index, list) {
+				                if ( checkInventory(item) ) {
+					                removeFromInventory(item);
+					                nextTile.data("requires").splice(index, 1);
+				                }
+			                });
+			                
+			                if (!nextTile.data("requires").length) {
+				                nextTile.data({
+					                unlocked: true,
+									solved: true
+								}).toggleClass("door green");
+					            logAction("you have unlocked the door");
+			                } else {
+				                openDialog(nextTile.data());
+								logAction("you found " + nextTile.data("info"));
+			                }
+			            }
+			            break;
 
-                        playSound("explosion", .8, 0);
-                        logAction("you found a secret passage");
-                    }
-                }
-
-            } else if (nextTile.data("type") == "puzzle" ||
-                nextTile.data("type") == "book") {
-
-                if (!nextTile.data("solved")) {
-                    openDialog(nextTile.data());
-                    logAction("you found" + nextTile.data("info"));
-                }
-
-            } else if (nextTile.data("type") == "switch") {
-
-                nextTile.data("actions").toggleSwitch(nextTile);
-
-			} else if (nextTile.data("type") == "item") {
-
-                if (!nextTile.data("unlocked")) {
-                    currentTile.toggleClass("hero green");
-                    nextTile.toggleClass("hero " + nextTile.data("classname"));
-                    nextTile.data("unlocked", true);
-                    inventory.push(nextTile.data());
-                    updateInventory();
-                    playSound("getItem", .5, 0);
-                    logAction("you found" + nextTile.data("info"));
-                } else {
-                    currentTile.toggleClass("hero green");
-                    nextTile.toggleClass("hero green");
-                    logAction("you moved " + direction);
-                }
-            }
+					case "switch":
+		
+		                nextTile.data("actions").toggleSwitch(nextTile);
+		                break;
+		
+					case "item":
+		
+		                if (!nextTile.data("unlocked")) {
+		                    currentTile.toggleClass("hero green");
+		                    nextTile.toggleClass("hero " + nextTile.data("classname"));
+		                    nextTile.data("unlocked", true);
+		                    inventory.push(nextTile.data());
+		                    updateInventory();
+		                    playSound("getItem", .5, 0);
+		                    logAction("you found" + nextTile.data("info"));
+		                } else {
+		                    currentTile.toggleClass("hero green");
+		                    nextTile.toggleClass("hero green");
+		                    logAction("you moved " + direction);
+		                }
+		                break;
+		        }
+		    }
         }
 	});
 }
@@ -189,7 +230,7 @@ function openDialog(data) {
             currentPuzzle.requires.splice(ind, 1);
 			inventory.splice(_.indexOf(inventory, found), 1);
 		}
-	})
+	});
 	updateInventory();
 
 	if ( !data.requires.length ) {
@@ -220,6 +261,23 @@ function closeDialog() {
 	currentPuzzle = null;
 }
 
+function checkInventory(id) {
+	return _.findWhere(inventory, {id: id});
+}
+function addToInventory(id) {
+	var found =  _.findWhere(inventory, {id: id});
+	if( !found ) {
+		inventory.push(found);
+	}
+	updateInventory();
+}
+function removeFromInventory(id) {
+	var found =  _.findWhere(inventory, {id: id});
+	if( found ) {
+		inventory.splice(_.indexOf(inventory, found), 1);
+	}
+	updateInventory();
+}
 function updateInventory() {
 	var $stash;
 	$stash = $(".inventory").empty();
@@ -245,10 +303,11 @@ function loadSounds() {
         {id:"success", src:"_/snd/success.mp3"},
         {id:"win", src:"_/snd/ding.mp3"},
         {id:"wall", src:"_/snd/wall.mp3"},
-        {id:"explosion", src:"_/snd/explosion.mp3"}
+        {id:"explosion", src:"_/snd/explosion.mp3"},
+        {id:"pop", src:"_/snd/pop.mp3"}
     ];
     queue.on("complete", function() {
-        playSound("themeMusic", .3, -1);
+        //playSound("themeMusic", .3, -1);
     }, this);
     queue.loadManifest(assets);
 }
