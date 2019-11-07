@@ -330,6 +330,10 @@ main .map .row > * {
   transform-origin: right;
   animation: bounceright 0.4s infinite;
 }
+.tile.exit.down {
+  transform-origin: center;
+  animation: bouncedown 0.4s infinite;
+}
 .tile.shaking {
   animation: shake 0.2s 2;
 }
@@ -350,6 +354,13 @@ main .map .row > * {
 }
 .tile.lever.off {
   background-image: url(img/lever_off.png);
+}
+.tile.bubble {
+  background-image: url(img/bubble.png);
+}
+.tile.bubble:hover,
+.tile.bubble.wobble {
+  animation: wobble 0.3s 1;
 }
 .log {
   color: #fff;
@@ -382,6 +393,17 @@ main .map .row > * {
     transform: translate3d(0, 0, 0);
   }
 }
+@keyframes bouncedown {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(90deg);
+  }
+  30% {
+    transform: translate3d(0,-0.3em, 0) rotate(90deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(90deg);
+  }
+}
 @keyframes shake {
   0% {
     transform: rotate(0);
@@ -405,6 +427,20 @@ main .map .row > * {
   }
   100% {
     opacity: 1;
+  }
+}
+@keyframes wobble {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.9, 1.1, 1);
+  }
+  70% {
+    transform: scale3d(1.1, 0.9, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
   }
 }
 /*# sourceMappingURL=game.css.map */
