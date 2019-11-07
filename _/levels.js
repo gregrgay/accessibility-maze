@@ -3,266 +3,6 @@ var levels;
 levels = [
     {
         map: [
-            ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
-            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall", "green", "wall"],
-            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
-            ["wall", "wall", "wall", "green", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall"],
-            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
-            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
-            ["hero", "green", "green", "green", "wall", "wall", "bubble", "bubble", "green", "bubble", "bubble", "wall"],
-            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall"]
-        ],
-        items: [
-            {
-                id: 1,
-                type: "book",
-                info: " a book",
-                classname: "book",
-                pos: {
-                    row: 1,
-                    col: 3
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "book",
-                    html: "<div class='columns'> \
-                            <p><u>Monday, April 1</u></p>\
-                            <p>...</p>\
-                        </div>",
-                    hint: ""
-                },
-                data: {
-
-                },
-                actions: {
-
-                }
-            },
-            {
-                id: 2,
-                type: "secret",
-                info: " a secret",
-                classname: "secret",
-                pos: {
-                    row: 1,
-                    col: 9
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {
-                    hidden: {
-                        type: "green",
-                        info: "",
-                        classname: "green"
-                    }
-                },
-                actions: {}
-            },
-            {
-                id: 3,
-                type: "item",
-                info: " a yellow gem stone",
-                classname: "gem yellow",
-                pos: {
-                    row: 1,
-                    col: 10
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {},
-                actions: {}
-            },
-            {
-                id: 4,
-                type: "secret",
-                info: " a secret",
-                classname: "secret",
-                pos: {
-                    row: 2,
-                    col: 10
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {
-                    hidden: {
-                        type: "item",
-                        info: " a gem",
-                        classname: "gem blue"
-                    }
-                },
-                actions: {}
-            },
-            {
-                id: 5,
-                type: "secret",
-                info: " a secret",
-                classname: "secret",
-                pos: {
-                    row: 2,
-                    col: 2
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {
-                    hidden: {
-                        type: "green",
-                        info: "",
-                        classname: "green"
-                    }
-                },
-                actions: {}
-            },
-            {
-                id: 6,
-                type: "item",
-                info: " a pink gem stone",
-                classname: "gem pink",
-                pos: {
-                    row: 5,
-                    col: 1
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {},
-                actions: {}
-            },
-            {
-                id: 7,
-                type: "item",
-                info: " a key",
-                classname: "key",
-                pos: {
-                    row: 2,
-                    col: 1
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "",
-                    html: "",
-                    hint: ""
-                },
-                data: {},
-                actions: {}
-            },
-            {
-                id: 8,
-                type: "door",
-                info: " a closed door",
-                classname: "door",
-                pos: {
-                    row: 4,
-                    col: 7
-                },
-                requires: [7],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "puzzle_02",
-                    html: "<p>You need a golden key to open this door.</p>",
-                    hint: ""
-                },
-                data: {},
-                actions: {
-                    onReady: function($dlg) {
-                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
-                    }
-                }
-            },
-            {
-                id: 10,
-                type: "exit",
-                info: " the exit",
-                classname: "exit down",
-                pos: {
-                    row: 8,
-                    col: 8
-                },
-                requires: [],
-                unlocked: false,
-                solved: false,
-                dialog: {
-                    classname: "exit",
-                    html: "<div > \
-                            <h2>LESSON 3: Do not rely on one input device only. All content must be operable regardless of the input device used.</h2>\
-                            <p>...</p> \
-                        </div> \
-                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
-                    hint: ""
-                },
-                data: {},
-                actions: {
-                    onReady: function($dlg) {
-                        setTimeout( function() {
-                            $dlg.find("[tabindex=0]:visible:eq(0)").focus();
-                            $dlg.off("keydown.game").on("keydown.game", function(event) {
-                                switch(event.keyCode) {
-                                    case 27: // escape
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                        break;
-                                }
-                            });
-                        }, 300 );
-                        playSound("win", 1, 0);
-                    },
-                    gotoNextLevel: function(event) {
-                        switch (event.keyCode) {
-                            case 13:
-                            case 32:
-                                currentLevel++;
-                                buildMap(".map", levels[currentLevel]);
-                                closeDialog();
-                                inventory = [];
-                                updateInventory();
-                                logAction("you moved to the next level");
-                                break;
-                            default:
-                                event.preventDefault();
-                                event.stopPropagation();
-                                break;
-                        }
-                    }
-                }
-            }
-        ]
-    },
-    {
-        map: [
             [ "wall", "wall",  "wall",  "wall",   "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ],
             [ "wall", "wall",  "green", "green",  "green", "green", "wall",  "wall",  "wall",  "wall",  "wall",  "wall" ],
             [ "wall", "wall",  "green", "hero",   "green", "green", "wall",  "wall",  "green", "green", "green", "green" ],
@@ -538,15 +278,22 @@ levels = [
                         playSound("win", 1, 0);
                     },
                     gotoNextLevel: function(event) {
+                        var newUrl;
                         switch (event.keyCode) {
                             case 13:
                             case 32:
                                 currentLevel++;
+                                document.title = "Accessibility Game, Level " + (currentLevel + 1);
                                 buildMap(".map", levels[currentLevel]);
                                 closeDialog();
                                 inventory = [];
                                 updateInventory();
                                 logAction("you moved to the next level");
+                                if (window.history.pushState) {
+                                    urlParams.set("level", currentLevel + 1);
+                                    newUrl = window.location.pathname + "?" + urlParams.toString();
+                                    window.history.pushState({path: newUrl}, '', newUrl);
+                                }
                                 break;
                             default:
                                 event.preventDefault();
@@ -698,15 +445,22 @@ levels = [
                         playSound("win", 1, 0);
                     },
                     gotoNextLevel: function(event) {
+                        var newUrl;
                         switch (event.keyCode) {
                             case 13:
                             case 32:
                                 currentLevel++;
+                                document.title = "Accessibility Game, Level " + (currentLevel + 1);
                                 buildMap(".map", levels[currentLevel]);
                                 closeDialog();
                                 inventory = [];
                                 updateInventory();
                                 logAction("you moved to the next level");
+                                if (window.history.pushState) {
+                                    urlParams.set("level", currentLevel + 1);
+                                    newUrl = window.location.pathname + "?" + urlParams.toString();
+                                    window.history.pushState({path: newUrl}, '', newUrl);
+                                }
                                 break;
                             default:
                                 event.preventDefault();
@@ -987,6 +741,285 @@ levels = [
                 },
                 actions: {
 
+                }
+            }
+        ]
+    },
+    {
+        map: [
+            ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
+            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall", "green", "wall"],
+            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
+            ["wall", "wall", "wall", "green", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall"],
+            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
+            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
+            ["hero", "green", "green", "green", "wall", "wall", "bubble", "bubble", "green", "bubble", "bubble", "wall"],
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall"]
+        ],
+        items: [
+            {
+                id: 1,
+                type: "book",
+                info: " a book",
+                classname: "book",
+                pos: {
+                    row: 1,
+                    col: 3
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "book",
+                    html: "<div class='columns'> \
+                            <p><u>Tuesday, June 4</u></p>\
+                            <p>Tom is a nice guy and a brilliant engineer, but sometimes he drives me crazy! How many times \
+                                I have to tell him, that all those machines and devices that he creates for me have to be easily \
+                                operated not just by hands, but also by voice, an elbow... a long stick, for pity's sake! </p>\
+                                This morning I tired to open his Rube Goldberg machine holding a molten core specimen with my both hands. \
+                                After 10 minutes of futile attempts I was ready to stuff that piece of core up his... </p>\
+                            <p><u>Wednesday, June 5</u></p>\
+                            <p>I think I finally know how to teach Tom a lesson! For the last couple of months I have been experimenting \
+                            with a new material for a weather balloon. It is extremely strong and can only be pierced by something\
+                            sharp and pointy, like an arrow. I filled the entire room next to the exit with air balloons made of that thing.\
+                            I wish I could see his face when he tries to exit the lab!</p>\
+                        </div>",
+                    hint: ""
+                },
+                data: {
+
+                },
+                actions: {
+
+                }
+            },
+            {
+                id: 2,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 1,
+                    col: 9
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "green",
+                        info: "",
+                        classname: "green"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 3,
+                type: "item",
+                info: " a yellow gem stone",
+                classname: "gem yellow",
+                pos: {
+                    row: 1,
+                    col: 10
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 4,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 2,
+                    col: 10
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "item",
+                        info: " a gem",
+                        classname: "gem blue"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 5,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 2,
+                    col: 2
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "green",
+                        info: "",
+                        classname: "green"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 6,
+                type: "item",
+                info: " a pink gem stone",
+                classname: "gem pink",
+                pos: {
+                    row: 5,
+                    col: 1
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 7,
+                type: "item",
+                info: " a key",
+                classname: "key",
+                pos: {
+                    row: 2,
+                    col: 1
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 8,
+                type: "door",
+                info: " a closed door",
+                classname: "door",
+                pos: {
+                    row: 4,
+                    col: 7
+                },
+                requires: [7],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "puzzle_02",
+                    html: "<p>You need a golden key to open this door.</p>",
+                    hint: ""
+                },
+                data: {},
+                actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                    }
+                }
+            },
+            {
+                id: 10,
+                type: "exit",
+                info: " the exit",
+                classname: "exit down",
+                pos: {
+                    row: 8,
+                    col: 8
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "exit",
+                    html: "<div > \
+                            <h2>LESSON 3: Do not rely on one input device only.</h2>\
+                            <p>All web content must be operable regardless of the input device used. That means that if users can expand an accordion or \
+                                select a date from a popup calendar with a mouse, they should be able to do exactly the same with a keyboard, \
+                                joystick, or any other input device.</p> \
+                        </div> \
+                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
+                    hint: ""
+                },
+                data: {},
+                actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() {
+                            $dlg.find("[tabindex=0]:visible:eq(0)").focus();
+                            $dlg.off("keydown.game").on("keydown.game", function(event) {
+                                switch(event.keyCode) {
+                                    case 27: // escape
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        break;
+                                }
+                            });
+                        }, 300 );
+                        playSound("win", 1, 0);
+                    },
+                    gotoNextLevel: function(event) {
+                        var newUrl = "";
+                        switch (event.keyCode) {
+                            case 13:
+                            case 32:
+                                currentLevel = 0;
+                                document.title = "Accessibility Game, Level " + (currentLevel + 1);
+                                buildMap(".map", levels[currentLevel]);
+                                closeDialog();
+                                inventory = [];
+                                updateInventory();
+                                logAction("you moved to the next level");
+                                if (window.history.pushState) {
+                                    urlParams.set("level", currentLevel + 1);
+                                    newUrl = window.location.pathname + "?" + urlParams.toString();
+                                    console.log(newUrl);
+                                    window.history.pushState({path: newUrl}, '', newUrl);
+                                }
+                                break;
+                            default:
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                        }
+                    }
                 }
             }
         ]

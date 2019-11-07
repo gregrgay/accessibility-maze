@@ -327,11 +327,9 @@ main .map .row > * {
 }
 .tile.exit {
   background-image: url(img/exit.png);
-  transform-origin: right;
   animation: bounceright 0.4s infinite;
 }
 .tile.exit.down {
-  transform-origin: center;
   animation: bouncedown 0.4s infinite;
 }
 .tile.shaking {
@@ -398,7 +396,7 @@ main .map .row > * {
     transform: translate3d(0, 0, 0) rotate(90deg);
   }
   30% {
-    transform: translate3d(0,-0.3em, 0) rotate(90deg);
+    transform: translate3d(0, -0.3em, 0) rotate(90deg);
   }
   100% {
     transform: translate3d(0, 0, 0) rotate(90deg);

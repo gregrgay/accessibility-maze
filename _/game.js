@@ -1,11 +1,18 @@
-var currentLevel, inventory, currentPuzzle, currentTile, nextTile;
+var urlParams, currentLevel, inventory, currentPuzzle, currentTile, nextTile;
 
+urlParams = new URLSearchParams(window.location.search);
 currentLevel = 0;
 inventory = [];
 
 
+
 $(document).ready(function() {
 
+	if (urlParams.has("level")) {
+		currentLevel = urlParams.get("level");
+		currentLevel = !isNaN(currentLevel) && currentLevel > 0 && currentLevel <= levels.length + 1 ? --currentLevel : 0;
+	}
+	document.title = "Accessibility Game, Level " + (currentLevel + 1);
 	buildMap(".map", levels[currentLevel]);
     loadSounds();
 	$(document).on("keydown.game", function(event) {

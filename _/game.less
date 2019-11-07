@@ -347,8 +347,11 @@ main {
 	}
 	&.exit {
 		background-image: url(img/exit.png);
-		transform-origin: right;
 		animation: bounceright .4s infinite;
+		
+		&.down {
+			animation: bouncedown .4s infinite;
+		}
 	}
 	&.shaking {
 		animation: shake .2s 2;
@@ -370,6 +373,14 @@ main {
 		}
 		&.off {
 			background-image: url(img/lever_off.png);
+		}
+	}
+	&.bubble {
+		background-image: url(img/bubble.png);
+		
+		&:hover,
+		&.wobble {
+			animation: wobble 0.3s 1;
 		}
 	}
 }
@@ -408,6 +419,18 @@ main {
 	}
 }
 
+@keyframes bouncedown {
+	0% {
+		transform: translate3d(0, 0, 0) rotate(90deg);
+	}
+	30% {
+		transform: translate3d(0,-0.3em, 0) rotate(90deg);
+	}
+	100% {
+		transform: translate3d(0, 0, 0) rotate(90deg);
+	}
+}
+
 @keyframes shake {
 	0% {
 		transform: rotate(0);
@@ -435,6 +458,20 @@ main {
 	}
 }
 
+@keyframes wobble {
+	0% {
+		transform: scale3d(1, 1, 1);
+	}
+	30% {
+		transform: scale3d(0.9, 1.1, 1);
+	}
+	70% {
+		transform: scale3d(1.1, 0.9, 1);
+	}
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
+}
 
 
 
