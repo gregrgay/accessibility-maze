@@ -33,9 +33,9 @@ levels = [
                             <p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p>\
                             <p>I thought leaving the same combination would make it easier to remember:</p>  \
                             <p><img src='_/img/figures/figure1-2.png' alt=''></p> \
-                            <p>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p> \
+                            <p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p> \
                             <p><u>Friday, April 19</u></p>\
-                            <p>As it turns out, marker lines get easily erased, so I asked my colleague, Tom, to create a metal plate with the connecting lines permanently etched on it.</p>\
+                            <p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p>\
                             <p><img src='_/img/figures/figure1-1.png' alt=''></p> \
                             <p>The plate is detachable and can be stored away when not in use.</p>\
                             <p>I hope nobody will mix up the buttons anymore!</p>\
@@ -778,9 +778,9 @@ levels = [
                                 After 10 minutes of futile attempts I was ready to stuff that piece of core up his... </p>\
                             <p class='column_break_after'>Well, Tom is a nice guy and a brilliant engineer, but his attitude sometimes drives me crazy! \
                                 How many times I have to tell him, that all those machines and devices that he creates for me have to be easily \
-                                operated not just by hands, but also by something else, like voice, an elbow... a long stick, for pity's sake! </p>\
+                                operated not just by hands, but also by something else, like a foot, an elbow... a long stick, for pity's sake! </p>\
                             <p><u>Wednesday, June 5</u></p>\
-                            <p>I think I finally know how to teach Tom a lesson! For the last couple of months I have been experimenting \
+                            <p>I think I need to teach Tom a lesson and I might just know how! For the last couple of months I have been experimenting \
                             with a new insulation material. It is extremely strong and can only be pierced by something sharp and pointy, like an arrow.</p>\
                             <p>I filled the entire room next to the exit with air balloons made of that thing.\
                             I'd like to see him try and make his way to the exit using his bare hands!</p>\

@@ -1,4 +1,11 @@
 @charset "utf-8";
+@font-face {
+  font-family: 'Shadows Into Light Two';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Shadows Into Light Two'), local('ShadowsIntoLightTwo-Regular'), url(https://fonts.gstatic.com/s/shadowsintolighttwo/v7/4iC86LVlZsRSjQhpWGedwyOoW-0A6_kpsyNmpAzHHA.ttf) format('truetype');
+}
 html {
   height: 100%;
   margin: 0;
@@ -125,6 +132,7 @@ main .map .row > * {
 .overlay .dialog.book {
   width: 95%;
   height: 95%;
+  font-family: 'Shadows Into Light Two', sans-serif;
   background: transparent url(img/book_bg.png) no-repeat center top;
   background-size: contain;
   -webkit-border-radius: 0;
