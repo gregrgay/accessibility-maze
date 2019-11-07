@@ -145,6 +145,9 @@ main .map .row > * {
   -moz-column-fill: auto;
   column-fill: auto;
 }
+.overlay .dialog.book .column_break_after {
+  break-after: column;
+}
 .overlay .dialog.book img {
   width: 100%;
   height: auto;

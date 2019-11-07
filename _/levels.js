@@ -774,16 +774,16 @@ levels = [
                     classname: "book",
                     html: "<div class='columns'> \
                             <p><u>Tuesday, June 4</u></p>\
-                            <p>Tom is a nice guy and a brilliant engineer, but sometimes he drives me crazy! How many times \
-                                I have to tell him, that all those machines and devices that he creates for me have to be easily \
-                                operated not just by hands, but also by voice, an elbow... a long stick, for pity's sake! </p>\
-                                This morning I tired to open his Rube Goldberg machine holding a molten core specimen with my both hands. \
+                            <p>This morning I tired to open Tom's particle skimmer holding a molten core specimen with my both hands. \
                                 After 10 minutes of futile attempts I was ready to stuff that piece of core up his... </p>\
+                            <p class='column_break_after'>Well, Tom is a nice guy and a brilliant engineer, but his attitude sometimes drives me crazy! \
+                                How many times I have to tell him, that all those machines and devices that he creates for me have to be easily \
+                                operated not just by hands, but also by something else, like voice, an elbow... a long stick, for pity's sake! </p>\
                             <p><u>Wednesday, June 5</u></p>\
                             <p>I think I finally know how to teach Tom a lesson! For the last couple of months I have been experimenting \
-                            with a new material for a weather balloon. It is extremely strong and can only be pierced by something\
-                            sharp and pointy, like an arrow. I filled the entire room next to the exit with air balloons made of that thing.\
-                            I wish I could see his face when he tries to exit the lab!</p>\
+                            with a new insulation material. It is extremely strong and can only be pierced by something sharp and pointy, like an arrow.</p>\
+                            <p>I filled the entire room next to the exit with air balloons made of that thing.\
+                            I'd like to see him try and make his way to the exit using his bare hands!</p>\
                         </div>",
                     hint: ""
                 },
