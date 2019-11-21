@@ -1,0 +1,19 @@
+<div class="container info">
+	<div class="content">
+		<img ng-src="{{ planet.image }}" alt="">
+		<div class="message"> 
+			<h1>{{ planet.name }}</h1>
+			<div id="txtPlanetInfo" class="text" tabindex="0" ng-bind-html="planetinfo"></div>
+			<p><button class="linkbutton" ng-hide="status < 1" ng-click="getCertificate(planetIndex)">Download Your Certificate of Honour...</button></p>
+			<p>
+				<button ng-click="exitPlanet()">Exit</button> 
+				<button ng-click="continueGame();" ng-show="hasCharacters">{{ label }}</button>
+			</p>
+			
+		</div>
+	</div>
+	<div class="controlbar">
+		<div>&nbsp;</div>
+		<button ng-click="openSettings()" class="round" aria-label="Settings" title="Open settings"><img src="_/img/icon_gear.svg" alt="" class="icon"></button>
+	</div>
+</div>
