@@ -1,6 +1,5 @@
 var utils = angular.module('utils', ['ngCookies']),
-	app = angular.module('amaze', ['ngRoute', 'ngSanitize', 'utils']),
-	api;
+	app = angular.module('amaze', ['ngRoute', 'ngSanitize', 'utils']);
 
 app.config(['$routeProvider', '$locationProvider', 
 	
@@ -17,7 +16,7 @@ app.config(['$routeProvider', '$locationProvider',
 		}).when('/gameinfo/:index?', {
 			templateUrl : '_/tpl/gameinfo.tpl.html',
 			controller  : 'gameInfoCtrl'
-		}).when('/level/:index?', {
+		}).when('/level/', {
 			templateUrl : '_/tpl/level.tpl.html',
 			controller  : 'levelCtrl'
 		});
@@ -31,23 +30,24 @@ app.config(['$routeProvider', '$locationProvider',
 			gameinfo: [],
 			intro: [],
 			levels: [],
-			assetsLoaded: false,
-			gameStarted: false
+			inventory: []
 		});
 		
-		$rootScope[app.name] = _.extend( {
-				'uuid': generateUUID(),
+		$rootScope.game = _.extend( {
+				"uuid": generateUUID(),
 				"settings": {
 					"music": true,
 					"fullscreen": false
 				},
+				"started": false,
+				"currentLevel": 0,
 				"levels" : []
 			},
 			$storage.getObject(app.name) || {}
 		);
 		
 		$rootScope.saveState = function() {
-			$storage.setObject(app.name, $rootScope[app.name]);
+			$storage.setObject(app.name, $rootScope.game);
 		};
 		
 		$http.get('_/' + app.name + '_data.js')
@@ -56,15 +56,88 @@ app.config(['$routeProvider', '$locationProvider',
 				$rootScope.intro = data.intro;
 				$rootScope.levels = data.levels;
 				$rootScope.saveState();
+				preloadAssets();
 			})
 			.error(function(data, status, headers, config) {
 				console.log('error: ' + status);
 			});
+
+		function preloadAssets() {
+			var queue, imgArray, $elem, sounds;
+
+			queue = new createjs.LoadQueue();
+			queue.installPlugin(createjs.Sound);
+			assets = [];
+			sounds = [
+				{id:"main_theme", src:"_/snd/theme_music.mp3"},
+				{id:"click", src:"_/snd/click.mp3"},
+				{id:"get_item", src:"_/snd/get_item.mp3"},
+				{id:"error", src:"_/snd/error.mp3"},
+				{id:"success", src:"_/snd/success.mp3"},
+				{id:"exit", src:"_/snd/ding.mp3"},
+				{id:"hit_wall", src:"_/snd/wall.mp3"},
+				{id:"explosion", src:"_/snd/explosion.mp3"},
+				{id:"pop", src:"_/snd/pop.mp3"}
+			];
+
+			_.each($rootScope.gameinfo.images, function(el, ind) {
+				assets.push({id: ind, src: el});
+			});
+			_.each($rootScope.intro, function(el, ind) {
+				assets.push({id: "intro_" + (++ind), src: el.image});
+			});
+
+			assets = assets.concat(sounds);
+
+			queue.on("complete", function() {
+				$rootScope.assetsLoaded = true;
+				$rootScope.$apply();
+			}, this);
+
+			queue.loadManifest(assets);
+
+		}
+
+		$rootScope.playSound = function(name, props) {
+			var conf = new createjs.PlayPropsConfig().set(_.extend({
+				loop: 0,
+				volume: .5
+			}, props));
+			if (window[name]) {
+				window[name].play();
+			} else {
+				window[name] = createjs.Sound.play(name, conf);
+			}
+		}
+
+		$rootScope.stopSound = function(name) {
+			if (window[name]) {
+				window[name].stop();
+			}
+		};
+
+		$rootScope.ambientSoundName = "main_theme";
+
+		$rootScope.toggleAmbientSound = function(event) {
+
+			if(event.type == 'click' || event.keyCode == 13 || event.keyCode == 32) {
+
+				if($rootScope.game.settings.sound) {
+					$rootScope.stopSound($rootScope.ambientSoundName);
+				} else {
+					$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3});
+				}
+				$rootScope.game.settings.sound = !$rootScope.game.settings.sound;
+				$rootScope.saveState();
+			}
+		}
 	}
 ]);
 
 app.controller('splashCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 	function($rootScope, $scope, $location, $timeout) {
+
+		$rootScope.stopSound($rootScope.ambientSoundName);
 
 		$rootScope.assetsLoaded = true;
 		$rootScope.saveState();
@@ -79,15 +152,18 @@ app.controller('splashCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 	function($rootScope, $scope, $location, $timeout) {
 
+		$rootScope.stopSound($rootScope.ambientSoundName);
+
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/');
 		} else {
 			$scope.startNew = function() {
-				console.log('test');
+				$rootScope.game.started = true;
+				$rootScope.saveState();
 				$location.path('/intro/');
 			};
 			$scope.resumeSaved = function() {
-
+				$location.path('/level/');
 			};
 			$scope.showInstructions = function() {
 
@@ -99,52 +175,146 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route',
 	function($rootScope, $scope, $location, $storage, $route) { 
 		
-		var current = 0;
-			
+		var currentSlide = 0;
+
+		$rootScope.stopSound($rootScope.ambientSoundName);
+
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/');
 		} else {
-			console.log($rootScope.intro.length);
 			$scope.continueGame = function() {
 				
-				if(current < $rootScope.intro.length) {
-					$scope.background = $rootScope.intro[current].image;
-					$scope.message = $rootScope.intro[current].content;
-					current++;
+				if(currentSlide < $rootScope.intro.length) {
+					$scope.background = $rootScope.intro[currentSlide].image;
+					$scope.message = $rootScope.intro[currentSlide].content;
+					currentSlide++;
 				} else {
-					$location.path('/menu/');
+					$location.path('/level/');
 				}
-				$scope.label = current == $rootScope.intro.length - 1 ? "Start" : "Next";
 			};
-
+			console.log($rootScope.intro.length);
 			$scope.continueGame();
 
 		}	
 	}
 ]);
 
-app.controller('gameInfoCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route',
-	function($rootScope, $scope, $location, $storage, $route) { 
-		
-		var n = $route.current.pathParams.page;
-		
-		if (!$rootScope.introAssetsLoaded || !isNaN(n) || !n.length) {
-			$location.path('/');
+app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route', '$timeout',
+	function($rootScope, $scope, $location, $storage, $route, $timeout) {
+
+		var level, item, ind = 0;
+
+		$rootScope.stopSound($rootScope.ambientSoundName);
+
+		if (!$rootScope.assetsLoaded) {
+			$location.path('/menu/');
 		} else {
-			$scope.page = $rootScope.gameinfo[n];
-			$rootScope.focusElement('.panel');
+			if ($rootScope.game.settings.sound) {
+				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3});
+			}
+			$scope.message = "";
+			$scope.levelCompleted = false;
+			level = $rootScope.levels[$rootScope.game.currentLevel];
+
+			console.log(level);
+
+			$scope.floorplan = [];
+			_.each(level.floorplan, function(row, x) {
+				_.each(row, function(tile, y) {
+					item = _.findWhere(level.items, {row: x, col: y});
+
+					$scope.floorplan.push({
+						"id": ind++,
+						"class": item ? item.class : tile,
+						"collectable": item ? item.collectable : false,
+						"row": x,
+						"col": y,
+						"data": item && item.data ? item.data : null
+					});
+					if (item && item.class == "blob") {
+						$rootScope.currTile = $scope.floorplan[$scope.floorplan.length - 1];
+					}
+				});
+			});
+
+			$scope.continueGame = function() {
+				$scope.message = "";
+				if ($scope.levelCompleted) {
+					$rootScope.game.currentLevel += 1;
+					$rootScope.saveState();
+					$route.reload();
+				}
+			};
+
+			$scope.mapKeyDownHandler = function(event) {
+				var row, col;
+				row = $rootScope.currTile.row;
+				col = $rootScope.currTile.col;
+				switch (event.keyCode) {
+					case 37: // left
+						takeAction(row, --col);
+						break;
+					case 38: // top
+						takeAction(--row, col);
+						break;
+					case 39: // right
+						takeAction(row, ++col);
+						break;
+					case 40: // bottom
+						takeAction(++row, col);
+						break;
+					default:
+						//console.log(event.keyCode)
+						break;
+				}
+			};
+
+			$scope.$on('$viewContentLoaded', function(){
+				$(".map").focus();
+			});
+
+			$scope.openMenu = function() {
+				$location.path('/menu');
+			};
 		}
-		
-	}
-]);
 
-app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage',
-	function($rootScope, $scope, $location, $storage) { 
-		
-		if (!$rootScope.introAssetsLoaded) {
-			$location.path('/');
-		} else {
+		function takeAction(row, col) {
+			var ind, nextTile, shakingClass;
+			ind = _.findWhere($scope.floorplan, {row: row, col: col}).id;
+			nextTile = $scope.floorplan[ind];
 
+			if (nextTile.class == "green") {
+				moveBlob(nextTile);
+			} else if (nextTile.class == "exit") {
+				$scope.message = level.lesson;
+				$scope.levelCompleted = true;
+				$rootScope.playSound("exit", {volume: 1});
+				moveBlob(nextTile);
+			} else if (nextTile.class == "secret") {
+				if(nextTile.data.attempts > 1) {
+					nextTile.data.attempts--;
+					$rootScope.playSound("hit_wall");
+					nextTile.class = "secret shaking";
+					$timeout( function () { nextTile.class = "secret"; }, 100 );
+				} else {
+					nextTile.class = nextTile.data.treasure.class;
+					nextTile.collectable = nextTile.data.treasure.collectable;
+					$rootScope.playSound("explosion");
+				}
+			} else if (nextTile.collectable) {
+				$rootScope.inventory.push({
+					id: nextTile.id,
+					class: "tile " + nextTile.class
+				});
+				$rootScope.playSound("get_item");
+				moveBlob(nextTile);
+			}
+		}
+
+		function moveBlob(nextTile) {
+			nextTile.class = "blob";
+			$rootScope.currTile.class = "green";
+			$rootScope.currTile = nextTile;
 		}
 	}
 ]);
