@@ -192,7 +192,6 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					$location.path('/level/');
 				}
 			};
-			console.log($rootScope.intro.length);
 			$scope.continueGame();
 
 		}	
@@ -216,7 +215,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			$scope.levelCompleted = false;
 			level = $rootScope.levels[$rootScope.game.currentLevel];
 
-			console.log(level);
+			console.log($rootScope.levels, $rootScope.game.currentLevel);
 
 			$scope.floorplan = [];
 			_.each(level.floorplan, function(row, x) {

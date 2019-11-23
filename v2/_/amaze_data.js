@@ -1,5 +1,11 @@
 {
-    "gameinfo": [
+    "gameinfo": {
+	    "about": "",
+	    "howto": "",
+	    "credits": "",
+	    "terms": ""
+    },
+    "intro": [
         {
             "image": "_/img/intro_01.png",
             "content": "<p>One day, I decided to go to the library to work on my accessibility paper.</p>"
