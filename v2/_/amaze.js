@@ -159,6 +159,8 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 		} else {
 			$scope.startNew = function() {
 				$rootScope.game.started = true;
+				$rootScope.game.currentLevel = 0;
+				$scope.levelCompleted = false;
 				$rootScope.saveState();
 				$location.path('/intro/');
 			};
@@ -215,8 +217,6 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			$scope.levelCompleted = false;
 			level = $rootScope.levels[$rootScope.game.currentLevel];
 
-			console.log($rootScope.levels, $rootScope.game.currentLevel);
-
 			$scope.floorplan = [];
 			_.each(level.floorplan, function(row, x) {
 				_.each(row, function(tile, y) {
@@ -242,6 +242,8 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					$rootScope.game.currentLevel += 1;
 					$rootScope.saveState();
 					$route.reload();
+				} else {
+					$(".map").focus();
 				}
 			};
 
@@ -278,7 +280,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 		}
 
 		function takeAction(row, col) {
-			var ind, nextTile, shakingClass;
+			var ind, nextTile, shakingClass, inventoryItem;
 			ind = _.findWhere($scope.floorplan, {row: row, col: col}).id;
 			nextTile = $scope.floorplan[ind];
 
@@ -299,6 +301,21 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					nextTile.class = nextTile.data.treasure.class;
 					nextTile.collectable = nextTile.data.treasure.collectable;
 					$rootScope.playSound("explosion");
+				}
+			} else if (nextTile.class == "book") { 
+				$scope.message = nextTile.data.content;
+			} else if (nextTile.class == "door") { 
+				if (nextTile.data.key >= 0) {
+					inventoryItem = _.findWhere($rootScope.inventory, { "id": nextTile.data.key });
+					if ( inventoryItem ) {
+						$rootScope.inventory = _.without($rootScope.inventory, inventoryItem);
+						nextTile.class = "green";
+						$rootScope.playSound("success");
+					} else {
+						$rootScope.playSound("error");
+					}
+				} else if (nextTile.data.puzzle >= 0) {
+					
 				}
 			} else if (nextTile.collectable) {
 				$rootScope.inventory.push({

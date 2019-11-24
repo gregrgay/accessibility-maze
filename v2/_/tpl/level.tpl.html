@@ -13,7 +13,7 @@
 			<div class="tile" ng-repeat="tile in floorplan" ng-class="tile.class"></div>
 		</div>
 		<div class="overlay" ng-show="message.length">
-			<div class="dialog">
+			<div ng-class="{'dialog' : true, 'book' : isBook, 'chest' : isChest}">
 				<div ng-bind-html="message"></div>
 				<div class="footer">
 					<button ng-click="continueGame()" tabindex="1">Continue</button>
