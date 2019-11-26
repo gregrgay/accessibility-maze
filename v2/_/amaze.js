@@ -40,8 +40,12 @@ app.config(['$routeProvider', '$locationProvider',
 					"fullscreen": false
 				},
 				"started": false,
-				"currentLevel": 0,
-				"levels" : []
+				"level": {
+					"id": 0,
+					"floorplan": [],
+					"currTile": {}
+				},
+				"inventory": []
 			},
 			$storage.getObject(app.name) || {}
 		);
@@ -67,7 +71,9 @@ app.config(['$routeProvider', '$locationProvider',
 
 			queue = new createjs.LoadQueue();
 			queue.installPlugin(createjs.Sound);
-			assets = [];
+			assets = [
+				{id:"book", src: "_/img/book/book_bg.png"}
+			];
 			sounds = [
 				{id:"main_theme", src:"_/snd/theme_music.mp3"},
 				{id:"click", src:"_/snd/click.mp3"},
@@ -119,18 +125,54 @@ app.config(['$routeProvider', '$locationProvider',
 		$rootScope.ambientSoundName = "main_theme";
 
 		$rootScope.toggleAmbientSound = function(event) {
-
-			if(event.type == 'click' || event.keyCode == 13 || event.keyCode == 32) {
-
-				if($rootScope.game.settings.sound) {
-					$rootScope.stopSound($rootScope.ambientSoundName);
-				} else {
-					$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3});
-				}
-				$rootScope.game.settings.sound = !$rootScope.game.settings.sound;
-				$rootScope.saveState();
+			if($rootScope.game.settings.sound) {
+				$rootScope.stopSound($rootScope.ambientSoundName);
+			} else {
+				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3});
 			}
+			$rootScope.game.settings.sound = !$rootScope.game.settings.sound;
+			$rootScope.saveState();
 		}
+
+		$rootScope.toggleDialogFocus = function(show) {
+			var $focusable, $overlay;
+
+			$overlay = $(".overlay");
+			$focusable = $('button, input, submit, reset, select, textarea, a, [tabindex]').filter( function(ind, elem) {
+				return !$overlay.has(elem).length;
+			});
+
+			if ( show ) {
+				$focusable.each( function(index, item) {
+					var $me = $(item);
+					if( item.hasAttribute('tabindex') ) {
+						$me.data({ 'tabindex': $me.attr('tabindex') });
+					}
+					$me.attr('tabindex', -1);
+				});
+				$rootScope.focusElement( $overlay.find('.dialog') );
+				//$timeout( function() { $overlay.find('.dialog').focus(); }, 300);
+			} else {
+				$focusable.each( function(index, item) {
+					var $me = $(item);
+					if ( $me.data('tabindex') ) {
+						$me.attr('tabindex', $me.data('tabindex') );
+					} else {
+						$me.removeAttr('tabindex');
+					}
+				});
+			}
+		};
+
+		$rootScope.focusElement = function(selector) {
+			$timeout( function(){
+				if (typeof selector == 'string') {
+					$(selector).focus();
+				} else {
+					selector.focus();
+				}
+			}, 300);
+		};
 	}
 ]);
 
@@ -159,8 +201,10 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 		} else {
 			$scope.startNew = function() {
 				$rootScope.game.started = true;
-				$rootScope.game.currentLevel = 0;
-				$scope.levelCompleted = false;
+				$rootScope.game.level.id = 0;
+				$rootScope.game.level.floorplan = [];
+				$rootScope.game.level.currTile = {};
+				$rootScope.game.inventory = [];
 				$rootScope.saveState();
 				$location.path('/intro/');
 			};
@@ -215,42 +259,70 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			}
 			$scope.message = "";
 			$scope.levelCompleted = false;
-			level = $rootScope.levels[$rootScope.game.currentLevel];
+			level = $rootScope.levels[$rootScope.game.level.id];
 
-			$scope.floorplan = [];
-			_.each(level.floorplan, function(row, x) {
-				_.each(row, function(tile, y) {
-					item = _.findWhere(level.items, {row: x, col: y});
+			if (!$rootScope.game.level.floorplan.length) {
 
-					$scope.floorplan.push({
-						"id": ind++,
-						"class": item ? item.class : tile,
-						"collectable": item ? item.collectable : false,
-						"row": x,
-						"col": y,
-						"data": item && item.data ? item.data : null
+				$rootScope.game.level.floorplan = [];
+				_.each(level.floorplan, function (row, x) {
+					_.each(row, function (tile, y) {
+						item = _.findWhere(level.items, {row: x, col: y});
+
+						$rootScope.game.level.floorplan.push({
+							"id": ind++,
+							"class": item ? item.class : tile,
+							"collectable": item ? item.collectable : false,
+							"row": x,
+							"col": y,
+							"data": item && item.data ? item.data : null
+						});
+						if (tile == "blob") {
+							$rootScope.game.level.currTile = $rootScope.game.level.floorplan[$rootScope.game.level.floorplan.length - 1];
+						}
 					});
-					if (item && item.class == "blob") {
-						$rootScope.currTile = $scope.floorplan[$scope.floorplan.length - 1];
-					}
 				});
-			});
+			}
 
-			$scope.continueGame = function() {
+			$scope.closePopupDialog = function() {
+				$rootScope.toggleDialogFocus(false);
 				$scope.message = "";
+				$scope.isBook = false;
 				if ($scope.levelCompleted) {
-					$rootScope.game.currentLevel += 1;
+					$rootScope.game.inventory = [];
+					$rootScope.game.level.id += 1;
+					$rootScope.game.level.floorplan = [];
+					$rootScope.game.level.currTile = {};
 					$rootScope.saveState();
 					$route.reload();
 				} else {
+					if ($scope.isChest) {
+						$rootScope.game.inventory.push({
+							id: $scope.nextTile.id,
+							class: "tile " + $scope.nextTile.data.treasure.class
+						});
+						$scope.isChest = false;
+					}
 					$(".map").focus();
 				}
 			};
 
+			$scope.dialogKeyDownHandler = function(event) {
+				if (event.keyCode == 27) {
+					$scope.closePopupDialog();
+				}
+			};
+
+            $scope.tileClickHandler = function($event, tile) {
+                if (tile.class == "bubble") {
+                    tile.class="green";
+                    $rootScope.playSound("pop")
+                }
+            };
+
 			$scope.mapKeyDownHandler = function(event) {
 				var row, col;
-				row = $rootScope.currTile.row;
-				col = $rootScope.currTile.col;
+				row = $rootScope.game.level.currTile.row;
+				col = $rootScope.game.level.currTile.col;
 				switch (event.keyCode) {
 					case 37: // left
 						takeAction(row, --col);
@@ -268,6 +340,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						//console.log(event.keyCode)
 						break;
 				}
+				$rootScope.saveState();
 			};
 
 			$scope.$on('$viewContentLoaded', function(){
@@ -280,57 +353,75 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 		}
 
 		function takeAction(row, col) {
-			var ind, nextTile, shakingClass, inventoryItem;
-			ind = _.findWhere($scope.floorplan, {row: row, col: col}).id;
-			nextTile = $scope.floorplan[ind];
+			var ind, shakingClass, inventoryItem;
+			ind = _.findWhere($rootScope.game.level.floorplan, {row: row, col: col}).id;
+			$scope.nextTile = $rootScope.game.level.floorplan[ind];
 
-			if (nextTile.class == "green") {
-				moveBlob(nextTile);
-			} else if (nextTile.class == "exit") {
+			if ($scope.nextTile.class == "green") {
+				moveBlob($scope.nextTile);
+			} else if ($scope.nextTile.class == "exit") {
 				$scope.message = level.lesson;
+				$rootScope.toggleDialogFocus(true);
 				$scope.levelCompleted = true;
 				$rootScope.playSound("exit", {volume: 1});
-				moveBlob(nextTile);
-			} else if (nextTile.class == "secret") {
-				if(nextTile.data.attempts > 1) {
-					nextTile.data.attempts--;
+				moveBlob($scope.nextTile);
+			} else if ($scope.nextTile.class == "secret") {
+				if($scope.nextTile.data.attempts > 1) {
+					$scope.nextTile.data.attempts--;
 					$rootScope.playSound("hit_wall");
-					nextTile.class = "secret shaking";
-					$timeout( function () { nextTile.class = "secret"; }, 100 );
+					$scope.nextTile.class = "secret shaking";
+					$timeout( function () { $scope.nextTile.class = "secret"; }, 100 );
 				} else {
-					nextTile.class = nextTile.data.treasure.class;
-					nextTile.collectable = nextTile.data.treasure.collectable;
+					$scope.nextTile.class = $scope.nextTile.data.treasure.class;
+					$scope.nextTile.collectable = $scope.nextTile.data.treasure.collectable;
 					$rootScope.playSound("explosion");
 				}
-			} else if (nextTile.class == "book") { 
-				$scope.message = nextTile.data.content;
-			} else if (nextTile.class == "door") { 
-				if (nextTile.data.key >= 0) {
-					inventoryItem = _.findWhere($rootScope.inventory, { "id": nextTile.data.key });
+			} else if ($scope.nextTile.class == "book") {
+				$scope.isBook = true;
+				$scope.message = $scope.nextTile.data.content;
+				$rootScope.toggleDialogFocus(true);
+			} else if ($scope.nextTile.class == "door") {
+				if ($scope.nextTile.data.key >= 0) {
+					inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.key });
 					if ( inventoryItem ) {
-						$rootScope.inventory = _.without($rootScope.inventory, inventoryItem);
-						nextTile.class = "green";
+						//$rootScope.game.inventory = _.without($rootScope.game.inventory, inventoryItem);
+						$scope.nextTile.class = "green";
 						$rootScope.playSound("success");
 					} else {
-						$rootScope.playSound("error");
+						$rootScope.playSound("hit_wall");
 					}
-				} else if (nextTile.data.puzzle >= 0) {
-					
+				} else if ($scope.nextTile.data.puzzle >= 0) {
+
 				}
-			} else if (nextTile.collectable) {
-				$rootScope.inventory.push({
-					id: nextTile.id,
-					class: "tile " + nextTile.class
+			} else if ($scope.nextTile.class == "chest") {
+				inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.key });
+				if ( inventoryItem ) {
+					//$rootScope.game.inventory = _.without($rootScope.game.inventory, inventoryItem);
+					$scope.nextTile.class = "chest unlocked";
+					$scope.message = "<div class='treasure " + $scope.nextTile.data.treasure.class + "'></div><p>You collected " + $scope.nextTile.data.treasure.name + "</p>";
+					$scope.isChest = true;
+					$rootScope.toggleDialogFocus(true);
+					$rootScope.playSound("success");
+				} else {
+					$rootScope.playSound("hit_wall");
+				}
+			} else if ($scope.nextTile.collectable) {
+				console.log($scope.nextTile.id);
+				$rootScope.game.inventory.push({
+					id: $scope.nextTile.id,
+					class: "tile " + $scope.nextTile.class
 				});
 				$rootScope.playSound("get_item");
-				moveBlob(nextTile);
+				moveBlob($scope.nextTile);
 			}
 		}
 
 		function moveBlob(nextTile) {
+			var currTile = _.findWhere($rootScope.game.level.floorplan, {"id": $rootScope.game.level.currTile.id});
+			currTile.class = "green";
+			currTile.collectible = false;
 			nextTile.class = "blob";
-			$rootScope.currTile.class = "green";
-			$rootScope.currTile = nextTile;
+			$rootScope.game.level.currTile = nextTile;
 		}
 	}
 ]);

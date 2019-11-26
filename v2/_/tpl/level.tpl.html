@@ -4,20 +4,20 @@
 			<button ng-click="openMenu()"><span class="icon-menu"></span></button>
 			<button ng-click="toggleAmbientSound($event)" ng-class="{ 'pressed' : game.settings.sound }"><span ng-class="game.settings.sound ? 'icon-volume-2' : 'icon-volume-x' "></span></button>
 		</div>
-		<div class="inventory" tabindex="2">
-			<div ng-repeat="item in inventory track by item.id" ng-class="item.class"></div>
+		<div class="inventory">
+			<div ng-repeat="item in game.inventory track by item.id" ng-class="item.class"></div>
 		</div>
 	</div>
 	<div class="content">
 		<div class="map" tabindex="1" ng-keydown="mapKeyDownHandler($event)">
-			<div class="tile" ng-repeat="tile in floorplan" ng-class="tile.class"></div>
+			<div class="tile" ng-repeat="tile in game.level.floorplan" ng-class="tile.class" ng-click="tileClickHandler($event, tile)"></div>
 		</div>
 		<div class="overlay" ng-show="message.length">
-			<div ng-class="{'dialog' : true, 'book' : isBook, 'chest' : isChest}">
-				<div ng-bind-html="message"></div>
-				<div class="footer">
-					<button ng-click="continueGame()" tabindex="1">Continue</button>
-				</div>
+			<div ng-class="{'dialog' : true, 'book' : isBook, 'chest' : isChest}" tabindex="0" ng-keydown="dialogKeyDownHandler($event)">
+				<div class="message" ng-bind-html="message"></div>
+				<!--<div class="footer">
+					<button ng-click="closePopupDialog()">Close</button>
+				</div>-->
 			</div>
 		</div>
 	</div>

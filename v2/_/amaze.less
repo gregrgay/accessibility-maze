@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@import url("https://fonts.googleapis.com/css?family=Oswald&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Oswald|Shadows+Into+Light+Two&display=swap");
 
 @primary: #fb0;
 @secondary: #2cf;
@@ -203,6 +203,59 @@ p {
 			padding-bottom: 0;
 			font-size: inherit;
 		}
+		&.book {
+			width: 95%;
+			height: 95%;
+			background: transparent url(img/book/book_bg.png) no-repeat center top;
+			background-size: contain;
+			.border-radius(0);
+			color: #654;
+			text-shadow: none;
+			
+			.message {
+				height: 100%;
+			}
+			.columns {
+				box-sizing: border-box;
+				height: 85%;
+				margin: 2em;
+				-webkit-columns: 15em 2;
+				-moz-columns: 15em 2;
+				columns: 15em 2;
+				-webkit-column-gap: 4em;
+				-moz-column-gap: 4em;
+				column-gap: 4em;
+				-moz-column-fill: auto;
+				column-fill: auto;
+				font-family: "Shadows Into Light Two";
+				font-size: .7em;
+			}
+			img {
+				width: 100%;
+				height: auto;
+			}
+			.footer {
+				position: absolute;
+			}
+		}
+		&.chest {
+			width: 18em;
+			text-align: center;
+			
+			.treasure {
+				width: 8em;
+				height: 8em;
+				margin: 0 auto;
+				background-size: cover;
+				
+				&.panel_01 {
+					background-image: url("img/chest/panel_large.png");
+				}
+				&.nitrogen {
+					background-image: url("img/chest/nitrogen_large.png");
+				}
+			}
+		}
 	}
 }
 .tile {
@@ -230,15 +283,15 @@ p {
 	&.chest {
 		background-image: url("img/tiles/chest.png");
 		
-		&.open {
+		&.unlocked {
 			background-image: url("img/tiles/chest_open.png");
 		}
 	}
 	&.panel_01 {
-		background-image: url("img/tiles/panel_01.png");
+		background-image: url("img/chest/panel_small.png");
 	}
 	&.nitrogen {
-		background-image: url("img/tiles/nitrogen.png");
+		background-image: url("img/chest/nitrogen_small.png");
 	}
 	&.key {
 		background-image: url("img/tiles/key.png");
@@ -393,7 +446,7 @@ button {
 		transform: translate3d(0, 0, 0) rotate(90deg);
 	}
 	30% {
-		transform: translate3d(0,-0.3em, 0) rotate(90deg);
+		transform: translate3d(0,0.3em, 0) rotate(90deg);
 	}
 	100% {
 		transform: translate3d(0, 0, 0) rotate(90deg);

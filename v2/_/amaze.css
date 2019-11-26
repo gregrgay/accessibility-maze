@@ -6,6 +6,13 @@
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/oswald/v29/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYA.ttf) format('truetype');
 }
+@font-face {
+  font-family: 'Shadows Into Light Two';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Shadows Into Light Two'), local('ShadowsIntoLightTwo-Regular'), url(https://fonts.gstatic.com/s/shadowsintolighttwo/v7/4iC86LVlZsRSjQhpWGedwyOoW-0A6_kpsyNmpAzHHA.ttf) format('truetype');
+}
 html,
 body {
   height: 100vh;
@@ -195,6 +202,58 @@ p {
   padding-bottom: 0;
   font-size: inherit;
 }
+.overlay .dialog.book {
+  width: 95%;
+  height: 95%;
+  background: transparent url(img/book/book_bg.png) no-repeat center top;
+  background-size: contain;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  color: #654;
+  text-shadow: none;
+}
+.overlay .dialog.book .message {
+  height: 100%;
+}
+.overlay .dialog.book .columns {
+  box-sizing: border-box;
+  height: 85%;
+  margin: 2em;
+  -webkit-columns: 15em 2;
+  -moz-columns: 15em 2;
+  columns: 15em 2;
+  -webkit-column-gap: 4em;
+  -moz-column-gap: 4em;
+  column-gap: 4em;
+  -moz-column-fill: auto;
+  column-fill: auto;
+  font-family: "Shadows Into Light Two";
+  font-size: 0.7em;
+}
+.overlay .dialog.book img {
+  width: 100%;
+  height: auto;
+}
+.overlay .dialog.book .footer {
+  position: absolute;
+}
+.overlay .dialog.chest {
+  width: 18em;
+  text-align: center;
+}
+.overlay .dialog.chest .treasure {
+  width: 8em;
+  height: 8em;
+  margin: 0 auto;
+  background-size: cover;
+}
+.overlay .dialog.chest .treasure.panel_01 {
+  background-image: url("img/chest/panel_large.png");
+}
+.overlay .dialog.chest .treasure.nitrogen {
+  background-image: url("img/chest/nitrogen_large.png");
+}
 .tile {
   width: 9vh;
   height: 9vh;
@@ -220,14 +279,14 @@ p {
 .tile.chest {
   background-image: url("img/tiles/chest.png");
 }
-.tile.chest.open {
+.tile.chest.unlocked {
   background-image: url("img/tiles/chest_open.png");
 }
 .tile.panel_01 {
-  background-image: url("img/tiles/panel_01.png");
+  background-image: url("img/chest/panel_small.png");
 }
 .tile.nitrogen {
-  background-image: url("img/tiles/nitrogen.png");
+  background-image: url("img/chest/nitrogen_small.png");
 }
 .tile.key {
   background-image: url("img/tiles/key.png");
@@ -355,7 +414,7 @@ button [class*=" icon-"] {
     transform: translate3d(0, 0, 0) rotate(90deg);
   }
   30% {
-    transform: translate3d(0, -0.3em, 0) rotate(90deg);
+    transform: translate3d(0, 0.3em, 0) rotate(90deg);
   }
   100% {
     transform: translate3d(0, 0, 0) rotate(90deg);
