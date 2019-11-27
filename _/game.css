@@ -1,4 +1,11 @@
 @charset "utf-8";
+@font-face {
+  font-family: 'Shadows Into Light Two';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Shadows Into Light Two'), local('ShadowsIntoLightTwo-Regular'), url(https://fonts.gstatic.com/s/shadowsintolighttwo/v7/4iC86LVlZsRSjQhpWGedwyOoW-0A6_kpsyNmpAzHHA.ttf) format('truetype');
+}
 html {
   height: 100%;
   margin: 0;
@@ -125,6 +132,7 @@ main .map .row > * {
 .overlay .dialog.book {
   width: 95%;
   height: 95%;
+  font-family: 'Shadows Into Light Two', sans-serif;
   background: transparent url(img/book_bg.png) no-repeat center top;
   background-size: contain;
   -webkit-border-radius: 0;
@@ -144,6 +152,9 @@ main .map .row > * {
   column-gap: 4em;
   -moz-column-fill: auto;
   column-fill: auto;
+}
+.overlay .dialog.book .column_break_after {
+  break-after: column;
 }
 .overlay .dialog.book img {
   width: 100%;
@@ -327,8 +338,10 @@ main .map .row > * {
 }
 .tile.exit {
   background-image: url(img/exit.png);
-  transform-origin: right;
   animation: bounceright 0.4s infinite;
+}
+.tile.exit.down {
+  animation: bouncedown 0.4s infinite;
 }
 .tile.shaking {
   animation: shake 0.2s 2;
@@ -350,6 +363,13 @@ main .map .row > * {
 }
 .tile.lever.off {
   background-image: url(img/lever_off.png);
+}
+.tile.bubble {
+  background-image: url(img/bubble.png);
+}
+.tile.bubble:hover,
+.tile.bubble.wobble {
+  animation: wobble 0.3s 1;
 }
 .log {
   color: #fff;
@@ -382,6 +402,17 @@ main .map .row > * {
     transform: translate3d(0, 0, 0);
   }
 }
+@keyframes bouncedown {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(90deg);
+  }
+  30% {
+    transform: translate3d(0, -0.3em, 0) rotate(90deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(90deg);
+  }
+}
 @keyframes shake {
   0% {
     transform: rotate(0);
@@ -405,6 +436,20 @@ main .map .row > * {
   }
   100% {
     opacity: 1;
+  }
+}
+@keyframes wobble {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.9, 1.1, 1);
+  }
+  70% {
+    transform: scale3d(1.1, 0.9, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
   }
 }
 /*# sourceMappingURL=game.css.map */

@@ -33,9 +33,9 @@ levels = [
                             <p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p>\
                             <p>I thought leaving the same combination would make it easier to remember:</p>  \
                             <p><img src='_/img/figures/figure1-2.png' alt=''></p> \
-                            <p>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p> \
+                            <p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p> \
                             <p><u>Friday, April 19</u></p>\
-                            <p>As it turns out, marker lines get easily erased, so I asked my colleague, Tom, to create a metal plate with the connecting lines permanently etched on it.</p>\
+                            <p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p>\
                             <p><img src='_/img/figures/figure1-1.png' alt=''></p> \
                             <p>The plate is detachable and can be stored away when not in use.</p>\
                             <p>I hope nobody will mix up the buttons anymore!</p>\
@@ -250,9 +250,13 @@ levels = [
                 dialog: {
                     classname: "exit",
                     html: "<div > \
-                            <h2>Congratulations!</h2>\
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget iaculis sem. Cras leo diam, ornare ut ornare nec, tempus nec ligula. Aenean sed diam non velit gravida efficitur. Nunc aliquam quam at ligula venenatis tristique. Quisque tincidunt in nisi pulvinar pellentesque. Praesent vel porta massa. Curabitur egestas et neque sed dapibus. Praesent condimentum mi ac ligula porttitor, non imperdiet urna semper. Etiam mi orci, finibus sed turpis eget, vehicula feugiat quam. Curabitur sollicitudin aliquam ligula, at porttitor mi efficitur vel.</p> \
-                            <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. Nunc ac cursus leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla id condimentum ligula. Phasellus quis ligula massa. Nullam fringilla orci libero, id ultrices urna consequat eu. Sed imperdiet eget felis sit amet aliquam. Vivamus ac arcu ac lectus pulvinar pulvinar id ut sapien.</p> \
+                            <h2>LESSON 1: Ensure all controls and buttons are labelled</h2>\
+                            <p>You just learned the importance of properly labelling interactive controls, like buttons. \
+                                Please remember that simply placing some text or images next to them is not enough. \
+                                People who use screen readers might not perceive the connection.</p>\
+                            <p>To make those controls accessible, each one of them must be properly associated with a \
+                                corresponding label. Since engraved metal plates don't work well on the Web, you'll need to \
+                                learn special techniques to make those connections.</p> \ \
                         </div> \
                         <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
                     hint: ""
@@ -274,15 +278,22 @@ levels = [
                         playSound("win", 1, 0);
                     },
                     gotoNextLevel: function(event) {
+                        var newUrl;
                         switch (event.keyCode) {
                             case 13:
                             case 32:
                                 currentLevel++;
+                                document.title = "Accessibility Game, Level " + (currentLevel + 1);
                                 buildMap(".map", levels[currentLevel]);
                                 closeDialog();
                                 inventory = [];
                                 updateInventory();
                                 logAction("you moved to the next level");
+                                if (window.history.pushState) {
+                                    urlParams.set("level", currentLevel + 1);
+                                    newUrl = window.location.pathname + "?" + urlParams.toString();
+                                    window.history.pushState({path: newUrl}, '', newUrl);
+                                }
                                 break;
                             default:
                                 event.preventDefault();
@@ -408,9 +419,11 @@ levels = [
                 dialog: {
                     classname: "exit",
                     html: "<div > \
-                            <h2>Congratulations!</h2>\
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget iaculis sem. Cras leo diam, ornare ut ornare nec, tempus nec ligula. Aenean sed diam non velit gravida efficitur. Nunc aliquam quam at ligula venenatis tristique. Quisque tincidunt in nisi pulvinar pellentesque. Praesent vel porta massa. Curabitur egestas et neque sed dapibus. Praesent condimentum mi ac ligula porttitor, non imperdiet urna semper. Etiam mi orci, finibus sed turpis eget, vehicula feugiat quam. Curabitur sollicitudin aliquam ligula, at porttitor mi efficitur vel.</p> \
-                            <p>Integer aliquam augue nec tortor rhoncus, ultrices gravida tellus cursus. Donec elementum luctus purus quis auctor. Sed tristique dapibus eros, sit amet iaculis nibh mollis nec. Etiam efficitur aliquam felis, sit amet hendrerit metus tempor ut. Phasellus elementum posuere tellus vel luctus. </p> \
+                            <h2>LESSON 2: Fast moving or self-updating content should be easily paused, or slowed down</h2>\
+                            <p>Not everyone can interact with websites or devices at the same speed. Some people with cognitive disabilities, or mobility impairments \
+                            might require more time to complete a task.</p> \
+                            <p>It is important to always provide a way to slow down, or completely stop any moving or self-updating content on the Web. This would include auto-scrolling text, \
+                            automated slide shows and carousels, audio and video content, etc.</p> \
                         </div> \
                         <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
                     hint: ""
@@ -432,15 +445,22 @@ levels = [
                         playSound("win", 1, 0);
                     },
                     gotoNextLevel: function(event) {
+                        var newUrl;
                         switch (event.keyCode) {
                             case 13:
                             case 32:
                                 currentLevel++;
+                                document.title = "Accessibility Game, Level " + (currentLevel + 1);
                                 buildMap(".map", levels[currentLevel]);
                                 closeDialog();
                                 inventory = [];
                                 updateInventory();
                                 logAction("you moved to the next level");
+                                if (window.history.pushState) {
+                                    urlParams.set("level", currentLevel + 1);
+                                    newUrl = window.location.pathname + "?" + urlParams.toString();
+                                    window.history.pushState({path: newUrl}, '', newUrl);
+                                }
                                 break;
                             default:
                                 event.preventDefault();
@@ -520,7 +540,7 @@ levels = [
                                     startTimer();
                                 } else {
                                     $switch.addClass("frozen");
-                                    window.switchTimer = window.setTimeout( startTimer, $switch.data("data").timer);
+                                    window.switchTimer = window.setTimeout( startTimer, $switch.data("data").timer * 2);
                                 }
 
                             }
@@ -706,8 +726,13 @@ levels = [
                 dialog: {
                     classname: "book",
                     html: "<div class='columns'> \
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> \
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\
+                            <p><u>Wednesday, May 8</u></p>\
+                            <p>After pestering Tom for two months, I finally persuaded him to create a self-closing mechanism for my cabinet doors.</p> \
+                            <p>Amazing craftsmanship as usual! However, the mechanism is too powerful. It shuts the door before I can take out or put anything in. \
+                            Last night I nearly lost my fingers!</p>\
+                            <p>I don't want to ask Tom to look at it again. He's a nice guy, but it will likely take him another two months to fix it.</p> \
+                            <p>Instead, I came up with this ingenious solution: I'm going to use a freeze spray \
+                            to slow down the mechanism before opening the cabinet!</p>\
                         </div>",
                     hint: ""
                 },
@@ -722,16 +747,281 @@ levels = [
     },
     {
         map: [
-            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["hero", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
-            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"]
+            ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
+            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "wall", "green", "wall"],
+            ["wall", "wall", "wall", "green", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
+            ["wall", "wall", "wall", "green", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall"],
+            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
+            ["wall", "green", "green", "green", "wall", "wall", "bubble", "bubble", "bubble", "bubble", "bubble", "wall"],
+            ["hero", "green", "green", "green", "wall", "wall", "bubble", "bubble", "green", "bubble", "bubble", "wall"],
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall"]
         ],
-        items: []
+        items: [
+            {
+                id: 1,
+                type: "book",
+                info: " a book",
+                classname: "book",
+                pos: {
+                    row: 1,
+                    col: 3
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "book",
+                    html: "<div class='columns'> \
+                            <p><u>Tuesday, June 4</u></p>\
+                            <p>This morning I tired to open Tom's particle skimmer holding a molten core specimen with my both hands. \
+                                After 10 minutes of futile attempts I was ready to stuff that piece of core up his... </p>\
+                            <p class='column_break_after'>Well, Tom is a nice guy and a brilliant engineer, but his attitude sometimes drives me crazy! \
+                                How many times I have to tell him, that all those machines and devices that he creates for me have to be easily \
+                                operated not just by hands, but also by something else, like a foot, an elbow... a long stick, for pity's sake! </p>\
+                            <p><u>Wednesday, June 5</u></p>\
+                            <p>I think I need to teach Tom a lesson and I might just know how! For the last couple of months I have been experimenting \
+                            with a new insulation material. It is extremely strong and can only be pierced by something sharp and pointy, like an arrow.</p>\
+                            <p>I filled the entire room next to the exit with air balloons made of that thing.\
+                            I'd like to see him try and make his way to the exit using his bare hands!</p>\
+                        </div>",
+                    hint: ""
+                },
+                data: {
+
+                },
+                actions: {
+
+                }
+            },
+            {
+                id: 2,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 1,
+                    col: 9
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "green",
+                        info: "",
+                        classname: "green"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 3,
+                type: "item",
+                info: " a yellow gem stone",
+                classname: "gem yellow",
+                pos: {
+                    row: 1,
+                    col: 10
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 4,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 2,
+                    col: 10
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "item",
+                        info: " a gem",
+                        classname: "gem blue"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 5,
+                type: "secret",
+                info: " a secret",
+                classname: "secret",
+                pos: {
+                    row: 2,
+                    col: 2
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {
+                    hidden: {
+                        type: "green",
+                        info: "",
+                        classname: "green"
+                    }
+                },
+                actions: {}
+            },
+            {
+                id: 6,
+                type: "item",
+                info: " a pink gem stone",
+                classname: "gem pink",
+                pos: {
+                    row: 5,
+                    col: 1
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 7,
+                type: "item",
+                info: " a key",
+                classname: "key",
+                pos: {
+                    row: 2,
+                    col: 1
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "",
+                    html: "",
+                    hint: ""
+                },
+                data: {},
+                actions: {}
+            },
+            {
+                id: 8,
+                type: "door",
+                info: " a closed door",
+                classname: "door",
+                pos: {
+                    row: 4,
+                    col: 7
+                },
+                requires: [7],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "puzzle_02",
+                    html: "<p>You need a golden key to open this door.</p>",
+                    hint: ""
+                },
+                data: {},
+                actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() { $dlg.find("[tabindex=0]:visible:eq(0)").focus(); }, 300 );
+                    }
+                }
+            },
+            {
+                id: 10,
+                type: "exit",
+                info: " the exit",
+                classname: "exit down",
+                pos: {
+                    row: 8,
+                    col: 8
+                },
+                requires: [],
+                unlocked: false,
+                solved: false,
+                dialog: {
+                    classname: "exit",
+                    html: "<div > \
+                            <h2>LESSON 3: Do not rely on one input device only.</h2>\
+                            <p>All web content must be operable regardless of the input device used. That means that if users can expand an accordion or \
+                                select a date from a popup calendar with a mouse, they should be able to do exactly the same with a keyboard, \
+                                joystick, or any other input device.</p> \
+                        </div> \
+                        <div><button onkeydown='currentPuzzle.actions.gotoNextLevel(event)' tabindex='0'>Next Level</button></div>",
+                    hint: ""
+                },
+                data: {},
+                actions: {
+                    onReady: function($dlg) {
+                        setTimeout( function() {
+                            $dlg.find("[tabindex=0]:visible:eq(0)").focus();
+                            $dlg.off("keydown.game").on("keydown.game", function(event) {
+                                switch(event.keyCode) {
+                                    case 27: // escape
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        break;
+                                }
+                            });
+                        }, 300 );
+                        playSound("win", 1, 0);
+                    },
+                    gotoNextLevel: function(event) {
+                        var newUrl = "";
+                        switch (event.keyCode) {
+                            case 13:
+                            case 32:
+                                currentLevel = 0;
+                                document.title = "Accessibility Game, Level " + (currentLevel + 1);
+                                buildMap(".map", levels[currentLevel]);
+                                closeDialog();
+                                inventory = [];
+                                updateInventory();
+                                logAction("you moved to the next level");
+                                if (window.history.pushState) {
+                                    urlParams.set("level", currentLevel + 1);
+                                    newUrl = window.location.pathname + "?" + urlParams.toString();
+                                    console.log(newUrl);
+                                    window.history.pushState({path: newUrl}, '', newUrl);
+                                }
+                                break;
+                            default:
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                        }
+                    }
+                }
+            }
+        ]
     }
 ];

@@ -1,4 +1,5 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two&display=swap');
 
 @tilesize: 8vh;
 
@@ -134,6 +135,7 @@ main {
 		&.book {
 			width: 95%;
 			height: 95%;
+			font-family: 'Shadows Into Light Two', sans-serif;
 			background: transparent url(img/book_bg.png) no-repeat center top;
 			background-size: contain;
 			.border-radius(0);
@@ -152,6 +154,9 @@ main {
 				-moz-column-fill: auto;
 				column-fill: auto;
 			}
+			.column_break_after {
+				break-after: column;
+			}
 			img {
 				width: 100%;
 				height: auto;
@@ -166,6 +171,7 @@ main {
 			height: 100%;
 			background: #333 url(img/dialogs/chest_closed.png) no-repeat center top;
 			background-size: contain;
+			background-color: ;
 			border: 1vh solid #9ab;
 			.border-radius(1vh);
 			box-shadow: 0 0 1vh .5vh rgba(0, 0, 0, .5);
@@ -347,8 +353,11 @@ main {
 	}
 	&.exit {
 		background-image: url(img/exit.png);
-		transform-origin: right;
 		animation: bounceright .4s infinite;
+		
+		&.down {
+			animation: bouncedown .4s infinite;
+		}
 	}
 	&.shaking {
 		animation: shake .2s 2;
@@ -370,6 +379,14 @@ main {
 		}
 		&.off {
 			background-image: url(img/lever_off.png);
+		}
+	}
+	&.bubble {
+		background-image: url(img/bubble.png);
+		
+		&:hover,
+		&.wobble {
+			animation: wobble 0.3s 1;
 		}
 	}
 }
@@ -408,6 +425,18 @@ main {
 	}
 }
 
+@keyframes bouncedown {
+	0% {
+		transform: translate3d(0, 0, 0) rotate(90deg);
+	}
+	30% {
+		transform: translate3d(0,-0.3em, 0) rotate(90deg);
+	}
+	100% {
+		transform: translate3d(0, 0, 0) rotate(90deg);
+	}
+}
+
 @keyframes shake {
 	0% {
 		transform: rotate(0);
@@ -435,6 +464,20 @@ main {
 	}
 }
 
+@keyframes wobble {
+	0% {
+		transform: scale3d(1, 1, 1);
+	}
+	30% {
+		transform: scale3d(0.9, 1.1, 1);
+	}
+	70% {
+		transform: scale3d(1.1, 0.9, 1);
+	}
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
+}
 
 
 
