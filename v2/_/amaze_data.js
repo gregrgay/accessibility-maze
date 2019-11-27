@@ -1,9 +1,9 @@
 {
     "gameinfo": {
-	    "about": "",
-	    "howto": "",
-	    "credits": "",
-	    "terms": ""
+	    "about": "<h1>About</h1><div class='message'><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit, felis vel pulvinar feugiat, nisi diam rutrum nisi, finibus ullamcorper lacus augue at erat.</p><p>Nam neque nisi, bibendum vitae velit in, tincidunt cursus nibh. Vivamus pellentesque leo sit amet odio sollicitudin faucibus. Mauris non ex purus. Aliquam facilisis mauris erat, a feugiat dui vulputate quis. Nam eget magna vel elit hendrerit lacinia sed quis mi.</p><p>Cras sem ligula, iaculis tincidunt dignissim sed, vulputate id ipsum. Duis sagittis metus non auctor accumsan.</p></div>",
+	    "howto": "<h1>How to Play</h1><div class='message'><p>Under construction...</p></div>",
+	    "contacts": "<h1>Contact Us</h1><div class='message'><p>Under construction...</p></div>",
+	    "terms": "<h1>Terms of Use</h1><div class='message'><p>Under construction...</p></div>"
     },
     "intro": [
         {
@@ -97,7 +97,7 @@
                     "row": 3,
                     "col": 2,
                     "data": {
-                        "key": 85,
+                        "requires": 85,
                         "treasure": {
                             "class": "panel_01",
                             "name": "engraved metal plate"
@@ -180,7 +180,7 @@
                     "row": 5,
                     "col": 4,
                     "data": {
-                        "key": 92,
+                        "requires": 92,
                         "treasure": {
                             "class": "nitrogen",
                             "name": "can of freeze spray"
@@ -193,7 +193,20 @@
                     "row": 1,
                     "col": 10,
                     "data": {
-
+                        "controls": 93,
+                        "requires": 64,
+                        "timeout": 3000
+                    }
+                },
+                {
+                    "class": "door",
+                    "collectable": false,
+                    "row": 7,
+                    "col": 9,
+                    "data": {
+                        "locked": true,
+                        "requires": -1,
+                        "puzzle": null
                     }
                 }
             ],
@@ -247,8 +260,8 @@
                     "col": 7,
                     "data": {
                         "locked": true,
-	                    "key": 25,
-		                "puzzle": -1
+	                    "requires": 25,
+		                "puzzle": null
 		            }
                 },
                 {
@@ -292,7 +305,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>Lesson 2</h1>"
+            "lesson": "<h1>Lesson 3: Do not rely on one input device only.</h1><p>All web content must be operable regardless of the input device used. That means that if users can open a website navigation menu or select a date from a popup calendar with a mouse, they should be able to do exactly the same with a keyboard, joystick, or any other input device.</p>"
         }
     ]
 }

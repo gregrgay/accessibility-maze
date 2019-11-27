@@ -28,7 +28,6 @@ body {
   background-position: center center;
   background-size: cover;
   color: #fff;
-  text-shadow: 0 2px 3px #000;
 }
 *,
 *::before,
@@ -64,6 +63,26 @@ p {
 .container.menu button {
   min-width: 10em;
 }
+.container.gameinfo .content {
+  position: relative;
+  width: 30em;
+  max-width: 90%;
+  padding: 1.5em 2em;
+  font-size: 3vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+}
+.container.gameinfo .content .message {
+  max-height: 40vh;
+  margin: 0.5em 0;
+  overflow-y: auto;
+}
+.container.gameinfo .content .footer {
+  position: relative;
+  padding-bottom: 0;
+}
 .container.intro {
   background-position: center bottom;
   background-size: cover;
@@ -96,12 +115,28 @@ p {
   height: auto;
   margin-bottom: 0;
 }
+.container.summary .content {
+  width: 20em;
+  max-width: 90%;
+  padding: 1.5em 2em;
+  background-color: rgba(0, 0, 0, 0.75);
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+}
+.container.summary .content .footer {
+  position: relative;
+  padding-bottom: 0;
+}
 .content {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   margin-bottom: 3em;
+}
+.content .main {
+  width: 100%;
 }
 .footer {
   position: absolute;
@@ -111,6 +146,15 @@ p {
   padding: 1em;
   font-size: 0.7em;
   text-align: center;
+  text-shadow: 0 2px 3px #000;
+}
+.footer a {
+  color: #fb0;
+  text-decoration: none;
+}
+.footer a:hover,
+.footer a:focus {
+  color: #fff;
 }
 .topbar {
   width: 109vh;
@@ -186,13 +230,16 @@ p {
   width: 28em;
   padding: 1.5em 2em;
   font-size: 3vh;
-  background-color: rgba(0, 0, 0, 0.75);
-  -webkit-border-radius: 0.5em;
-  -moz-border-radius: 0.5em;
-  border-radius: 0.5em;
+  background-color: #ffc;
+  color: #000;
+  border: 0.1em solid #000;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
 }
 .overlay .dialog h1 {
   font-size: 1.4em;
+  color: #643;
 }
 .overlay .dialog p {
   margin: 0.8em 0;
@@ -207,10 +254,8 @@ p {
   height: 95%;
   background: transparent url(img/book/book_bg.png) no-repeat center top;
   background-size: contain;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  color: #654;
+  color: #643;
+  border: none;
   text-shadow: none;
 }
 .overlay .dialog.book .message {
@@ -235,12 +280,19 @@ p {
   width: 100%;
   height: auto;
 }
+.overlay .dialog.book .column_break_after {
+  break-after: column;
+}
 .overlay .dialog.book .footer {
   position: absolute;
 }
 .overlay .dialog.chest {
   width: 18em;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border: none;
+  text-shadow: 0 2px 3px #000;
 }
 .overlay .dialog.chest .treasure {
   width: 8em;
@@ -310,14 +362,14 @@ p {
 .tile.gem.yellow {
   background-image: url("img/tiles/gem_yellow.png");
 }
-.tile.lever {
+.tile.switch {
+  background-image: url("img/tiles/lever_off.png");
+}
+.tile.switch.on {
   background-image: url("img/tiles/lever_on.png");
 }
-.tile.lever.frozen {
+.tile.switch.on.frozen {
   background-image: url("img/tiles/lever_on_frozen.png");
-}
-.tile.lever.off {
-  background-image: url("img/tiles/lever_off.png");
 }
 .tile.bubble {
   background-image: url("img/tiles/bubble.png");
@@ -325,6 +377,9 @@ p {
 .tile.bubble:hover,
 .tile.bubble.wobble {
   animation: wobble 0.3s 1;
+}
+.blink_three {
+  animation: 0.4s blink 2;
 }
 button {
   margin: 5px;

@@ -32,7 +32,6 @@ body {
 	background-position: center center;
 	background-size: cover;
 	color: #fff;
-	text-shadow: 0 2px 3px #000;
 }
 *, *::before, *::after {
 	margin-top: 0;
@@ -70,6 +69,27 @@ p {
 			min-width: 10em;
 		}
 	}
+	&.gameinfo {
+		.content {
+			position: relative;
+			width: 30em;
+			max-width: 90%;
+			padding: 1.5em 2em;
+			font-size: 3vh;
+			background-color: rgba(0, 0, 0, 0.75);
+			.border-radius();
+			
+			.message {
+				max-height: 40vh;
+				margin: .5em 0;
+				overflow-y: auto;
+			}
+			.footer {
+				position: relative;
+				padding-bottom: 0;
+			}
+		}
+	}
 	&.intro {
 		background-position: center bottom;
 		background-size: cover;
@@ -101,6 +121,20 @@ p {
 			margin-bottom: 0;
 		}
 	}
+	&.summary {
+		.content {
+			width: 20em;
+			max-width: 90%;
+			padding: 1.5em 2em;
+			background-color: rgba(0, 0, 0, 0.75);
+			.border-radius();
+			
+			.footer {
+				position: relative;
+				padding-bottom: 0;
+			}
+		}
+	}
 }
 .content {
 	display: flex;
@@ -108,6 +142,10 @@ p {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 3em;
+	
+	.main {
+		width: 100%;
+	}
 }
 .footer {
 	position: absolute;
@@ -117,6 +155,17 @@ p {
 	padding: 1em;
 	font-size: .7em;
 	text-align: center;
+	text-shadow: 0 2px 3px #000;
+	
+	a {
+		color: @primary;
+		text-decoration: none;
+		
+		&:hover,
+		&:focus {
+			color: #fff;
+		}
+	}
 }
 .topbar {
 	width: @tilesize * 12 + 1;
@@ -189,11 +238,14 @@ p {
 		width: 28em;
 		padding: 1.5em 2em;
 		font-size: 3vh;
-		background-color: rgba(0,0,0,.75);
-		.border-radius(.5em);
+		background-color: #ffc;
+		color: #000;
+		border: .1em solid #000;
+		.border-radius(.2em);
 		
 		h1 {
 			font-size: 1.4em;
+			color: #643;
 		}
 		p {
 			margin: .8em 0;
@@ -208,8 +260,8 @@ p {
 			height: 95%;
 			background: transparent url(img/book/book_bg.png) no-repeat center top;
 			background-size: contain;
-			.border-radius(0);
-			color: #654;
+			color: #643;
+			border: none;
 			text-shadow: none;
 			
 			.message {
@@ -234,6 +286,9 @@ p {
 				width: 100%;
 				height: auto;
 			}
+			.column_break_after {
+				break-after: column;
+			}
 			.footer {
 				position: absolute;
 			}
@@ -241,6 +296,10 @@ p {
 		&.chest {
 			width: 18em;
 			text-align: center;
+			background-color: rgba(0,0,0,.75);
+			color: #fff;
+			border: none;
+			text-shadow: 0 2px 3px #000;
 			
 			.treasure {
 				width: 8em;
@@ -316,14 +375,15 @@ p {
 	&.gem.yellow {
 		background-image: url("img/tiles/gem_yellow.png");
 	}
-	&.lever {
-		background-image: url("img/tiles/lever_on.png");
+	&.switch {
+		background-image: url("img/tiles/lever_off.png");
 		
-		&.frozen {
-			background-image: url("img/tiles/lever_on_frozen.png");
-		}
-		&.off {
-			background-image: url("img/tiles/lever_off.png");
+		&.on {
+			background-image: url("img/tiles/lever_on.png");
+			
+			&.frozen {
+				background-image: url("img/tiles/lever_on_frozen.png");
+			}
 		}
 	}
 	&.bubble {
@@ -334,6 +394,10 @@ p {
 			animation: wobble 0.3s 1;
 		}
 	}
+}
+
+.blink_three {
+	animation: .4s blink 2;
 }
 
 button {
