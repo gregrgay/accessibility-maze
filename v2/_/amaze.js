@@ -86,7 +86,8 @@ app.config(['$routeProvider', '$locationProvider',
 				{id:"exit", src:"_/snd/ding.mp3"},
 				{id:"hit_wall", src:"_/snd/wall.mp3"},
 				{id:"explosion", src:"_/snd/explosion.mp3"},
-				{id:"pop", src:"_/snd/pop.mp3"}
+				{id:"pop", src:"_/snd/pop.mp3"},
+				{id:"boing", src:"_/snd/boing.mp3"}
 			];
 
 			_.each($rootScope.gameinfo.images, function(el, ind) {
@@ -107,32 +108,36 @@ app.config(['$routeProvider', '$locationProvider',
 
 		}
 
-		$rootScope.playSound = function(name, props) {
-			var conf;
-			if (window[name]) {
-				window[name].play();
+		$rootScope.playSound = function(name, props, instance) {
+			var conf, inst;
+			if ( instance && $rootScope[instance] ) { 
+				inst = $rootScope[instance];
+				if ( inst.playState != "playSucceeded" ) {
+					inst.play();
+				}
 			} else {
 				conf = new createjs.PlayPropsConfig().set(_.extend({
 					loop: 0,
 					volume: .5
 				}, props));
-				window[name] = createjs.Sound.play(name, conf);
+				$rootScope[instance] = createjs.Sound.play(name, conf);
 			}
 		}
 
-		$rootScope.stopSound = function(name) {
-			if (window[name]) {
-				window[name].stop();
+		$rootScope.stopSound = function(instance) {
+			if ($rootScope[instance]) {
+				$rootScope[instance].stop();
 			}
 		};
 
 		$rootScope.ambientSoundName = "main_theme";
 
 		$rootScope.toggleAmbientSound = function(event) {
+			var instance = "ambientSound";
 			if($rootScope.game.settings.sound) {
-				$rootScope.stopSound($rootScope.ambientSoundName);
+				$rootScope.stopSound(instance);
 			} else {
-				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3});
+				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3}, instance);
 			}
 			$rootScope.game.settings.sound = !$rootScope.game.settings.sound;
 			$rootScope.saveState();
@@ -202,7 +207,7 @@ app.controller('splashCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 	function($rootScope, $scope, $location, $timeout) {
 
-		$rootScope.stopSound($rootScope.ambientSoundName);
+		$rootScope.stopSound("ambientSound");
 
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/');
@@ -247,8 +252,6 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 		
 		var currentSlide = 0;
 
-		$rootScope.stopSound($rootScope.ambientSoundName);
-
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/');
 		} else {
@@ -273,13 +276,11 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 		var level, item, ind = 0;
 
-		$rootScope.stopSound($rootScope.ambientSoundName);
-
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/menu/');
 		} else {
 			if ($rootScope.game.settings.sound) {
-				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3});
+				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3}, "ambientSound");
 			}
 			$scope.message = "";
 			$scope.levelCompleted = false;
@@ -495,6 +496,8 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					case "bubble":
 
 						$scope.nextTile.class = $scope.nextTile.class + " wobble";
+						$rootScope.playSound("boing");
+						
 						$timeout(function(){
 							var nextTile = arguments[0];
 							nextTile.class = "bubble";
