@@ -63,7 +63,8 @@ p {
 .container.menu button {
   min-width: 10em;
 }
-.container.gameinfo .content {
+.container.gameinfo .content,
+.container.summary .content {
   position: relative;
   width: 30em;
   max-width: 90%;
@@ -74,12 +75,14 @@ p {
   -moz-border-radius: 1em;
   border-radius: 1em;
 }
-.container.gameinfo .content .message {
+.container.gameinfo .content .message,
+.container.summary .content .message {
   max-height: 40vh;
   margin: 0.5em 0;
   overflow-y: auto;
 }
-.container.gameinfo .content .footer {
+.container.gameinfo .content .footer,
+.container.summary .content .footer {
   position: relative;
   padding-bottom: 0;
 }
@@ -91,7 +94,7 @@ p {
   position: absolute;
   top: 1em;
   right: 1em;
-  max-width: 20em;
+  max-width: 15em;
   min-height: 3em;
   padding: 1em;
   text-shadow: none;
@@ -114,19 +117,6 @@ p {
   width: auto;
   height: auto;
   margin-bottom: 0;
-}
-.container.summary .content {
-  width: 20em;
-  max-width: 90%;
-  padding: 1.5em 2em;
-  background-color: rgba(0, 0, 0, 0.75);
-  -webkit-border-radius: 1em;
-  -moz-border-radius: 1em;
-  border-radius: 1em;
-}
-.container.summary .content .footer {
-  position: relative;
-  padding-bottom: 0;
 }
 .content {
   display: flex;

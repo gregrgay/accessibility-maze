@@ -19,6 +19,9 @@ app.config(['$routeProvider', '$locationProvider',
 		}).when('/level/', {
 			templateUrl : '_/tpl/level.tpl.html',
 			controller  : 'levelCtrl'
+		}).when('/outro/', {
+			templateUrl : '_/tpl/intro.tpl.html',
+			controller  : 'outroCtrl'
 		}).when('/summary/', {
 			templateUrl : '_/tpl/summary.tpl.html',
 			controller  : 'summaryCtrl'
@@ -62,6 +65,7 @@ app.config(['$routeProvider', '$locationProvider',
 				$rootScope.gameinfo = data.gameinfo;
 				$rootScope.intro = data.intro;
 				$rootScope.levels = data.levels;
+				$rootScope.outro = data.outro;
 				$rootScope.saveState();
 				preloadAssets();
 			})
@@ -87,7 +91,8 @@ app.config(['$routeProvider', '$locationProvider',
 				{id:"hit_wall", src:"_/snd/wall.mp3"},
 				{id:"explosion", src:"_/snd/explosion.mp3"},
 				{id:"pop", src:"_/snd/pop.mp3"},
-				{id:"boing", src:"_/snd/boing.mp3"}
+				{id:"boing", src:"_/snd/boing.mp3"},
+				{id:"win", src:"_/snd/fanfare.mp3"}
 			];
 
 			_.each($rootScope.gameinfo.images, function(el, ind) {
@@ -95,6 +100,9 @@ app.config(['$routeProvider', '$locationProvider',
 			});
 			_.each($rootScope.intro, function(el, ind) {
 				assets.push({id: "intro_" + (++ind), src: el.image});
+			});
+			_.each($rootScope.outro, function(el, ind) {
+				assets.push({id: "outro_" + (++ind), src: el.image});
 			});
 
 			assets = assets.concat(sounds);
@@ -191,8 +199,6 @@ app.config(['$routeProvider', '$locationProvider',
 
 app.controller('splashCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 	function($rootScope, $scope, $location, $timeout) {
-
-		$rootScope.stopSound($rootScope.ambientSoundName);
 
 		$rootScope.assetsLoaded = true;
 		$rootScope.saveState();
@@ -322,7 +328,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						$rootScope.saveState();
 						$route.reload();
 					} else {
-						$location.path("/summary");
+						$location.path("/outro");
 					}
 				} else {
 					if ($scope.isChest) {
@@ -443,6 +449,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						break;
 
 					case "secret":
+
 						if($scope.nextTile.data.attempts > 1) {
 							$scope.nextTile.data.attempts--;
 							$rootScope.playSound("hit_wall");
@@ -490,13 +497,14 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$rootScope.playSound("click");
 							switchTile.class = "switch";
 							doorTile.class = "door blink_three";
+							$timeout(function() { arguments[0].class = "door"; }, 400, true, doorTile);
 						}, switchDelay, true, $scope.nextTile);
 						break;
 
 					case "bubble":
 
 						$scope.nextTile.class = $scope.nextTile.class + " wobble";
-						$rootScope.playSound("boing");
+						$rootScope.playSound("boing", {volume: 1.5});
 						
 						$timeout(function(){
 							var nextTile = arguments[0];
@@ -516,10 +524,37 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 	}
 ]);
 
+app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route',
+	function($rootScope, $scope, $location, $storage, $route) {
+
+		var currentSlide = 0;
+
+		$rootScope.stopSound("ambientSound");
+
+		if (!$rootScope.assetsLoaded) {
+			$location.path('/');
+		} else {
+			$scope.continueGame = function() {
+
+				if(currentSlide < $rootScope.outro.length) {
+					$scope.background = $rootScope.outro[currentSlide].image;
+					$scope.message = $rootScope.outro[currentSlide].content;
+					currentSlide++;
+				} else {
+					$location.path('/summary');
+				}
+			};
+			$scope.continueGame();
+
+		}
+	}
+]);
+
 app.controller('summaryCtrl', ['$rootScope', '$scope', '$location',
 	function($rootScope, $scope, $location) {
 
-		$rootScope.stopSound($rootScope.ambientSoundName);
+		$rootScope.stopSound("ambientSound");
+		$rootScope.playSound("win", {volume: 1});
 		$rootScope.focusElement(".content");
 
 	}

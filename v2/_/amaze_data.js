@@ -217,9 +217,9 @@
             "floorplan": [
                 ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",   "wall",   "wall",      "wall",   "wall",   "wall"],
 	            ["wall", "wall",  "wall",  "green", "green", "green", "green",  "green",  "green",     "green",  "green",  "wall"],
-	            ["wall", "green", "green", "green", "green", "green", "green",  "green",  "green",     "wall",   "green",  "wall"],
+	            ["wall", "green", "green", "green", "green", "green", "green",  "green",  "green",     "wall",   "wall",  "wall"],
 	            ["wall", "wall",  "wall",  "green", "green", "green", "green",  "green",  "green",     "wall",   "wall",   "wall"],
-	            ["wall", "wall",  "wall",  "green", "wall",  "wall",  "wall",   "green",  "wall",      "wall",   "wall",   "wall"],
+	            ["wall", "wall",  "wall",  "green", "wall",  "wall",  "wall",   "green",  "wall",      "wall",   "green",   "wall"],
 	            ["wall", "green", "green", "green", "wall",  "wall",  "bubble", "bubble", "bubble",    "bubble", "bubble", "wall"],
 	            ["wall", "green", "green", "green", "wall",  "wall",  "bubble", "bubble", "bubble",    "bubble", "bubble", "wall"],
 	            ["blob", "green", "green", "green", "wall",  "wall",  "bubble", "bubble", "bubble",    "bubble", "bubble", "wall"],
@@ -293,7 +293,7 @@
                 {
                     "class": "secret",
                     "collectable": false,
-                    "row": 2,
+                    "row": 4,
                     "col": 10,
                     "data": {
                         "attempts": 3,
@@ -307,5 +307,19 @@
             "inventory": [],
             "lesson": "<h1>Lesson 3: Do not rely on one input device only.</h1><p>All web content must be operable regardless of the input device used. That means that if users can open a website navigation menu or select a date from a popup calendar with a mouse, they should be able to do exactly the same with a keyboard, joystick, or any other input device.</p>"
         }
-    ]
+    ],
+    "outro": [
+    {
+        "image": "_/img/intro/outro_01.png",
+        "content": "<p>Finally! The last door is open! Accessibility secrets are ours!</p>"
+    },
+    {
+        "image": "_/img/intro/outro_02.png",
+        "content": "<p>Wow! I would never have thought...</p>"
+    },
+    {
+        "image": "_/img/intro/outro_03.png",
+        "content": ""
+    }
+]
 }
