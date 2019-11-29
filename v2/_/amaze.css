@@ -24,9 +24,6 @@ body {
   font-size: 4vh;
   line-height: 1.2;
   background-color: #000;
-  background-image: url("img/splash_bg.png");
-  background-position: center center;
-  background-size: cover;
   color: #fff;
 }
 *,
@@ -52,9 +49,19 @@ p {
   justify-content: center;
   align-items: center;
 }
+.container.splash {
+  background-image: url("img/splash_bg.png");
+  background-position: center center;
+  background-size: cover;
+}
 .container.splash img {
   height: 50vh;
   width: auto;
+}
+.container.menu {
+  background-image: url("img/splash_bg.png");
+  background-position: center center;
+  background-size: cover;
 }
 .container.menu img {
   width: 9em;
@@ -62,6 +69,12 @@ p {
 }
 .container.menu button {
   min-width: 10em;
+}
+.container.gameinfo,
+.container.summary {
+  background-image: url("img/splash_bg.png");
+  background-position: center center;
+  background-size: cover;
 }
 .container.gameinfo .content,
 .container.summary .content {
@@ -89,12 +102,17 @@ p {
 .container.intro {
   background-position: center bottom;
   background-size: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.container.intro.visible {
+  opacity: 1;
 }
 .container.intro .content {
   position: absolute;
   top: 1em;
   right: 1em;
-  max-width: 15em;
+  max-width: 20em;
   min-height: 3em;
   padding: 1em;
   text-shadow: none;

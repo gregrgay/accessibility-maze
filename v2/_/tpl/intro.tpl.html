@@ -1,4 +1,4 @@
-<div class="container intro" ng-style="{ 'background-image': 'url(' + background + ')'}">
+<div class="container intro" ng-style="{ 'background-image': 'url(' + background + ')'}" ng-class="{'visible': isVisible}">
 	<div class="content" ng-show="message.length">
 		<div id="txtIntro" class="text" ng-bind-html="message" tabindex="0"></div>
 	</div>

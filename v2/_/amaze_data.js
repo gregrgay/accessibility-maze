@@ -8,27 +8,35 @@
     "intro": [
         {
             "image": "_/img/intro/intro_01.png",
-            "content": "<p>One day, I decided to go to the library to work on my accessibility paper.</p>"
+            "content": "<p>For the last 6 months Professor X. and I were doing a research on the misterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, his work was never published and he himself disappeared without a trace. Nobody had heard from him since.</p>"
         },
         {
             "image": "_/img/intro/intro_02.png",
-            "content": "<p>I was walking through the stacks when I saw a piece of a paper. I immediately recognized the writing on it was Professor X’s.</p>"
+            "content": "<p>Last night, Professor X. called to tell me that he had found the secret of the Accessibility Matser's disappearance. I had some other commitments that evening, so I promised to see him next morning.</p>"
         },
         {
             "image": "_/img/intro/intro_03.png",
-            "content": "<p>The paper was a note saying Professor X had discovered a secret labyrinth hidden beneath the library. Prof. X said he had heard this labyrinth leads to an ancient book containing solutions to every accessibility problem imaginable.</p>"
+            "content": "<p>I could hardly sleep that night thinking about the reason for the Professor's call. The excitement I'd heard in Professor's voice raised my curiosity. What in the world had he found?</p>"
         },
         {
             "image": "_/img/intro/intro_04.png",
-            "content": "<p>According to Prof. X, the entrance to the labyrinth lies behind this clock and it opens only when the clock strikes midnight.</p>"
+            "content": "<p>When I got to the library next morning, the Professor was not there yet.</p><p>As I walked through the stacks I saw a note on the floor. I immediately recognized the Professor X’s writing.</p>"
         },
         {
             "image": "_/img/intro/intro_05.png",
-            "content": "<p>But the clock is broken. The hands don’t move. So how did Prof. X open the passageway? Let me try moving the hands myself...</p>"
+            "content": "<p>The note said that the Professor had discovered a secret labyrinth built by the Accessibility Master beneath the library.</p>"
         },
         {
             "image": "_/img/intro/intro_06.png",
-            "content": "<p>It worked! Let’s see what’s inside.</p>"
+            "content": "<p>According to the Professor, the entrance to the labyrinth was hidden behind the old clock, and it uplocked only at mighnight.</p>"
+        },
+        {
+            "image": "_/img/intro/intro_07.png",
+            "content": "<p>But the clock is broken. The hands don't move. So how did the Professor open the passageway? Let me try moving the hands myself...</p>"
+        },
+        {
+            "image": "_/img/intro/intro_08.png",
+            "content": "<p>It worked! Let's see what's inside.</p>"
         }
     ],
     "levels": [

@@ -1,15 +1,15 @@
-<div class="container level">
+<div class="container level" ng-keydown="mapKeyDownHandler($event)">
 	<div class="topbar">
 		<div class="tools">
-			<button ng-click="openMenu()"><span class="icon-menu"></span></button>
-			<button ng-click="toggleAmbientSound($event)" ng-class="{ 'pressed' : game.settings.sound }"><span ng-class="game.settings.sound ? 'icon-volume-2' : 'icon-volume-x' "></span></button>
+			<button ng-click="openMenu($event)" ng-keydown="openMenu($event)"><span class="icon-menu"></span></button>
+			<button ng-click="toggleAmbientSound($event)" ng-keydown="toggleAmbientSound($event)" ng-class="{ 'pressed' : game.settings.sound }"><span ng-class="game.settings.sound ? 'icon-volume-2' : 'icon-volume-x' "></span></button>
 		</div>
 		<div class="inventory">
 			<div ng-repeat="item in game.inventory track by item.id" ng-class="item.class"></div>
 		</div>
 	</div>
 	<div class="content">
-		<div class="map" tabindex="1" ng-keydown="mapKeyDownHandler($event)">
+		<div class="map" tabindex="1">
 			<div class="tile" ng-repeat="tile in game.level.floorplan" ng-class="tile.class" ng-click="tileClickHandler($event, tile)"></div>
 		</div>
 		<div class="overlay" ng-show="message.length">

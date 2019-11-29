@@ -140,15 +140,22 @@ app.config(['$routeProvider', '$locationProvider',
 
 		$rootScope.ambientSoundName = "main_theme";
 
-		$rootScope.toggleAmbientSound = function(event) {
+		$rootScope.toggleAmbientSound = function($event) {
 			var instance = "ambientSound";
-			if($rootScope.game.settings.sound) {
-				$rootScope.stopSound(instance);
-			} else {
-				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3}, instance);
+			$event.preventDefault();
+			$event.stopPropagation();
+
+			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+				if ($rootScope.game.settings.sound) {
+					$rootScope.stopSound(instance);
+				} else {
+					$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3}, instance);
+				}
+				$rootScope.game.settings.sound = !$rootScope.game.settings.sound;
+				$rootScope.saveState();
+			} else if($event.keyCode == 9) {
+				$rootScope.moveFocusOnTab($event);
 			}
-			$rootScope.game.settings.sound = !$rootScope.game.settings.sound;
-			$rootScope.saveState();
 		}
 
 		$rootScope.toggleDialogFocus = function(show) {
@@ -191,8 +198,23 @@ app.config(['$routeProvider', '$locationProvider',
 			}, 300);
 		};
 
-		$rootScope.returnToMenu = function() {
-			$location.path("/menu");
+		$rootScope.openMenu = function($event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+				$location.path("/menu");
+			} else if($event.keyCode == 9) {
+				$rootScope.moveFocusOnTab($event);
+			}
+		};
+
+		$rootScope.moveFocusOnTab = function ($event) {
+			var $focusable, ind, next;
+
+			$focusable = $("button, [tabindex]");
+			ind = $focusable.index($($event.currentTarget));
+			next = ind > $focusable.length - 1 ? 0 : ++ind;
+			$focusable.eq(next).focus();
 		};
 	}
 ]);
@@ -253,21 +275,25 @@ app.controller('gameInfoCtrl', ['$rootScope', '$scope', '$location', '$route',
 	}
 ]);
 
-app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route',
-	function($rootScope, $scope, $location, $storage, $route) { 
-		
-		var currentSlide = 0;
+app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$timeout',
+	function($rootScope, $scope, $location, $timeout) {
 
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/');
 		} else {
+			$scope.currentSlide = 0;
 			$scope.continueGame = function() {
 				
-				if(currentSlide < $rootScope.intro.length) {
-					$scope.background = $rootScope.intro[currentSlide].image;
-					$scope.message = $rootScope.intro[currentSlide].content;
-					currentSlide++;
+				if($scope.currentSlide < $rootScope.intro.length) {
+					$scope.isVisible = false;
+					$timeout( function () {
+						$scope.background = $rootScope.intro[$scope.currentSlide].image;
+						$scope.message = $rootScope.intro[$scope.currentSlide].content;
+						$scope.currentSlide++;
+						$scope.isVisible = true;
+					}, 500, true, $scope);
 				} else {
+					$scope.isVisible = false;
 					$location.path('/level/');
 				}
 			};
@@ -313,6 +339,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					});
 				});
 			}
+			$rootScope.game.level.lesson = level.lesson;
 
 			$scope.closePopupDialog = function() {
 				$rootScope.toggleDialogFocus(false);
@@ -347,7 +374,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			$scope.dialogKeyDownHandler = function(event) {
 				event.preventDefault();
 				event.stopPropagation();
-				if (event.keyCode == 27) {
+				if ( event.keyCode == 13 || event.keyCode == 27 || event.keyCode == 32 ) {
 					$scope.closePopupDialog();
 				}
 			};
@@ -386,10 +413,6 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			$scope.$on('$viewContentLoaded', function(){
 				$(".map").focus();
 			});
-
-			$scope.openMenu = function() {
-				$location.path('/menu');
-			};
 		}
 
 		function takeAction(row, col) {
@@ -524,24 +547,28 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 	}
 ]);
 
-app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route',
-	function($rootScope, $scope, $location, $storage, $route) {
-
-		var currentSlide = 0;
+app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
+	function($rootScope, $scope, $location, $timeout) {
 
 		$rootScope.stopSound("ambientSound");
 
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/');
 		} else {
+			$scope.currentSlide = 0;
 			$scope.continueGame = function() {
-
-				if(currentSlide < $rootScope.outro.length) {
-					$scope.background = $rootScope.outro[currentSlide].image;
-					$scope.message = $rootScope.outro[currentSlide].content;
-					currentSlide++;
+				console.log($scope.isVisible);
+				if($scope.currentSlide < $rootScope.outro.length) {
+					$scope.isVisible = false;
+					$timeout( function () {
+						$scope.background = $rootScope.outro[$scope.currentSlide].image;
+						$scope.message = $rootScope.outro[$scope.currentSlide].content;
+						$scope.currentSlide++;
+						$scope.isVisible = true;
+					}, 500, true, $scope);
 				} else {
-					$location.path('/summary');
+					$scope.isVisible = false;
+					$location.path('/summary/');
 				}
 			};
 			$scope.continueGame();
