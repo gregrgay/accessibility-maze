@@ -9,7 +9,7 @@
     "intro": [
         {
             "image": "_/img/intro/intro_01.png",
-            "content": "<p>Professor X. and I were doing a research on the misterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace. Nobody had heard from him since.</p>"
+            "content": "<p>Professor X. and I were doing a research on the mysterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace. Nobody had heard from him since.</p>"
         },
         {
             "image": "_/img/intro/intro_02.png",
@@ -347,7 +347,7 @@
         },
         {
             "image": "_/img/intro/outro_03.png",
-            "content": "<p>Well, there is no magic that can make the world accessible.</p><p>But there are things you and I can do to get closer to that goal.</p>"
+            "content": "<p>Well, there is no secret magic that can make the world accessible.</p><p>But there are things you and I can do to get closer to that goal.</p>"
         },
         {
             "image": "_/img/intro/outro_03.png",

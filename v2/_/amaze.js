@@ -439,7 +439,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				switch ($scope.nextTile.class) {
 
 					case "green":
-						$rootScope.actionLog = "You moved " + dir;
+						$rootScope.actionLog = "";
 						moveBlob($scope.nextTile);
 						break;
 
@@ -518,10 +518,14 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$rootScope.playSound("hit_wall");
 						}
 						break;
+						
+					case "chest unlocked":
+						$rootScope.actionLog = "You found empty unlocked chest";
+						break;
 
 					case "switch":
 
-						$rootScope.actionLog = "You found a switch";
+						$rootScope.actionLog = "You turned the switch on";
 						$rootScope.playSound("click");
 						inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.requires });
 						controlledItem = $rootScope.game.level.floorplan[ $scope.nextTile.data.controls ];
@@ -539,9 +543,15 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							doorTile = $rootScope.game.level.floorplan[ switchTile.data.controls ];
 							$rootScope.playSound("click");
 							switchTile.class = "switch";
+							$rootScope.actionLog = "The switch is off";
 							doorTile.class = "door blinking";
 							$timeout(function() { arguments[0].class = "door"; }, 1200, true, doorTile);
 						}, switchDelay, true, $scope.nextTile);
+						break;
+						
+					case "switch on":
+					case "switch on frozen":
+						$rootScope.actionLog = "The switch is on";
 						break;
 
 					case "bubble":
@@ -596,6 +606,8 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$scope.locked = true;
 		$scope.error - true;
 		$scope.message = "LOCKED";
+		$scope.nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
+		$scope.inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.requires });
 
 		$scope.puzzle1KeyDownHandler = function(event) {
 			if (event.keyCode == 27) {
@@ -613,7 +625,7 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 						$rootScope.playSound("click");
 					}
 					if (pressedOrder.length == $scope.buttons.length) {
-						validatePuzzle()
+						validatePuzzle();
 					}
 					break;
 				case 37: // left
@@ -634,21 +646,19 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 			}
 		}
 		function validatePuzzle() {
-			var solved = true, nextTile;
+			var solved = true;
 			for(var i = 0, l = pressedOrder.length; i < l; i++) {
-				console.log(pressedOrder[i], correctOrder[i]);
 				if (pressedOrder[i] != correctOrder[i]) {
 					solved = false;
 					break;
 				}
 			}
-			if (solved) {
+			if (solved && $scope.inventoryItem) {
 				$scope.locked = false;
 				$scope.message = "UNLOCKED";
 				$rootScope.playSound("success");
-				nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
-				nextTile.class = "green";
-				nextTile.data.solved = true;
+				$scope.nextTile.class = "green";
+				$scope.nextTile.data.solved = true;
 				$timeout(function(){ $location.path('/level'); }, 1000);
 			} else {
 				_.each($scope.buttons, function(item) { item.pressed = false; })
