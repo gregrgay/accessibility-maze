@@ -40,6 +40,15 @@ p {
 	margin: .3em 0;
 	padding: 0;
 }
+a {
+	color: @primary;
+	text-decoration: none;
+	
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+}
 .view,
 .container {
 	width: 100%;
@@ -136,6 +145,81 @@ p {
 			margin-bottom: 0;
 		}
 	}
+	&.puzzle1 {
+		.content {
+			margin-bottom: 0;
+			border: .2rem solid #666;
+			.border-radius(.2rem);
+			.box-shadow();
+			
+			.main {
+				position: relative;
+				width: 108vh;
+				height: 81vh;
+				background: #333 url(img/puzzle_01.png) no-repeat center top;
+				background-size: contain;
+				border: .05em solid #000;
+			}
+		}
+		.display {
+			position: absolute;
+			top: 9vh;
+			right: 0;
+			width: 38%;
+			padding-right: 14%;
+			font-size: 1.6em;
+			text-align: center;
+			color: red;
+			
+			&.unlocked {
+				color: green;
+			}
+		}
+		.controls {
+			position: absolute;
+			top: 21vh;
+			bottom: 13vh;
+			right: 0;
+			width: 39%;
+			padding: 4vh 0;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: space-between;
+			align-items: flex-start;
+			
+			.togglebutton {
+				width: 6vh;
+				height: 6vh;
+				.border-radius(50%);
+				border: .2em solid #333;
+				background-color: #664;
+				cursor: pointer;
+				box-shadow: inset .2em .2em 0 #fff;
+				
+				&:focus {
+					background-color: #997;
+				}
+				&[aria-pressed=true] {
+					background-color: #ffc;
+					border-color: #fff;
+					box-shadow: 0 0 1em .3em #fff;
+				}
+			}
+		}
+		.panel {
+			//display: none;
+			position: absolute;
+			top: 20.5vh;
+			bottom: 14.5vh;
+			right: 0;
+			width: 31%;
+			
+			img {
+				height: 100%;
+				width: auto;
+			}
+		}
+	}
 }
 .content {
 	display: flex;
@@ -198,6 +282,21 @@ p {
 				[class^="icon-"], [class*=" icon-"] {
 					text-shadow: 0 0 5px #fff, 0 0 15px #fff;
 					color: #fff;
+				}
+			}
+			&[disabled] {
+				[class^="icon-"], [class*=" icon-"] {
+					text-shadow: none;
+					color: rgba(0,0,0,.15);
+				}
+				
+				
+				&:hover,
+				&:focus{
+					[class^="icon-"], [class*=" icon-"] {
+						text-shadow: none;
+						color: inherit;
+					}
 				}
 			}
 		}
@@ -295,11 +394,14 @@ p {
 			}
 		}
 		&.chest {
-			width: 18em;
+			width: auto;
+			padding: 2em;
 			text-align: center;
 			background-color: rgba(0,0,0,.75);
 			color: #fff;
 			border: none;
+			.border-radius(1em);
+		;
 			text-shadow: 0 2px 3px #000;
 			
 			.treasure {
@@ -395,9 +497,12 @@ p {
 			animation: wobble 0.3s 1;
 		}
 	}
+	&.puzzle1 {
+		background-image: url("img/tiles/lock.png");
+	}
 }
 
-.blink_three {
+.blinking {
 	animation: .4s blink 2;
 }
 

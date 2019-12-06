@@ -1,14 +1,15 @@
 {
     "gameinfo": {
-	    "about": "<h1>About</h1><div class='message'><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit, felis vel pulvinar feugiat, nisi diam rutrum nisi, finibus ullamcorper lacus augue at erat.</p><p>Nam neque nisi, bibendum vitae velit in, tincidunt cursus nibh. Vivamus pellentesque leo sit amet odio sollicitudin faucibus. Mauris non ex purus. Aliquam facilisis mauris erat, a feugiat dui vulputate quis. Nam eget magna vel elit hendrerit lacinia sed quis mi.</p><p>Cras sem ligula, iaculis tincidunt dignissim sed, vulputate id ipsum. Duis sagittis metus non auctor accumsan.</p></div>",
-	    "howto": "<h1>How to Play</h1><div class='message'><p>Under construction...</p></div>",
-	    "contacts": "<h1>Contact Us</h1><div class='message'><p>Under construction...</p></div>",
-	    "terms": "<h1>Terms of Use</h1><div class='message'><p>Under construction...</p></div>"
+	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team at The Chang School of Continuing Education, at Ryerson University. Funding is provided by The Chang School, and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility, to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities encounter.</p></div>",
+	    "howto": "<h1>How to Play</h1><div class='message'><p>The goal of the Accessibility Maze is to navigate through the maze, solving puzzles to move between levels, and collecting gems to be exchanged for a reward after completing the game.</p><p>Once in the maze, use your keyboard's arrow keys to move up and down, or left and right, through the squares in the maze.</p><p>Press the arrow keys while next to an object, to activate that object.</p><p>Use the Escape (ESC) key to dismiss any dialog boxes that may open after reading their content.</p><p>Your position in the game is maintained when returning to the menu, so you can continue where you left off in the game by clicking Resume Game. Choosing New Game will start the game over from the beginning.\n</p></div>",
+	    "contacts": "<h1>Contact Us</h1><div class='message'><p>Questions or comments about the game can be directed to <a href='mailto:dehelp@ryerson.ca'>dehelp@ryerson.ca</a>.</p></div>",
+        "accessibility": "<h1>Accessibility</h1><div class='message'><p>Every effort has been made to make the Accessibility Maze accessible to screen readers.</p><p>The background music can be disabled using the Audio button at the top of the maze, once it opens.</p><p>Next to the audio button, is another button that returns the player to the menu on the opening screen of the game.</p><p>Listen for shortcuts during game play, announced byscreen reader.</p></div>",
+	    "terms": "<h1>Terms of Use</h1><div><p>Unless otherwise noted this resource is available for public use under <a href=\"https://creativecommons.org/licenses/by-nc/4.0/\" target=\"postop\">Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a>.</p><p>Under the terms of Creative Commons license, you are free to share and adapt this resource under the following terms: If you share the content from this resource, you must identify the creators of the resource (Centennial College, George Brown College, and Ryerson University) in a reasonable manner. Also, you may not use the material for commercial purposes.</p></div>"
     },
     "intro": [
         {
             "image": "_/img/intro/intro_01.png",
-            "content": "<p>For the last 6 months Professor X. and I were doing a research on the misterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, his work was never published and he himself disappeared without a trace. Nobody had heard from him since.</p>"
+            "content": "<p>Professor X. and I were doing a research on the misterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace. Nobody had heard from him since.</p>"
         },
         {
             "image": "_/img/intro/intro_02.png",
@@ -20,22 +21,26 @@
         },
         {
             "image": "_/img/intro/intro_04.png",
-            "content": "<p>When I got to the library next morning, the Professor was not there yet.</p><p>As I walked through the stacks I saw a note on the floor. I immediately recognized the Professor X’s writing.</p>"
+            "content": "<p>Next morning, I rushed to the library.</p>"
         },
         {
             "image": "_/img/intro/intro_05.png",
-            "content": "<p>The note said that the Professor had discovered a secret labyrinth built by the Accessibility Master beneath the library.</p>"
+            "content": "<p>The Professor X. was not there yet. Suddenly, I saw a note on the floor. I immediately recognized the Professor’s writing.</p>"
         },
         {
             "image": "_/img/intro/intro_06.png",
-            "content": "<p>According to the Professor, the entrance to the labyrinth was hidden behind the old clock, and it uplocked only at mighnight.</p>"
+            "content": "<p>The note said that the Professor had discovered a secret labyrinth built by the Accessibility Master beneath the library.</p>"
         },
         {
             "image": "_/img/intro/intro_07.png",
-            "content": "<p>But the clock is broken. The hands don't move. So how did the Professor open the passageway? Let me try moving the hands myself...</p>"
+            "content": "<p>According to the Professor, the entrance to the labyrinth was hidden behind the old clock, and it uplocked only at mighnight.</p>"
         },
         {
             "image": "_/img/intro/intro_08.png",
+            "content": "<p>But the clock is broken. The hands don't move. So how did the Professor open the passageway? Let me try moving the hands myself...</p>"
+        },
+        {
+            "image": "_/img/intro/intro_09.png",
             "content": "<p>It worked! Let's see what's inside.</p>"
         }
     ],
@@ -63,19 +68,19 @@
                     }
 	            },
                 {
-                    "class": "gem blue",
+                    "class": "blue gem",
                     "collectable": true,
                     "row": 5,
                     "col": 2
                 },
                 {
-                    "class": "gem pink",
+                    "class": "pink gem",
                     "collectable": true,
                     "row": 7,
                     "col": 6
                 },
                 {
-                    "class": "gem yellow",
+                    "class": "yellow gem",
                     "collectable": true,
                     "row": 2,
                     "col": 8
@@ -111,6 +116,17 @@
                             "name": "engraved metal plate"
                         }
                     }
+                },
+                {
+                    "class": "puzzle1",
+                    "collectable": false,
+                    "row": 5,
+                    "col": 7,
+                    "data": {
+                        "requires": 38,
+                        "solved": false,
+                        "hint": "The door is locked. You need to enter a key combination to open it."
+                    }
                 }
             ],
             "inventory": [],
@@ -139,13 +155,13 @@
                     }
 	            },
                 {
-                    "class": "gem blue",
+                    "class": "blue gem",
                     "collectable": true,
                     "row": 6,
                     "col": 1
                 },
                 {
-                    "class": "gem pink",
+                    "class": "pink gem",
                     "collectable": true,
                     "row": 3,
                     "col": 10
@@ -171,7 +187,7 @@
                     "data": {
                         "attempts": 3,
                         "treasure": {
-                            "class": "gem yellow",
+                            "class": "yellow gem",
                             "collectable": true
                         }
                     }
@@ -244,13 +260,13 @@
                     }
 	            },
                 {
-                    "class": "gem yellow",
+                    "class": "yellow gem",
                     "collectable": true,
                     "row": 1,
                     "col": 10
                 },
                 {
-                    "class": "gem pink",
+                    "class": "pink gem",
                     "collectable": true,
                     "row": 5,
                     "col": 1
@@ -306,7 +322,7 @@
                     "data": {
                         "attempts": 3,
                         "treasure": {
-                            "class": "gem blue",
+                            "class": "blue gem",
                             "collectable": true
                         }
                     }
@@ -317,17 +333,25 @@
         }
     ],
     "outro": [
-    {
-        "image": "_/img/intro/outro_01.png",
-        "content": "<p>Finally! The last door is open! Accessibility secrets are ours!</p>"
-    },
-    {
-        "image": "_/img/intro/outro_02.png",
-        "content": "<p>Wow! I would never have thought...</p>"
-    },
-    {
-        "image": "_/img/intro/outro_03.png",
-        "content": ""
-    }
-]
+        {
+            "image": "_/img/intro/outro_01.png",
+            "content": "<p>Finally! The last door is open! Accessibility secrets are ours!</p>"
+        },
+        {
+            "image": "_/img/intro/outro_02.png",
+            "content": "<p>Wait&hellip; But the room is empty! Where are all the accessibility secrets?! And who the hell are you?</p>"
+        },
+        {
+            "image": "_/img/intro/outro_03.png",
+            "content": "<p>Hello my friends! I am the Accessibility Master. I'll bet you were expecting to discover some accessibility magic here.</p>"
+        },
+        {
+            "image": "_/img/intro/outro_03.png",
+            "content": "<p>Well, there is no magic that can make the world accessible.</p><p>But there are things you and I can do to get closer to that goal.</p>"
+        },
+        {
+            "image": "_/img/intro/outro_03.png",
+            "content": "<p>Here, take this guideline. It will help you in your new quest.</p>"
+        }
+    ]
 }
