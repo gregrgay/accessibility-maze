@@ -539,8 +539,8 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							doorTile = $rootScope.game.level.floorplan[ switchTile.data.controls ];
 							$rootScope.playSound("click");
 							switchTile.class = "switch";
-							doorTile.class = "door blink_three";
-							$timeout(function() { arguments[0].class = "door"; }, 400, true, doorTile);
+							doorTile.class = "door blinking";
+							$timeout(function() { arguments[0].class = "door"; }, 1200, true, doorTile);
 						}, switchDelay, true, $scope.nextTile);
 						break;
 
@@ -588,10 +588,10 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$rootScope.focusElement(".content");
 
 		$scope.buttons = [
-			{ pressed: false, order: 1 },
-			{ pressed: false, order: 2 },
-			{ pressed: false, order: 0 },
-			{ pressed: false, order: 3 }
+			{ pressed: false },
+			{ pressed: false },
+			{ pressed: false },
+			{ pressed: false }
 		];
 		$scope.locked = true;
 		$scope.error - true;
@@ -655,7 +655,7 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 				pressedOrder = [];
 				$scope.error = true;
 				$scope.message = "ERROR";
-				$timeout(function(){ $scope.error = false; $scope.message = "LOCKED"; }, 400);
+				$timeout(function(){ $scope.error = false; $scope.message = "LOCKED"; }, 1200);
 				$rootScope.playSound("error");
 			}
 		}

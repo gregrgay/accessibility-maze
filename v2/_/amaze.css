@@ -56,8 +56,6 @@ a:focus {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-}
-.container.splash {
   background-image: url("img/splash_bg.png");
   background-position: center center;
   background-size: cover;
@@ -66,23 +64,12 @@ a:focus {
   height: 50vh;
   width: auto;
 }
-.container.menu {
-  background-image: url("img/splash_bg.png");
-  background-position: center center;
-  background-size: cover;
-}
 .container.menu img {
   width: 9em;
   margin-bottom: 1em;
 }
 .container.menu button {
   min-width: 10em;
-}
-.container.gameinfo,
-.container.summary {
-  background-image: url("img/splash_bg.png");
-  background-position: center center;
-  background-size: cover;
 }
 .container.gameinfo .content,
 .container.summary .content {
@@ -599,13 +586,13 @@ button [class*=" icon-"] {
 }
 @keyframes blink {
   0% {
-    opacity: 1;
-  }
-  50% {
     opacity: 0;
   }
-  100% {
+  50% {
     opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 @keyframes wobble {
