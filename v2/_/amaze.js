@@ -22,6 +22,9 @@ app.config(['$routeProvider', '$locationProvider',
 		}).when('/puzzle1/', {
 			templateUrl : '_/tpl/puzzle1.tpl.html',
 			controller  : 'puzzle1Ctrl'
+		}).when('/puzzle2/', {
+			templateUrl : '_/tpl/puzzle2.tpl.html',
+			controller  : 'puzzle2Ctrl'
 		}).when('/outro/', {
 			templateUrl : '_/tpl/intro.tpl.html',
 			controller  : 'outroCtrl'
@@ -130,7 +133,7 @@ app.config(['$routeProvider', '$locationProvider',
 			} else {
 				conf = new createjs.PlayPropsConfig().set(_.extend({
 					loop: 0,
-					volume: .5
+					volume: .1
 				}, props));
 				$rootScope[instance] = createjs.Sound.play(name, conf);
 			}
@@ -150,12 +153,12 @@ app.config(['$routeProvider', '$locationProvider',
 			$event.stopPropagation();
 
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
-				if ($rootScope.game.settings.sound) {
+				if ($rootScope.game.settings.music) {
 					$rootScope.stopSound(instance);
 				} else {
-					$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3}, instance);
+					$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .1}, instance);
 				}
-				$rootScope.game.settings.sound = !$rootScope.game.settings.sound;
+				$rootScope.game.settings.music = !$rootScope.game.settings.music;
 				$rootScope.saveState();
 			} else if($event.keyCode == 9) {
 				$rootScope.moveFocusOnTab($event);
@@ -217,7 +220,11 @@ app.config(['$routeProvider', '$locationProvider',
 
 			$focusable = $("button, [tabindex]");
 			ind = $focusable.index($($event.currentTarget));
-			next = ind > $focusable.length - 1 ? 0 : ++ind;
+			if($event.shiftKey) {
+				next = ind == 1 ? $focusable.length - 1 : 0;
+			} else {
+				next = ind > $focusable.length - 1 ? 0 : ++ind;
+			}
 			$focusable.eq(next).focus();
 		};
 
@@ -304,7 +311,10 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 				}
 			};
 			$scope.continueGame();
-
+			$scope.skipIntro = function() {
+				$scope.isVisible = false;
+				$location.path('/level/');
+			}
 		}	
 	}
 ]);
@@ -317,8 +327,8 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/menu/');
 		} else {
-			if ($rootScope.game.settings.sound) {
-				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .3}, "ambientSound");
+			if ($rootScope.game.settings.music) {
+				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .1}, "ambientSound");
 			}
 			$scope.message = "";
 			$scope.levelCompleted = false;
@@ -454,7 +464,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						$scope.message = level.lesson;
 						$rootScope.toggleDialogFocus(true);
 						$scope.levelCompleted = true;
-						$rootScope.playSound("exit", {volume: 1});
+						$rootScope.playSound("exit", {volume: .1});
 						//moveBlob($scope.nextTile);
 						break;
 
@@ -514,9 +524,14 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$rootScope.playSound("success");
 							console.log($rootScope.game.inventory);
 						} else {
-							$rootScope.actionLog = "You found a locked chest";
+							$rootScope.actionLog = "You found locked chest";
 							$rootScope.playSound("hit_wall");
 						}
+						break;
+
+					case "chest unlocked":
+						$rootScope.actionLog = "You found empty unlocked chest";
+						$rootScope.playSound("hit_wall");
 						break;
 
 					case "switch":
@@ -548,7 +563,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 						$rootScope.actionLog = "Your way is blocked by balloon";
 						$scope.nextTile.class = $scope.nextTile.class + " wobble";
-						$rootScope.playSound("boing", {volume: 1.5});
+						$rootScope.playSound("boing", {volume: 1});
 						
 						$timeout(function(){
 							var nextTile = arguments[0];
@@ -561,6 +576,13 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						$rootScope.game.level.nextTileId = ind;
 						$rootScope.saveState();
 						$location.path('/puzzle1');
+						break;
+
+					case "puzzle2":
+
+						$rootScope.game.level.nextTileId = ind;
+						$rootScope.saveState();
+						$location.path('/puzzle2');
 						break;
 				}
 			}
@@ -582,8 +604,6 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 
 		correctOrder = [2,0,1,3];
 		pressedOrder = [];
-
-		console.log( $rootScope.game.level.nextTileId );
 
 		$rootScope.focusElement(".content");
 
@@ -636,7 +656,6 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		function validatePuzzle() {
 			var solved = true, nextTile;
 			for(var i = 0, l = pressedOrder.length; i < l; i++) {
-				console.log(pressedOrder[i], correctOrder[i]);
 				if (pressedOrder[i] != correctOrder[i]) {
 					solved = false;
 					break;
@@ -663,6 +682,67 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 	}
 ]);
 
+app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
+	function($rootScope, $scope, $location, $timeout) {
+		var nextTile, inventoryItem;
+
+		$rootScope.focusElement(".content");
+
+		$scope.buttons = 'KVABSYDEW';
+		$scope.buttons.message = "";
+		$scope.message = "";
+		$scope.flippedOver = false;
+
+		nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
+		inventoryItem = _.findWhere($rootScope.game.inventory, { "id": nextTile.data.requires });
+
+		$scope.showPhoto = inventoryItem;
+		console.log(inventoryItem);
+		$scope.puzzleKeyDownHandler = function(event) {
+			if (event.keyCode == 27) {
+				$location.path('/level');
+			}
+		};
+		$scope.enterCode = function(event, letter) {
+			if (event.keyCode == 13 || event.keyCode == 32) {
+				$scope.message += letter;
+			}
+		};
+		$scope.clearCode = function(event) {
+			if (event.keyCode == 13 || event.keyCode == 32) {
+				$scope.message = "";
+			}
+		};
+		$scope.validateCode = function(event) {
+			if (event.keyCode == 13 || event.keyCode == 32) {
+				if ($scope.message == "VASYA") {
+					$scope.locked = false;
+					$scope.message = "UNLOCKED";
+					$rootScope.playSound("success");
+					nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
+					nextTile.class = "green";
+					nextTile.data.solved = true;
+					$timeout(function(){ $location.path('/level'); }, 1000);
+				} else {
+					$scope.error = true;
+					$scope.message = "ERROR";
+					$timeout(function(){ $scope.error = false; $scope.message = ""; }, 1200);
+					$rootScope.playSound("error");
+				}
+			}
+		};
+		$scope.flipPhoto = function(event) {
+			if (event.keyCode == 13 || event.keyCode == 32) {
+				$scope.flippedOver = !$scope.flippedOver;
+				console.log($scope.flippedOver);
+			}
+		};
+		$scope.test = function() {
+			$scope.flippedOver = !$scope.flippedOver;
+		}
+	}
+]);
+
 app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 	function($rootScope, $scope, $location, $timeout) {
 
@@ -672,7 +752,7 @@ app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$location.path('/');
 		} else {
 			$rootScope.stopSound("ambientSound");
-			$rootScope.playSound("win", {volume: 1});
+			$rootScope.playSound("win", {volume: .1});
 			$scope.currentSlide = 0;
 			$scope.continueGame = function() {
 				console.log($scope.isVisible);

@@ -3,17 +3,17 @@
 	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team at The Chang School of Continuing Education, at Ryerson University. Funding is provided by The Chang School, and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility, to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities encounter.</p></div>",
 	    "howto": "<h1>How to Play</h1><div class='message'><p>The goal of the Accessibility Maze is to navigate through the maze, solving puzzles to move between levels, and collecting gems to be exchanged for a reward after completing the game.</p><p>Once in the maze, use your keyboard's arrow keys to move up and down, or left and right, through the squares in the maze.</p><p>Press the arrow keys while next to an object, to activate that object.</p><p>Use the Escape (ESC) key to dismiss any dialog boxes that may open after reading their content.</p><p>Your position in the game is maintained when returning to the menu, so you can continue where you left off in the game by clicking Resume Game. Choosing New Game will start the game over from the beginning.\n</p></div>",
 	    "contacts": "<h1>Contact Us</h1><div class='message'><p>Questions or comments about the game can be directed to <a href='mailto:dehelp@ryerson.ca'>dehelp@ryerson.ca</a>.</p></div>",
-        "accessibility": "<h1>Accessibility</h1><div class='message'><p>Every effort has been made to make the Accessibility Maze accessible to screen readers.</p><p>The background music can be disabled using the Audio button at the top of the maze, once it opens.</p><p>Next to the audio button, is another button that returns the player to the menu on the opening screen of the game.</p><p>Listen for shortcuts during game play, announced byscreen reader.</p></div>",
+        "accessibility": "<h1>Accessibility</h1><div class='message'><p>Every effort has been made to make the Accessibility Maze accessible to screen readers.</p><p>The background music can be disabled using the Audio button at the top of the maze, once it opens.</p><p>Next to the audio button, is another button that returns the player to the menu on the opening screen of the game.</p><p>Listen for shortcuts during game play, announced by screen reader.</p></div>",
 	    "terms": "<h1>Terms of Use</h1><div><p>Unless otherwise noted this resource is available for public use under <a href=\"https://creativecommons.org/licenses/by-nc/4.0/\" target=\"postop\">Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a>.</p><p>Under the terms of Creative Commons license, you are free to share and adapt this resource under the following terms: If you share the content from this resource, you must identify the creators of the resource (Centennial College, George Brown College, and Ryerson University) in a reasonable manner. Also, you may not use the material for commercial purposes.</p></div>"
     },
     "intro": [
         {
             "image": "_/img/intro/intro_01.png",
-            "content": "<p>Professor X. and I were doing a research on the misterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace. Nobody had heard from him since.</p>"
+            "content": "<p>Professor X. and I were doing a research on the misterious Accessibility Master. Rumors had it that he had discovered a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's \"discovery\" was never published and he himself disappeared without a trace. Nobody has heard from him since.</p>"
         },
         {
             "image": "_/img/intro/intro_02.png",
-            "content": "<p>Last night, Professor X. called to tell me that he had found the secret of the Accessibility Matser's disappearance. I had some other commitments that evening, so I promised to see him next morning.</p>"
+            "content": "<p>Last night, Professor X. called to tell me that he had found the secret of the Accessibility Master's disappearance. I had some other commitments, so I promised to see him next morning.</p>"
         },
         {
             "image": "_/img/intro/intro_03.png",
@@ -25,7 +25,7 @@
         },
         {
             "image": "_/img/intro/intro_05.png",
-            "content": "<p>The Professor X. was not there yet. Suddenly, I saw a note on the floor. I immediately recognized the Professor’s writing.</p>"
+            "content": "<p>The Professor X. was not there yet. Suddenly, I saw a note on the floor. I immediately recognized the Professor's writing.</p>"
         },
         {
             "image": "_/img/intro/intro_06.png",
@@ -33,7 +33,7 @@
         },
         {
             "image": "_/img/intro/intro_07.png",
-            "content": "<p>According to the Professor, the entrance to the labyrinth was hidden behind the old clock, and it uplocked only at mighnight.</p>"
+            "content": "<p>According to the Professor, the entrance to the labyrinth was hidden behind the old clock, and it unlocked only at midnight.</p>"
         },
         {
             "image": "_/img/intro/intro_08.png",
@@ -45,11 +45,85 @@
         }
     ],
     "levels": [
-        {
+    {
+        "floorplan": [
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "blob", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],
+            ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],
+            ["wall", "wall", "wall", "exit down", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"]
+        ],
+        "items": [
+            {
+                "class": "blue gem",
+                "collectable": true,
+                "row": 2,
+                "col": 7
+            },
+            {
+                "class": "pink gem",
+                "collectable": true,
+                "row": 5,
+                "col": 4
+            },
+            {
+                "class": "yellow gem",
+                "collectable": true,
+                "row": 6,
+                "col": 8
+            },
+            {
+                "class": "book",
+                "collectable": false,
+                "row": 1,
+                "col": 9,
+                "data": {
+                    "content": "<div class='columns'><p><u>Saturday, March 23</u></p><p>I decided to use my cat's name for the combination lock in this room.</p><p>I always have his picture on my desk. It would be a good reminder if I ever forget the password.</p></div>"
+                }
+            },
+            {
+                "class": "key",
+                "collectable": true,
+                "row": 7,
+                "col": 9
+            },
+            {
+                "class": "chest",
+                "collectable": false,
+                "row": 5,
+                "col": 10,
+                "data": {
+                    "requires": 93,
+                    "treasure": {
+                        "class": "cat_photo",
+                        "name": "cat's photo"
+                    }
+                }
+            },
+            {
+                "class": "puzzle2",
+                "collectable": false,
+                "row": 6,
+                "col": 7,
+                "data": {
+                    "requires": 70,
+                    "solved": false,
+                    "hint": "The door is locked. You need to enter a key combination to open it."
+                }
+            }
+        ],
+        "inventory": [],
+        "lesson": "<h1>All visual content must have text alternatives</h1><p>Pending...</p>"
+    },
+    {
             "floorplan": [
-                ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
-                ["wall", "wall",  "green", "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
-                ["wall", "wall",  "green", "blob",  "green", "green", "wall",  "wall",  "green", "green", "green", "exit"],
+                ["wall", "wall",  "wall",  "blob",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
+                ["wall", "wall", "green", "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall",  "wall"],
+                ["wall", "wall",  "green", "green", "green", "green", "wall",  "wall",  "green", "green", "green", "exit"],
                 ["wall", "wall",  "green", "green", "green", "green", "wall",  "wall",  "green", "green", "green", "wall"],
                 ["wall", "wall",  "wall",  "wall",  "green", "wall",  "wall",  "wall",  "green", "green", "green", "wall"],
                 ["wall", "green", "green", "wall",  "green", "green", "green", "green", "green", "green", "green", "wall"],
@@ -130,7 +204,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>Lesson 1: Ensure all controls and buttons are properly labelled</h1><p>You just learned the importance of properly labelling interactive controls, like buttons. Please remember that simply placing some text or images next to them is not enough. People who use screen readers might not perceive the connection.</p><p>To make those controls accessible, each one of them must be properly associated with a corresponding label. Since engraved metal plates don't work well on the Web, you'll need to learn special techniques to make those connections.</p>"
+            "lesson": "<h1>Ensure all controls and buttons are properly labelled</h1><p>You just learned the importance of properly labelling interactive controls, like buttons. Please remember that simply placing some text or images next to them is not enough. People who use screen readers might not perceive the connection.</p><p>To make those controls accessible, each one of them must be properly associated with a corresponding label. Since engraved metal plates don't work well on the Web, you'll need to learn special techniques to make those connections.</p>"
         },
         {
             "floorplan": [
@@ -235,7 +309,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>LESSON 2: Fast moving or self-updating content should be easily paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed. Some people with cognitive disabilities, or mobility impairments might require more time to complete a task.</p><p>It is important to always provide a way to slow down, or completely stop any moving or self-updating content on the Web. This would include auto-scrolling text, automated slide shows, audio and video content, etc.</p>"
+            "lesson": "<h1>Fast moving or self-updating content should be easily paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed. Some people with cognitive disabilities, or mobility impairments might require more time to complete a task.</p><p>It is important to always provide a way to slow down, or completely stop any moving or self-updating content on the Web. This would include auto-scrolling text, automated slide shows, audio and video content, etc.</p>"
         },
         {
             "floorplan": [
@@ -329,7 +403,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>Lesson 3: Do not rely on one input device only.</h1><p>All web content must be operable regardless of the input device used. That means that if users can open a website navigation menu or select a date from a popup calendar with a mouse, they should be able to do exactly the same with a keyboard, joystick, or any other input device.</p>"
+            "lesson": "<h1>Do not rely on one input device only.</h1><p>All web content must be operable regardless of the input device used. That means that if users can open a website navigation menu or select a date from a popup calendar with a mouse, they should be able to do exactly the same with a keyboard, joystick, or any other input device.</p>"
         }
     ],
     "outro": [

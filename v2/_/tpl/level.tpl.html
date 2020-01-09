@@ -2,7 +2,7 @@
 	<div class="topbar">
 		<div class="tools">
 			<button ng-click="openMenu($event)" ng-keydown="openMenu($event)"><span class="icon-menu"></span></button>
-			<button ng-click="toggleAmbientSound($event)" ng-keydown="toggleAmbientSound($event)" ng-class="{ 'pressed' : game.settings.sound }"><span ng-class="game.settings.sound ? 'icon-volume-2' : 'icon-volume-x' "></span></button>
+			<button ng-click="toggleAmbientSound($event)" ng-keydown="toggleAmbientSound($event)" ng-class="{ 'pressed' : game.settings.music }"><span ng-class="game.settings.music ? 'icon-volume-2' : 'icon-volume-x' "></span></button>
 		</div>
 		<div class="inventory">
 			<div ng-repeat="item in game.inventory track by item.id" ng-class="item.class"></div>
@@ -18,5 +18,5 @@
 			</div>
 		</div>
 	</div>
-	<div>&nbsp; {{ actionLog }} &nbsp;</div>
+	<div role="region" aria-live="assertive">&nbsp; {{ actionLog }} &nbsp;</div>
 </div>

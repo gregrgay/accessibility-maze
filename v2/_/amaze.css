@@ -1,17 +1,17 @@
 @charset "utf-8";
 @font-face {
+  font-family: 'Annie Use Your Telescope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Annie Use Your Telescope Regular'), local('AnnieUseYourTelescope-Regular'), url(https://fonts.gstatic.com/s/annieuseyourtelescope/v10/daaLSS4tI2qYYl3Jq9s_Hu74xwktnlKxH6osGVGTkz3F.ttf) format('truetype');
+}
+@font-face {
   font-family: 'Oswald';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/oswald/v29/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYA.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Shadows Into Light Two';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Shadows Into Light Two'), local('ShadowsIntoLightTwo-Regular'), url(https://fonts.gstatic.com/s/shadowsintolighttwo/v7/4iC86LVlZsRSjQhpWGedwyOoW-0A6_kpsyNmpAzHHA.ttf) format('truetype');
 }
 html,
 body {
@@ -145,7 +145,7 @@ a:focus {
   position: relative;
   width: 108vh;
   height: 81vh;
-  background: #333 url(img/puzzle_01.png) no-repeat center top;
+  background: #333 url(img/puzzles/puzzle_01.png) no-repeat center top;
   background-size: contain;
   border: 0.05em solid #000;
 }
@@ -203,6 +203,152 @@ a:focus {
 .container.puzzle1 .panel img {
   height: 100%;
   width: auto;
+}
+.container.puzzle2 .content {
+  margin-bottom: 0;
+  border: 0.2rem solid #666;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  -webkit-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
+}
+.container.puzzle2 .content .main {
+  position: relative;
+  width: 108vh;
+  height: 81vh;
+  background: #333 url(img/puzzles/puzzle_02.png) no-repeat center top;
+  background-size: contain;
+  border: 0.05em solid #000;
+}
+.container.puzzle2 .display {
+  position: absolute;
+  top: 9vh;
+  right: 0;
+  width: 38%;
+  padding-right: 14%;
+  font-size: 1.6em;
+  text-align: center;
+  color: red;
+}
+.container.puzzle2 .display.unlocked {
+  color: green;
+}
+.container.puzzle2 .controls {
+  position: absolute;
+  top: 16vh;
+  bottom: 27vh;
+  right: 0;
+  width: 39%;
+  padding: 4vh 13vh 4vh 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.container.puzzle2 .controls button {
+  width: 8vh;
+  height: 8vh;
+  margin: 0.5vh 0;
+  padding: 0;
+  text-align: center;
+  -webkit-border-radius: 4vh;
+  -moz-border-radius: 4vh;
+  border-radius: 4vh;
+  border: 0.2em solid #333;
+  background-color: #CCC06F;
+  cursor: pointer;
+  box-shadow: inset 0.2em 0.2em 0 rgba(255, 255, 255, 0.5);
+}
+.container.puzzle2 .controls button:focus {
+  background-color: #eee39f;
+}
+.container.puzzle2 .controls button:active {
+  color: #fff;
+}
+.container.puzzle2 .controls button.enter {
+  width: 18vh;
+  color: #363;
+}
+.container.puzzle2 .controls button.cancel {
+  color: #933;
+}
+.container.puzzle2 .flip {
+  position: absolute;
+  bottom: 5vh;
+  left: 15vh;
+  width: 40vh;
+  height: 40vh;
+  transform: rotate(-10deg);
+  transform-origin: bottom;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 10000px;
+  perspective: 1000px;
+}
+.container.puzzle2 .flip .photo {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.container.puzzle2 .flip .photo .front,
+.container.puzzle2 .flip .photo .back {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transition: 0.3s;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-origin: center;
+  -moz-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.container.puzzle2 .flip .photo .front img,
+.container.puzzle2 .flip .photo .back img {
+  width: 100%;
+  height: 100%;
+}
+.container.puzzle2 .flip .photo .front {
+  -webkit-transform: rotate3d(0, 1, 0, 0);
+  -moz-transform: rotate3d(0, 1, 0, 0);
+  -ms-transform: rotate3d(0, 1, 0, 0);
+  transform: rotate3d(0, 1, 0, 0);
+  z-index: 2;
+}
+.container.puzzle2 .flip .photo .back {
+  -webkit-transform: rotate3d(0, 1, 180deg);
+  -moz-transform: rotate3d(0, 1, 0, 180deg);
+  -ms-transform: rotate3d(0, 1, 0, 180deg);
+  transform: rotate3d(0, 1, 0, 180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Annie Use Your Telescope";
+  color: #000;
+}
+.container.puzzle2 .flip.flipped .front {
+  -webkit-transform: rotate3d(0, 1, 0, -180deg);
+  -moz-transform: rotate3d(0, 1, 0, -180deg);
+  -ms-transform: rotate3d(0, 1, 0, -180deg);
+  transform: rotate3d(0, 1, 0, -180deg);
+}
+.container.puzzle2 .flip.flipped .back {
+  -webkit-transform: rotate3d(0, 1, 0, 0);
+  -moz-transform: rotate3d(0, 1, 0, 0);
+  -ms-transform: rotate3d(0, 1, 0, 0);
+  transform: rotate3d(0, 1, 0, 0);
 }
 .content {
   display: flex;
@@ -361,8 +507,8 @@ a:focus {
   column-gap: 4em;
   -moz-column-fill: auto;
   column-fill: auto;
-  font-family: "Shadows Into Light Two";
-  font-size: 0.7em;
+  font-family: "Annie Use Your Telescope";
+  font-size: 0.8em;
 }
 .overlay .dialog.book img {
   width: 100%;
@@ -398,6 +544,9 @@ a:focus {
 .overlay .dialog.chest .treasure.nitrogen {
   background-image: url("img/chest/nitrogen_large.png");
 }
+.overlay .dialog.chest .treasure.cat_photo {
+  background-image: url("img/chest/cat_large.png");
+}
 .tile {
   width: 9vh;
   height: 9vh;
@@ -431,6 +580,9 @@ a:focus {
 }
 .tile.nitrogen {
   background-image: url("img/chest/nitrogen_small.png");
+}
+.tile.cat_photo {
+  background-image: url("img/chest/cat_small.png");
 }
 .tile.key {
   background-image: url("img/tiles/key.png");
@@ -470,7 +622,8 @@ a:focus {
 .tile.bubble.wobble {
   animation: wobble 0.3s 1;
 }
-.tile.puzzle1 {
+.tile.puzzle1,
+.tile.puzzle2 {
   background-image: url("img/tiles/lock.png");
 }
 .blinking {
