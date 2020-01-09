@@ -9,7 +9,7 @@
     "intro": [
         {
             "image": "_/img/intro/intro_01.png",
-            "content": "<p>Professor X. and I were doing a research on the misterious Accessibility Master. Rumors had it that he had discovered a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's \"discovery\" was never published and he himself disappeared without a trace. Nobody has heard from him since.</p>"
+            "content": "<p>Professor X. and I were doing a research on the mysterious Accessibility Master. Rumors had it that he had discovered a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's \"discovery\" was never published and he himself disappeared without a trace. Nobody has heard from him since.</p>"
         },
         {
             "image": "_/img/intro/intro_02.png",
