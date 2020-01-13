@@ -3,7 +3,7 @@
 		<div id="txtIntro" class="text" ng-bind-html="message" tabindex="0"></div>
 	</div>
 	<div class="footer">
-		<button id="btnSkip" ng-click="skipIntro();">Skip Intro</button>
+		<button id="btnSkip" ng-click="skipIntro();" ng-hide="isOutro">Skip Intro</button>
 		<button id="btnNext" ng-click="continueGame();">Next <span class="icon-arrow-right"></span></button>
 	</div>
 </div>

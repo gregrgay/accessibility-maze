@@ -67,8 +67,8 @@
             {
                 "class": "pink gem",
                 "collectable": true,
-                "row": 5,
-                "col": 4
+                "row": 6,
+                "col": 6
             },
             {
                 "class": "yellow gem",
@@ -404,6 +404,43 @@
             ],
             "inventory": [],
             "lesson": "<h1>Do not rely on one input device only.</h1><p>All web content must be operable regardless of the input device used. That means that if users can open a website navigation menu or select a date from a popup calendar with a mouse, they should be able to do exactly the same with a keyboard, joystick, or any other input device.</p>"
+        },
+        {
+            "floorplan": [
+                ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "blob", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "wall", "wall", "green", "green", "green", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "prof", "green", "green", "green", "green", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
+                ["wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall", "wall"]
+            ],
+            "items": [
+                {
+                    "class": "door last",
+                    "collectable": false,
+                    "row": 8,
+                    "col": 6,
+                    "data": {
+                        "locked": true,
+                        "requires": -1,
+                        "puzzle": null
+                    }
+                },
+                {
+                    "class": "prof",
+                    "collectable": false,
+                    "row": 5,
+                    "col": 4,
+                    "data": {
+                        "content": "<div class='text'><p>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 10.</p><p>Here, take mine. Now, go and to open that door!</p></div>"
+                    }
+                }
+            ],
+            "inventory": [],
+            "lesson": ""
         }
     ],
     "outro": [

@@ -229,6 +229,12 @@ app.config(['$routeProvider', '$locationProvider',
 		};
 
 		$rootScope.actionLog = "";
+
+		$rootScope.updateStatus = function(str) {
+			$timeout.cancel($rootScope.statusTimer);
+			$rootScope.actionLog = str;
+			$rootScope.statusTimer = $timeout( function(){ $rootScope.actionLog = ""; }, 600 );
+		}
 	}
 ]);
 
@@ -441,7 +447,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					class: "tile " + $scope.nextTile.class
 				});
 				$scope.nextTile.collectable = false;
-				$rootScope.actionLog = "You collected " + $scope.nextTile.class;
+				$rootScope.updateStatus("You collected " + $scope.nextTile.class);
 				$rootScope.playSound("get_item");
 				moveBlob($scope.nextTile);
 			} else {
@@ -449,18 +455,18 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				switch ($scope.nextTile.class) {
 
 					case "green":
-						$rootScope.actionLog = "";
+						$rootScope.updateStatus("You moved " + dir);
 						moveBlob($scope.nextTile);
 						break;
 
 					case "wall":
-						$rootScope.actionLog = "You bumped into wall";
+						$rootScope.updateStatus("You bumped into wall");
 						break;
 
 					case "exit":
 					case "exit down":
 
-						$rootScope.actionLog = "You found exit";
+						$rootScope.updateStatus("You found exit");
 						$scope.message = level.lesson;
 						$rootScope.toggleDialogFocus(true);
 						$scope.levelCompleted = true;
@@ -470,7 +476,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 					case "book":
 
-						$rootScope.actionLog = "You found Master's diary";
+						$rootScope.updateStatus("You found Master's diary");
 						$scope.isBook = true;
 						$scope.message = $scope.nextTile.data.content;
 						$rootScope.toggleDialogFocus(true);
@@ -482,15 +488,15 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.requires });
 							if ( inventoryItem ) {
 								//$rootScope.game.inventory = _.without($rootScope.game.inventory, inventoryItem);
-								$rootScope.actionLog = "You opened a door";
+								$rootScope.updateStatus("You opened a door");
 								$scope.nextTile.class = "green";
 								$rootScope.playSound("success");
 							} else {
-								$rootScope.actionLog = "You found a locked door";
+								$rootScope.updateStatus("You found a locked door");
 								$rootScope.playSound("hit_wall");
 							}
 						} else {
-							$rootScope.actionLog = "This door is opened remotely";
+							$rootScope.updateStatus("This door is opened remotely");
 							$rootScope.playSound("hit_wall");
 						}
 						break;
@@ -498,13 +504,13 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					case "secret":
 
 						if($scope.nextTile.data.attempts > 1) {
-							$rootScope.actionLog = "You found cracked wall";
+							$rootScope.updateStatus("You found cracked wall");
 							$scope.nextTile.data.attempts--;
 							$rootScope.playSound("hit_wall");
 							$scope.nextTile.class = "secret shaking";
 							$timeout( function () { $scope.nextTile.class = "secret"; }, 100 );
 						} else {
-							$rootScope.actionLog = "You found a secret";
+							$rootScope.updateStatus("You found a secret");
 							$scope.nextTile.class = $scope.nextTile.data.treasure.class;
 							$scope.nextTile.collectable = $scope.nextTile.data.treasure.collectable;
 							$rootScope.playSound("explosion");
@@ -516,62 +522,57 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.requires });
 						if ( inventoryItem ) {
 							//$rootScope.game.inventory = _.without($rootScope.game.inventory, inventoryItem);
-							$rootScope.actionLog = "You collected " + $scope.nextTile.data.treasure.name;
+							$rootScope.updateStatus("You collected " + $scope.nextTile.data.treasure.name);
 							$scope.nextTile.class = "chest unlocked";
 							$scope.message = "<div class='treasure " + $scope.nextTile.data.treasure.class + "'></div>";
 							$scope.isChest = true;
 							$rootScope.toggleDialogFocus(true);
 							$rootScope.playSound("success");
-							console.log($rootScope.game.inventory);
 						} else {
-							$rootScope.actionLog = "You found locked chest";
+							$rootScope.updateStatus("You found locked chest");
 							$rootScope.playSound("hit_wall");
 						}
 						break;
 						
 					case "chest unlocked":
-						$rootScope.actionLog = "You found empty unlocked chest";
-						break;
-
-					case "chest unlocked":
-						$rootScope.actionLog = "You found empty unlocked chest";
+						$rootScope.updateStatus("You found empty unlocked chest");
 						$rootScope.playSound("hit_wall");
 						break;
 
 					case "switch":
 
-						$rootScope.actionLog = "You turned the switch on";
+						$rootScope.updateStatus("You turned the switch on. Door has opened elsewhere.");
 						$rootScope.playSound("click");
 						inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.requires });
 						controlledItem = $rootScope.game.level.floorplan[ $scope.nextTile.data.controls ];
 						switchDelay = $scope.nextTile.data.timeout;
 						if (inventoryItem) {
 							$scope.nextTile.class = "switch on frozen";
-							switchDelay *= 3;
+							//switchDelay *= 3;
 						} else {
 							$scope.nextTile.class = "switch on";
+							$scope.timeout = $timeout(function() {
+								var switchTile, doorTile;
+								switchTile = arguments[0];
+								doorTile = $rootScope.game.level.floorplan[ switchTile.data.controls ];
+								$rootScope.playSound("click");
+								switchTile.class = "switch";
+								$rootScope.updateStatus("The switch is off");
+								doorTile.class = "door blinking";
+								$timeout(function() { arguments[0].class = "door"; }, 1200, true, doorTile);
+							}, switchDelay, true, $scope.nextTile);
 						}
 						controlledItem.class = "green";
-						$scope.timeout = $timeout(function() {
-							var switchTile, doorTile;
-							switchTile = arguments[0];
-							doorTile = $rootScope.game.level.floorplan[ switchTile.data.controls ];
-							$rootScope.playSound("click");
-							switchTile.class = "switch";
-							$rootScope.actionLog = "The switch is off";
-							doorTile.class = "door blinking";
-							$timeout(function() { arguments[0].class = "door"; }, 1200, true, doorTile);
-						}, switchDelay, true, $scope.nextTile);
 						break;
 						
 					case "switch on":
 					case "switch on frozen":
-						$rootScope.actionLog = "The switch is on";
+						$rootScope.updateStatus("The switch is on. Door has opened elsewhere.");
 						break;
 
 					case "bubble":
 
-						$rootScope.actionLog = "Your way is blocked by balloon";
+						$rootScope.updateStatus("Your way is blocked by balloon");
 						$scope.nextTile.class = $scope.nextTile.class + " wobble";
 						$rootScope.playSound("boing", {volume: 1});
 						
@@ -593,6 +594,23 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						$rootScope.game.level.nextTileId = ind;
 						$rootScope.saveState();
 						$location.path('/puzzle2');
+						break;
+
+					case "prof":
+
+						$rootScope.updateStatus("You found Prof. X");
+						$scope.isProf = true;
+						$scope.message = $scope.nextTile.data.content;
+						$scope.fullSet = true;
+						$rootScope.toggleDialogFocus(true);
+						break;
+
+					case "door last":
+						if ($scope.fullSet) {
+							$location.path("/outro");
+						} else {
+							$rootScope.updateStatus("You don't have enough gems to open this door");
+						}
 						break;
 				}
 			}
@@ -764,6 +782,7 @@ app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 		} else {
 			$rootScope.stopSound("ambientSound");
 			$rootScope.playSound("win", {volume: .1});
+			$scope.isOutro = true;
 			$scope.currentSlide = 0;
 			$scope.continueGame = function() {
 				console.log($scope.isVisible);

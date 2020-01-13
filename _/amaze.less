@@ -340,6 +340,7 @@ a {
 					-ms-transform: rotate3d(0, 1, 0, 180deg);
 					transform: rotate3d(0, 1, 0, 180deg);
 					display: flex;
+					flex-flow: column nowrap;
 					align-items: center;
 					justify-content: center;
 					font-family: "Annie Use Your Telescope";
@@ -566,6 +567,30 @@ a {
 				}
 			}
 		}
+		&.prof {
+			position: relative;
+			width: 95%;
+			height: 95%;
+			background: transparent url(img/intro/prof_01.png) no-repeat center top;
+			background-size: contain;
+			border: none;
+			text-shadow: none;
+			
+			.text {
+				position: absolute;
+				top: 1em;
+				right: 1em;
+				max-width: 20em;
+				min-height: 3em;
+				padding: 1em;
+				text-shadow: none;
+				background-color: #ffc;
+				color: #000;
+				border: .1em solid #000;
+				.border-radius(.2em);
+				.box-shadow(0, 0, 0, .3em, rgba(0,0,0,.25));
+			}
+		}
 	}
 }
 .tile {
@@ -583,6 +608,11 @@ a {
 		background-image: url("img/tiles/hero.png");
 		transform-origin: bottom;
 		animation: happyjump .4s infinite;
+	}
+	&.prof {
+		background-image: url("img/tiles/prof.png");
+		transform-origin: bottom;
+		animation: happyjump .9s infinite;
 	}
 	&.door {
 		background-image: url("img/tiles/lock.png");
@@ -737,18 +767,18 @@ button {
 }
 
 @keyframes happyjump {
-	0% {
-		transform: scale3d(1, 1, 1);
-	}
-	30% {
-		transform: scale3d(.95, 1.02, 1);
-	}
-	70% {
-		transform: scale3d(1.02, .95, 1);
-	}
-	100% {
-		transform: scale3d(1, 1, 1);
-	}
+	 0% {
+		 transform: scale3d(1, 1, 1);
+	 }
+	 30% {
+		 transform: scale3d(.95, 1.02, 1);
+	 }
+	 70% {
+		 transform: scale3d(1.02, .95, 1);
+	 }
+	 100% {
+		 transform: scale3d(1, 1, 1);
+	 }
 }
 
 @keyframes bounceright {
@@ -814,5 +844,17 @@ button {
 	}
 	100% {
 		transform: scale3d(1, 1, 1);
+	}
+}
+
+@keyframes pop {
+	0% {
+		transform: scale(1) rotate(-10deg);
+	}
+	50% {
+		transform: scale(1.3) rotate(-10deg);
+	}
+	100% {
+		transform: scale(1) rotate(-10deg);
 	}
 }
