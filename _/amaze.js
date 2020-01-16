@@ -230,10 +230,14 @@ app.config(['$routeProvider', '$locationProvider',
 
 		$rootScope.actionLog = "";
 
-		$rootScope.updateStatus = function(str) {
+		$rootScope.updateStatus = function(str, persist) {
 			$timeout.cancel($rootScope.statusTimer);
 			$rootScope.actionLog = str;
-			$rootScope.statusTimer = $timeout( function(){ $rootScope.actionLog = ""; }, 600 );
+			if(!persist) {
+				$rootScope.statusTimer = $timeout(function () {
+					$rootScope.actionLog = "";
+				}, 600);
+			}
 		}
 	}
 ]);
@@ -367,6 +371,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				$rootScope.toggleDialogFocus(false);
 				$scope.message = "";
 				$scope.isBook = false;
+				$rootScope.updateStatus("");
 				if ($scope.levelCompleted) {
 					$timeout.cancel($scope.timeout);
 					if ($rootScope.game.level.id < $rootScope.levels.length - 1) {
@@ -447,7 +452,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					class: "tile " + $scope.nextTile.class
 				});
 				$scope.nextTile.collectable = false;
-				$rootScope.updateStatus("You collected " + $scope.nextTile.class);
+				$rootScope.updateStatus("You collected " + $scope.nextTile.class, true);
 				$rootScope.playSound("get_item");
 				moveBlob($scope.nextTile);
 			} else {
@@ -460,7 +465,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						break;
 
 					case "wall":
-						$rootScope.updateStatus("You bumped into wall");
+						$rootScope.actionLog = "You bumped into wall";
 						break;
 
 					case "exit":
@@ -479,6 +484,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						$rootScope.updateStatus("You found Master's diary");
 						$scope.isBook = true;
 						$scope.message = $scope.nextTile.data.content;
+						$rootScope.updateStatus("Press Esc to close the diary", true);
 						$rootScope.toggleDialogFocus(true);
 						break;
 

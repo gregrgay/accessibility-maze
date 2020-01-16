@@ -260,9 +260,11 @@ a:focus {
   background-color: #CCC06F;
   cursor: pointer;
   box-shadow: inset 0.2em 0.2em 0 rgba(255, 255, 255, 0.5);
+  outline: none;
 }
 .container.puzzle2 .controls button:focus {
   background-color: #eee39f;
+  box-shadow: 0 0 0.5em 0.5em rgba(255, 255, 255, 0.5), 0rem 0rem 0.3rem 0.1rem rgba(255, 255, 255, 0.5);
 }
 .container.puzzle2 .controls button:active {
   color: #fff;
@@ -286,6 +288,11 @@ a:focus {
   -moz-perspective: 1000px;
   -ms-perspective: 10000px;
   perspective: 1000px;
+  outline: none;
+}
+.container.puzzle2 .flip:hover,
+.container.puzzle2 .flip:focus {
+  box-shadow: 0 0 0.5em 0.5em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem 0.1rem rgba(255, 180, 0, 0.5);
 }
 .container.puzzle2 .flip .photo {
   position: relative;
@@ -510,6 +517,10 @@ a:focus {
   column-fill: auto;
   font-family: "Annie Use Your Telescope";
   font-size: 0.8em;
+}
+.overlay .dialog.book .passcode {
+  font-size: 2em;
+  text-align: center;
 }
 .overlay .dialog.book img {
   width: 100%;

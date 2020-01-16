@@ -82,7 +82,7 @@
                 "row": 1,
                 "col": 9,
                 "data": {
-                    "content": "<div class='columns'><p><u>Saturday, March 23</u></p><p>I decided to use my cat's name for the combination lock in this room.</p><p>I always have his picture on my desk. It would be a good reminder if I ever forget the password.</p></div>"
+                    "content": "<div class='columns'><p><u>Sunday, March 17</u></p><p>Being Accessibility Master is not easy. With everything that happens around here I need a place to record my thoughts and ideas. So, I decided to start a diary. Maybe it will help me think about things more clearly.</p><p><u>Saturday, March 23</u></p><p>I keep foregeting the password for the combination lock in this room. Today I reprogrammed the lock to use my cat's name.</p><p>I always have his picture on my desk. It would be a good reminder if I ever forget the password again.</p></div>"
                 }
             },
             {
@@ -117,7 +117,7 @@
             }
         ],
         "inventory": [],
-        "lesson": "<h1>All visual content must have text alternatives</h1><p>Pending...</p>"
+        "lesson": "<h1>All visual content must have text alternatives</h1><p>The cat's collar on that picture clearly displayed his name. However, when the picture got accidentally splattered with ink, the only way to get the password was to read the text at the back.</p><p>On the web it is very important to provide text alternatives to any visual information. Adding ALT attribute to images, or captions to videos will ensure that no one is left out.</p>"
     },
     {
             "floorplan": [
@@ -138,7 +138,7 @@
                     "row": 1,
                     "col": 5,
                     "data": {
-	                    "content": "<div class='columns'><p><u>Monday, April 1</u></p><p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p><p>I thought leaving the same combination would make it easier to remember:</p><p><img src='_/img/book/figure1-2.png' alt=''></p><p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p><p><u>Friday, April 19</u></p><p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p><p><img src='_/img/book/figure1-1.png' alt=''></p><p>The plate is detachable and can be stored away when not in use.</p><p>I hope nobody will mix up the buttons anymore!</p></div>"
+	                    "content": "<div class='columns'><p><u>Monday, April 1</u></p><p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p><p>I thought leaving the same combination would make it easier to remember:</p><p class='passcode'>D C A B</p><p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p><p><u>Friday, April 19</u></p><p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p><p><img src='_/img/book/figure1-1.png' alt=''></p><p>The plate is detachable and can be stored away when not in use.</p><p>I hope nobody will mix up the buttons anymore!</p></div>"
                     }
 	            },
                 {

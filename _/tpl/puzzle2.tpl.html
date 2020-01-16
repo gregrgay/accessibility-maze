@@ -25,7 +25,7 @@
 			</div>
 			<div class="controls">
 				<button ng-repeat="btn in buttons" ng-keydown='enterCode($event, btn)' tabindex="1">{{btn}}</button>
-				<button class="cancel" ng-keydown="clearCode($event)" tabindex="1">C</button>
+				<button class="cancel" ng-keydown="clearCode($event)" tabindex="1" aria-label="Clear">C</button>
 				<button class="enter" ng-keydown="validateCode($event)" tabindex="1">Enter</button>
 			</div>
 		</div>
