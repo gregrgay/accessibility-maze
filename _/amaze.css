@@ -149,6 +149,23 @@ a:focus {
   background-size: contain;
   border: 0.05em solid #000;
 }
+.container.puzzle1 .hint {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  width: 45%;
+  padding: 1em;
+  font-size: 0.8em;
+  background-color: #ffc;
+  color: #000;
+  border: 0.1em solid #000;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -webkit-box-shadow: 0 0 0 0.3em rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 0 0 0.3em rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 0 0.3em rgba(0, 0, 0, 0.25);
+}
 .container.puzzle1 .display {
   position: absolute;
   top: 9vh;
@@ -205,6 +222,7 @@ a:focus {
   width: auto;
 }
 .container.puzzle2 .content {
+  position: relative;
   margin-bottom: 0;
   border: 0.2rem solid #666;
   -webkit-border-radius: 0.2rem;
@@ -221,6 +239,23 @@ a:focus {
   background: #333 url(img/puzzles/puzzle_02.png) no-repeat center top;
   background-size: contain;
   border: 0.05em solid #000;
+}
+.container.puzzle2 .hint {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  width: 45%;
+  padding: 1em;
+  font-size: 0.8em;
+  background-color: #ffc;
+  color: #000;
+  border: 0.1em solid #000;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -webkit-box-shadow: 0 0 0 0.3em rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 0 0 0.3em rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 0 0.3em rgba(0, 0, 0, 0.25);
 }
 .container.puzzle2 .display {
   position: absolute;
@@ -290,8 +325,10 @@ a:focus {
   perspective: 1000px;
   outline: none;
 }
-.container.puzzle2 .flip:hover,
-.container.puzzle2 .flip:focus {
+.container.puzzle2 .flip:hover .front,
+.container.puzzle2 .flip:focus .front,
+.container.puzzle2 .flip:hover .back,
+.container.puzzle2 .flip:focus .back {
   box-shadow: 0 0 0.5em 0.5em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem 0.1rem rgba(255, 180, 0, 0.5);
 }
 .container.puzzle2 .flip .photo {
@@ -440,8 +477,24 @@ a:focus {
   flex-flow: row nowrap;
 }
 .topbar .inventory .tile {
+  position: relative;
   width: 6.75vh;
   height: 6.75vh;
+}
+.topbar .inventory .tile .counter {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 1.4em;
+  line-height: 1.5em;
+  min-width: 1.4em;
+  background-color: #c00;
+  -webkit-border-radius: 0.7em;
+  -moz-border-radius: 0.7em;
+  border-radius: 0.7em;
+  color: #fff;
+  font-size: 0.6em;
+  text-align: center;
 }
 .map {
   display: grid;

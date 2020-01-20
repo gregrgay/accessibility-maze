@@ -98,9 +98,10 @@
                 "col": 10,
                 "data": {
                     "requires": 93,
+                    "collected": false,
                     "treasure": {
                         "class": "cat_photo",
-                        "name": "cat's photo"
+                        "name": "cat's photo stained with ink"
                     }
                 }
             },
@@ -111,8 +112,9 @@
                 "col": 7,
                 "data": {
                     "requires": 70,
+                    "collected": false,
                     "solved": false,
-                    "hint": "The door is locked. You need to enter a key combination to open it."
+                    "hint": "The door is locked. Use Tab/Shift+Tab and Enter keys to punch in the key combination."
                 }
             }
         ],
@@ -185,6 +187,7 @@
                     "col": 2,
                     "data": {
                         "requires": 85,
+                        "collected": false,
                         "treasure": {
                             "class": "panel_01",
                             "name": "engraved metal plate"
@@ -198,8 +201,9 @@
                     "col": 7,
                     "data": {
                         "requires": 38,
+                        "collected": false,
                         "solved": false,
-                        "hint": "The door is locked. You need to enter a key combination to open it."
+                        "hint": "The door is locked. Use Tab/Shift+Tab and Enter keys to punch in the key combination."
                     }
                 }
             ],
@@ -279,6 +283,7 @@
                     "col": 4,
                     "data": {
                         "requires": 92,
+                        "collected": false,
                         "treasure": {
                             "class": "nitrogen",
                             "name": "can of freeze spray"
@@ -293,6 +298,7 @@
                     "data": {
                         "controls": 93,
                         "requires": 64,
+                        "collected": false,
                         "timeout": 3000
                     }
                 },
@@ -304,6 +310,7 @@
                     "data": {
                         "locked": true,
                         "requires": -1,
+                        "collected": false,
                         "puzzle": null
                     }
                 }
@@ -359,6 +366,7 @@
                     "data": {
                         "locked": true,
 	                    "requires": 25,
+                        "collected": false,
 		                "puzzle": null
 		            }
                 },
@@ -426,6 +434,7 @@
                     "data": {
                         "locked": true,
                         "requires": -1,
+                        "collected": false,
                         "puzzle": null
                     }
                 },
@@ -435,7 +444,8 @@
                     "row": 5,
                     "col": 4,
                     "data": {
-                        "content": "<div class='text'><p>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 10.</p><p>Here, take mine. Now, go and to open that door!</p></div>"
+                        "long": "<div class='text'><p>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 9.</p><p>Here, take mine. Now, go and to open that door!</p></div>",
+                        "short": "<div class='text'><p>Go and to open that door!</p></div>"
                     }
                 }
             ],

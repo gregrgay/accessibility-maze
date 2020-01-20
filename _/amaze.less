@@ -153,6 +153,19 @@ a {
 				border: .05em solid #000;
 			}
 		}
+		.hint {
+			position: absolute;
+			top: 1em;
+			left: 1em;
+			width: 45%;
+			padding: 1em;
+			font-size: .8em;
+			background-color: #ffc;
+			color: #000;
+			border: .1em solid #000;
+			.border-radius(.2em);
+			.box-shadow(0, 0, 0, .3em, rgba(0,0,0,.25));
+		}
 		.display {
 			position: absolute;
 			top: 9vh;
@@ -214,6 +227,7 @@ a {
 	}
 	&.puzzle2 {
 		.content {
+			position: relative;
 			margin-bottom: 0;
 			border: .2rem solid #666;
 			.border-radius(.2rem);
@@ -227,6 +241,19 @@ a {
 				background-size: contain;
 				border: .05em solid #000;
 			}
+		}
+		.hint {
+			position: absolute;
+			top: 1em;
+			left: 1em;
+			width: 45%;
+			padding: 1em;
+			font-size: .8em;
+			background-color: #ffc;
+			color: #000;
+			border: .1em solid #000;
+			.border-radius(.2em);
+			.box-shadow(0, 0, 0, .3em, rgba(0,0,0,.25));
 		}
 		.display {
 			position: absolute;
@@ -299,7 +326,10 @@ a {
 			
 			&:hover,
 			&:focus {
-				box-shadow: 0 0 .5em .5em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem .1rem rgba(255, 180, 0, 0.5);
+				.front,
+				.back {
+					box-shadow: 0 0 .5em .5em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem .1rem rgba(255, 180, 0, 0.5);
+				}
 			}
 			
 			.photo {
@@ -461,8 +491,23 @@ a {
 		flex-flow: row nowrap;
 		
 		.tile {
+			position: relative;
 			width: @tilesize * .75;
 			height: @tilesize * .75;
+			
+			.counter {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				height: 1.4em;
+				line-height: 1.5em;
+				min-width: 1.4em;
+				background-color: #c00;
+				.border-radius(.7em);
+				color: #fff;
+				font-size: .6em;
+				text-align: center;
+			}
 		}
 	}
 }
