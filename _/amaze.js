@@ -53,6 +53,7 @@ app.config(['$routeProvider', '$locationProvider',
 				},
 				"started": false,
 				"firstTime": true,
+				"allGems": false,
 				"level": {
 					"id": 0,
 					"floorplan": [],
@@ -639,7 +640,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 						$rootScope.updateStatus("You found Prof. X");
 						$scope.isProf = true;
-						if ($scope.allGems) {
+						if ($rootScope.game.allGems) {
 							$scope.message =  $scope.nextTile.data.short;
 						} else {
 							$scope.message =  $scope.nextTile.data.long;
@@ -651,12 +652,13 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$timeout( function() { $rootScope.playSound("get_item") }, 100);
 						}
 
-						$scope.allGems = true;
+						$rootScope.game.allGems = true;
+						$rootScope.saveState();
 						$rootScope.toggleDialogFocus(true);
 						break;
 
 					case "door last":
-						if ($scope.allGems) {
+						if ($rootScope.game.allGems) {
 							$location.path("/outro");
 						} else {
 							$rootScope.updateStatus("You don't have enough gems to open this door");
