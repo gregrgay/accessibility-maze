@@ -12,11 +12,11 @@
 		<div class="main">
 			<div class='hint' ng-show="hint.length">{{hint}}</div>
 			<div class='display' ng-class="{ 'unlocked': !locked, 'blinking': error }">{{ message }}</div>
-			<div class="flip" tabindex="1" ng-keydown="flipPhoto($event)" ng-class="{ 'flipped': flippedOver }" ng-show="showPhoto">
+			<div class="flip" tabindex="1" ng-focus="showHint('Press Enter key to flip the photo')" ng-blur="showHint('')" ng-keydown="flipPhoto($event)" ng-class="{ 'flipped': flippedOver }" ng-show="showPhoto">
 				<div class="photo">
 					<div class="front">
 						<img src='_/img/chest/cat_large.png' alt=''>
-						<div class="hint">Hit Enter to flip the photo</div>
+						<!--<div class="hint">Hit Enter to flip the photo</div>-->
 					</div>
 					<div class="back">
 						<div>VASYA</div>
@@ -31,5 +31,5 @@
 			</div>
 		</div>
 	</div>
-	<div>&nbsp;</div>
+	<div role="region" aria-live="assertive">&nbsp; {{ actionLog }} &nbsp;</div>
 </div>

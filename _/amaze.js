@@ -332,7 +332,7 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route', '$timeout',
 	function($rootScope, $scope, $location, $storage, $route, $timeout) {
 
-		var level, item, ind = 0;
+		var level, item, obj, ind = 0;
 
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/menu/');
@@ -357,15 +357,18 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				_.each(level.floorplan, function (row, x) {
 					_.each(row, function (tile, y) {
 						item = _.findWhere(level.items, {row: x, col: y});
-
-						$rootScope.game.level.floorplan.push({
+						obj = {
 							"id": ind++,
 							"class": item ? item.class : tile,
 							"collectable": item ? item.collectable : false,
 							"row": x,
 							"col": y,
 							"data": item && item.data ? item.data : null
-						});
+						};
+						if (tile == "bubble") {
+							obj.data = { attempts: 3 };
+						}
+						$rootScope.game.level.floorplan.push(obj);
 						if (tile == "blob") {
 							$rootScope.game.level.currTile = $rootScope.game.level.floorplan[$rootScope.game.level.floorplan.length - 1];
 						}
@@ -603,13 +606,18 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 					case "bubble":
 
-						$rootScope.updateStatus("Your way is blocked by balloon");
+						if (--$scope.nextTile.data.attempts % 3 == 0) {
+							$rootScope.updateStatus("Try popping it with your mouse", true);
+						} else {
+							$rootScope.updateStatus("Your way is blocked by balloon");
+						}
 						$scope.nextTile.class = $scope.nextTile.class + " wobble";
 						$rootScope.playSound("boing", {volume: 1});
 						
 						$timeout(function(){
 							var nextTile = arguments[0];
 							nextTile.class = "bubble";
+							$rootScope.saveState();
 						}, 300, true, $scope.nextTile);
 						break;
 
@@ -819,6 +827,10 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 				console.log($scope.flippedOver);
 			}
 		};
+		$scope.showHint = function(hint) {
+			console.log( hint );
+			$rootScope.actionLog = hint;
+		}
 		$scope.test = function() {
 			$scope.flippedOver = !$scope.flippedOver;
 		}
