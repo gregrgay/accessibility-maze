@@ -266,10 +266,14 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 		} else {
 			$scope.startNew = function() {
 				$rootScope.game.started = true;
-				$rootScope.game.level.id = 0;
-				$rootScope.game.level.floorplan = [];
-				$rootScope.game.level.currTile = {};
+				$rootScope.game.level = {
+					id: 0,
+					floorplan: [],
+					currTile: {},
+					nextTileId: -1
+				};
 				$rootScope.game.inventory = [];
+				$rootScope.game.allGems = false;
 				$rootScope.saveState();
 				$location.path('/intro/');
 			};
@@ -305,23 +309,24 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$location.path('/');
 		} else {
 			$scope.currentSlide = 0;
-			$scope.continueGame = function() {
-				
-				if($scope.currentSlide < $rootScope.intro.length) {
-					$scope.isVisible = false;
-					$timeout( function () {
-						$scope.background = $rootScope.intro[$scope.currentSlide].image;
-						$scope.message = $rootScope.intro[$scope.currentSlide].content;
-						$scope.currentSlide++;
-						$scope.isVisible = true;
-						$rootScope.focusElement("#txtIntro");
-					}, 500, true, $scope);
-				} else {
-					$scope.isVisible = false;
-					$location.path('/level/');
+			$scope.continueGame = function($event) {
+				if ($event.type == 'click' || $event.keyCode == 39) {
+					if ($scope.currentSlide < $rootScope.intro.length) {
+						$scope.isVisible = false;
+						$timeout(function () {
+							$scope.background = $rootScope.intro[$scope.currentSlide].image;
+							$scope.message = $rootScope.intro[$scope.currentSlide].content;
+							$scope.currentSlide++;
+							$scope.isVisible = true;
+							$rootScope.focusElement("#txtIntro");
+						}, 500, true, $scope);
+					} else {
+						$scope.isVisible = false;
+						$location.path('/level/');
+					}
 				}
 			};
-			$scope.continueGame();
+			$scope.continueGame({'type': 'click'});
 			$scope.skipIntro = function() {
 				$scope.isVisible = false;
 				$location.path('/level/');
@@ -350,7 +355,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				$scope.message = "";
 			}
 			$scope.levelCompleted = false;
-			level = $rootScope.levels[$rootScope.game.level.id];
+			level = $rootScope.levels[ $rootScope.game.level.id ];
 
 			if (!$rootScope.game.level.floorplan.length) {
 
@@ -680,7 +685,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 	function($rootScope, $scope, $location, $timeout) {
 
-		var correctOrder, pressedOrder;
+		var nextTile, correctOrder, pressedOrder;
 
 		correctOrder = [2,0,1,3];
 		pressedOrder = [];
@@ -696,14 +701,14 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$scope.locked = true;
 		$scope.error - true;
 		$scope.message = "LOCKED";
-		$scope.nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
-		$scope.inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.requires });
+		nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
+		$scope.inventoryItem = _.findWhere($rootScope.game.inventory, { "id": nextTile.data.requires });
 		if ( $scope.inventoryItem ) {
-			$scope.nextTile.data.collected = true;
+			nextTile.ready = true;
 			$rootScope.game.inventory = _.without($rootScope.game.inventory, $scope.inventoryItem);
 		}
-		$scope.showPanel = $scope.nextTile.data.collected;
-		$scope.hint = $scope.nextTile.data.hint;
+		$scope.showPanel = nextTile.ready;
+		$scope.hint = nextTile.data.hint;
 
 		$scope.puzzle1KeyDownHandler = function(event) {
 			if (event.keyCode == 27) {
@@ -754,8 +759,8 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 				$scope.message = "UNLOCKED";
 				$scope.hint = "";
 				$rootScope.playSound("success");
-				$scope.nextTile.class = "green";
-				$scope.nextTile.data.solved = true;
+				nextTile.class = "green";
+				nextTile.data.solved = true;
 				$timeout(function(){ $location.path('/level'); }, 1000);
 			} else {
 				_.each($scope.buttons, function(item) { item.pressed = false; })
@@ -784,10 +789,10 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
 		inventoryItem = _.findWhere($rootScope.game.inventory, { "id": nextTile.data.requires });
 		if ( inventoryItem ) {
-			nextTile.data.collected = true;
+			nextTile.ready = true;
 			$rootScope.game.inventory = _.without($rootScope.game.inventory, inventoryItem);
 		}
-		$scope.showPhoto = nextTile.data.collected;
+		$scope.showPhoto = nextTile.ready;
 		$scope.hint = nextTile.data.hint;
 			$scope.puzzleKeyDownHandler = function(event) {
 			if (event.keyCode == 27) {
@@ -813,7 +818,7 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 					$rootScope.playSound("success");
 					nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
 					nextTile.class = "green";
-					nextTile.data.collected = true;
+					nextTile.ready = true;
 					$timeout(function(){ $location.path('/level'); }, 1000);
 				} else {
 					$scope.error = true;
@@ -851,22 +856,24 @@ app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$rootScope.playSound("win", {volume: .1});
 			$scope.isOutro = true;
 			$scope.currentSlide = 0;
-			$scope.continueGame = function() {
-				if($scope.currentSlide < $rootScope.outro.length) {
-					$scope.isVisible = false;
-					$timeout( function () {
-						$scope.background = $rootScope.outro[$scope.currentSlide].image;
-						$scope.message = $rootScope.outro[$scope.currentSlide].content;
-						$scope.currentSlide++;
-						$scope.isVisible = true;
-						$rootScope.focusElement("#txtIntro");
-					}, 500, true, $scope);
-				} else {
-					$scope.isVisible = false;
-					$location.path('/summary/');
+			$scope.continueGame = function($event) {
+				if ($event.type == 'click' || $event.keyCode == 39) {
+					if ($scope.currentSlide < $rootScope.outro.length) {
+						$scope.isVisible = false;
+						$timeout(function () {
+							$scope.background = $rootScope.outro[$scope.currentSlide].image;
+							$scope.message = $rootScope.outro[$scope.currentSlide].content;
+							$scope.currentSlide++;
+							$scope.isVisible = true;
+							$rootScope.focusElement("#txtIntro");
+						}, 500, true, $scope);
+					} else {
+						$scope.isVisible = false;
+						$location.path('/summary/');
+					}
 				}
 			};
-			$scope.continueGame();
+			$scope.continueGame({'type': 'click'});
 
 		}
 	}
