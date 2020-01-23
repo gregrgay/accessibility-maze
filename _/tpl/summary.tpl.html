@@ -6,8 +6,10 @@
 				<p>You have completed the game.</p>
 			</div>
 			<div>
-				<button id="btnGuide" onclick="alert('under construction...')"><span class="icon-download"></span> Download Accessibility Guide</button>
+				<form action="_/accessibility_guidelines.pdf" method="get">
+				<button type="submit" id="btnGuide"><span class="icon-download"></span> Download Accessibility Guide</button>
 				<button id="btnNext" ng-click="openMenu($event)" ng-keydown="openMenu($event)">Return to Menu <span class="icon-menu"></span></button>
+				</form>
 			</div>
 		</div>
 	</div>
