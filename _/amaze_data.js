@@ -472,7 +472,7 @@
         },
         {
             "image": "_/img/intro/outro_03.png",
-            "content": "<p>Here, take this guideline. It will help you in your new quest.</p>"
+            "content": "<p>Pick up the Accessibility Guide as you leave the maze. It will help you in your new quest.</p>"
         }
     ]
 }
