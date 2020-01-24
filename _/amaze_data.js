@@ -468,7 +468,7 @@
         },
         {
             "image": "_/img/intro/outro_03.png",
-            "content": "<p>Well, there is no magic that can make the world accessible.</p><p>But there are things you and I can do to get closer to that goal.</p>"
+            "content": "<p>Well, there is no magic that can make the world accessible. But there are things you and I can do to get closer to that goal.</p>"
         },
         {
             "image": "_/img/intro/outro_03.png",
