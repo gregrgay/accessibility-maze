@@ -1,7 +1,7 @@
 <div class="container puzzle2" ng-keydown="puzzleKeyDownHandler($event)">
 	<div class="topbar">
 		<div class="tools">
-			<button ng-click="openMenu($event)" ng-keydown="openMenu($event)" disabled><span class="icon-menu"></span></button>
+			<button ng-click="openMenu($event)" ng-keydown="openMenu($event)"><span class="icon-menu"></span></button>
 			<button ng-click="toggleAmbientSound($event)" ng-keydown="toggleAmbientSound($event)" ng-class="{ 'pressed' : game.settings.music }"><span ng-class="game.settings.music ? 'icon-volume-2' : 'icon-volume-x' "></span></button>
 		</div>
 		<div class="inventory">

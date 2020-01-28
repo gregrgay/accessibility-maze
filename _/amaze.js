@@ -266,6 +266,7 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 		} else {
 			$scope.startNew = function() {
 				$rootScope.game.started = true;
+				$rootScope.game.firstTime = true;
 				$rootScope.game.level = {
 					id: 0,
 					floorplan: [],
@@ -311,6 +312,7 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$scope.currentSlide = 0;
 			$scope.continueGame = function($event) {
 				if ($event.type == 'click' || $event.keyCode == 39) {
+					$scope.message = "";
 					if ($scope.currentSlide < $rootScope.intro.length) {
 						$scope.isVisible = false;
 						$timeout(function () {
@@ -318,8 +320,8 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 							$scope.message = $rootScope.intro[$scope.currentSlide].content;
 							$scope.currentSlide++;
 							$scope.isVisible = true;
-							$rootScope.focusElement("#txtIntro");
-						}, 500, true, $scope);
+							$rootScope.focusElement("#boxContent");
+						}, 800, true, $scope);
 					} else {
 						$scope.isVisible = false;
 						$location.path('/level/');
@@ -706,6 +708,9 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		if ( $scope.inventoryItem ) {
 			nextTile.ready = true;
 			$rootScope.game.inventory = _.without($rootScope.game.inventory, $scope.inventoryItem);
+			$rootScope.actionLog = "";
+		} else {
+			$rootScope.updateStatus("A metal piece is missing from the lock", true);
 		}
 		$scope.showPanel = nextTile.ready;
 		$scope.hint = nextTile.data.hint;
