@@ -9,23 +9,23 @@
     "intro": [
         {
             "image": "_/img/intro/intro_01.png",
-            "content": "<p>Professor X. and I were doing research on the mysterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace. Nobody has heard from him since.</p>"
+            "content": "<p>Professor X and I were doing research on the mysterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace. Nobody has heard from him since.</p>"
         },
         {
             "image": "_/img/intro/intro_02.png",
-            "content": "<p>Last night, Professor X called to tell me that he had found the secret of the Accessibility Master's disappearance. I had some other commitments that evening, so I promised to see him next morning.</p>"
+            "content": "<p>Last night, Professor X called to tell me that he had found the secret of the Accessibility Master's disappearance. I had some other commitments that evening, so I promised to see him the next morning.</p>"
         },
         {
             "image": "_/img/intro/intro_03.png",
-            "content": "<p>I could hardly sleep that night thinking about the reason for the Professor's call. The excitement I'd heard in Professor's voice raised my curiosity. What in the world had he found?</p>"
+            "content": "<p>I could hardly sleep that night thinking about the reason for the Professor's call. The excitement I'd heard in the Professor's voice raised my curiosity. What in the world had he found?</p>"
         },
         {
             "image": "_/img/intro/intro_04.png",
-            "content": "<p>Next morning, I rushed to the library.</p>"
+            "content": "<p>The next morning, I rushed to the library.</p>"
         },
         {
             "image": "_/img/intro/intro_05.png",
-            "content": "<p>The Professor X was not there yet. Suddenly, I saw a note on the floor. I immediately recognized the Professor's writing.</p>"
+            "content": "<p>The Professor was not there yet. Suddenly, I saw a note on the floor. I immediately recognized the Professor's writing.</p>"
         },
         {
             "image": "_/img/intro/intro_06.png",
@@ -444,7 +444,7 @@
                     "row": 5,
                     "col": 4,
                     "data": {
-                        "long": "<div class='text'><p>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 9.</p><p>Here, take mine. Now, go and to open that door!</p></div>",
+                        "long": "<div class='text'><p>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 9.</p><p>Here, take mine. Now, go and open that door!</p></div>",
                         "short": "<div class='text'><p>Go and to open that door!</p></div>"
                     }
                 }
