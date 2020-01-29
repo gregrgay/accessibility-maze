@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="content">
-		<div class="map" tabindex="1" role="application">
+		<div class="map" tabindex="1" role="application" aria-label="Level map">
 			<div class="tile" ng-repeat="tile in game.level.floorplan" ng-class="tile.class" ng-click="tileClickHandler($event, tile)"></div>
 		</div>
 		<div class="overlay" ng-show="message.length">
