@@ -609,12 +609,12 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						
 					case "switch on":
 					case "switch on frozen":
-						$rootScope.updateStatus("The switch is on. A door has opened elsewhere.", true);
+						$rootScope.updateStatus("The switch is frozen on. A door has opened elsewhere.", true);
 						break;
 
 					case "bubble":
 
-						if (--$scope.nextTile.data.attempts % 3 == 0) {
+						if (--$scope.nextTile.data.attempts % 8 == 0) {
 							$rootScope.updateStatus("Try popping it with your mouse", true);
 						} else {
 							$rootScope.updateStatus("Your way is blocked by balloon");

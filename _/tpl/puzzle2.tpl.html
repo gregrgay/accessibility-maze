@@ -8,11 +8,11 @@
 			<div ng-repeat="item in game.inventory track by item.id" ng-class="item.class"></div>
 		</div>
 	</div>
-	<div class="content" tabindex="1">
+	<div class="content" tabindex="1" role="application">
 		<div class="main">
 			<div class='hint' ng-show="hint.length">{{hint}}</div>
-			<div class='display' ng-class="{ 'unlocked': !locked, 'blinking': error }">{{ message }}</div>
-			<div class="flip" tabindex="1" ng-focus="showHint('Press Enter key to flip the photo')" ng-blur="showHint('')" ng-keydown="flipPhoto($event)" ng-class="{ 'flipped': flippedOver }" ng-show="showPhoto">
+			<div class='display' ng-class="{ 'unlocked': !locked, 'blinking': error }" aria-live="polite">{{ message }}</div>
+			<div class="flip" tabindex="1" ng-focus="showHint('Press Enter key to flip the photo')" ng-blur="showHint('')" ng-keydown="flipPhoto($event)" ng-class="{ 'flipped': flippedOver }" ng-show="showPhoto"  aria-label="The cats name is V. A. S. Y. A.">
 				<div class="photo">
 					<div class="front">
 						<img src='_/img/chest/cat_large.png' alt=''>

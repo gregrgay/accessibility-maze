@@ -9,9 +9,9 @@
 		</div>
 	</div>
 	<div class="content" tabindex="1">
-		<div class="main">
+		<div class="main" role="application">
 			<div class='hint' ng-show="hint.length">{{hint}}</div>
-			<div class='display' ng-class="{ 'unlocked': !locked, 'blinking': error }">{{ message }}</div>
+			<div class='display' ng-class="{ 'unlocked': !locked, 'blinking': error }" aria-live="polite">{{ message }}</div>
 			<div class='panel' ng-show="showPanel"><img src='_/img/puzzles/panel_01.png' alt=''></div>
 			<div class='controls'>
 				<div ng-repeat="btn in buttons" class='togglebutton' role='button' aria-pressed="{{btn.pressed}}" tabindex='1' ng-keydown='toggleButton($event, $index)'></div>
