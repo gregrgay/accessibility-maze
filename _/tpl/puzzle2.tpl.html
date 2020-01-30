@@ -8,28 +8,34 @@
 			<div ng-repeat="item in game.inventory track by item.id" ng-class="item.class"></div>
 		</div>
 	</div>
-	<div class="content" tabindex="1">
+	<div class="content" tabindex="1" role="application" aria-labelledby="hint">
 		<div class="main">
-			<div class='hint' ng-show="hint.length">{{hint}}</div>
-			<div class='display' ng-class="{ 'unlocked': !locked, 'blinking': error }">{{ message }}</div>
-			<div class="flip" tabindex="1" ng-focus="showHint('Press Enter key to flip the photo')" ng-blur="showHint('')" ng-keydown="flipPhoto($event)" ng-class="{ 'flipped': flippedOver }" ng-show="showPhoto">
-				<div class="photo">
-					<div class="front">
-						<img src='_/img/chest/cat_large.png' alt=''>
-						<!--<div class="hint">Hit Enter to flip the photo</div>-->
+			<div class="hint" id="hint" ng-show="hint.length" ng-bind-html="hint"></div>
+			<div class="display" ng-class="{ 'unlocked': !locked, 'blinking': error }" role="region" aria-live="polite">{{ message }}</div>
+			<div class="flip" tabindex="1" aria-hidden="{{!pictureInFocus}}"
+				 ng-focus="showHint('Press Enter key to flip the photo')"
+				 ng-blur="showHint('')"
+				 ng-keydown="flipPhoto($event)"
+				 ng-class="{ 'flipped': flippedOver }"
+				 ng-show="showPhoto">
+				<div class="photo" role="region" aria-live="polite">
+					<div class="front" aria-hidden="{{flippedOver}}">
+						<img src="_/img/chest/cat_large.png" alt="">
+						<div class="readersonly">Picture of cat</div>
 					</div>
-					<div class="back">
-						<div>VASYA</div>
-						<div>(January 1)</div>
+					<div class="back" aria-hidden="{{!flippedOver}}">
+						<div>V<span aria-hidden='true' class='readersonly'>.</span>a<span aria-hidden='true' class='readersonly'>.</span>s<span aria-hidden='true' class='readersonly'>.</span>y<span aria-hidden='true' class='readersonly'>.</span>a</div>
 					</div>
 				</div>
 			</div>
 			<div class="controls">
-				<button ng-repeat="btn in buttons" ng-keydown='enterCode($event, btn)' tabindex="1">{{btn}}</button>
+				<button ng-repeat="btn in buttons" ng-keydown="enterCode($event, btn)" tabindex="1">{{btn}}</button>
 				<button class="cancel" ng-keydown="clearCode($event)" tabindex="1" aria-label="Clear">C</button>
 				<button class="enter" ng-keydown="validateCode($event)" tabindex="1">Enter</button>
 			</div>
 		</div>
 	</div>
-	<div role="region" aria-live="assertive">&nbsp; {{ actionLog }} &nbsp;</div>
+	<div class="actionLog" role="region" aria-live="assertive">
+		&nbsp;<span ng-bind-html="actionLog"></span>&nbsp;
+	</div>
 </div>

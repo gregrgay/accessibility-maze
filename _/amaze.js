@@ -152,7 +152,7 @@ app.config(['$routeProvider', '$locationProvider',
 		$rootScope.toggleAmbientSound = function($event) {
 			var instance = "ambientSound";
 			$event.preventDefault();
-			$event.stopPropagation();
+			//$event.stopPropagation();
 
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
 				if ($rootScope.game.settings.music) {
@@ -208,7 +208,7 @@ app.config(['$routeProvider', '$locationProvider',
 
 		$rootScope.openMenu = function($event) {
 			$event.preventDefault();
-			$event.stopPropagation();
+			//$event.stopPropagation();
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
 				$location.path("/menu");
 			} else if($event.keyCode == 9) {
@@ -219,10 +219,14 @@ app.config(['$routeProvider', '$locationProvider',
 		$rootScope.moveFocusOnTab = function ($event) {
 			var $focusable, ind, next;
 
-			$focusable = $("button, [tabindex]");
+			$event.preventDefault();
+			//$event.stopPropagation();
+
+			$focusable = $("button, [tabindex]").filter(":visible");
 			ind = $focusable.index($($event.currentTarget));
+
 			if($event.shiftKey) {
-				next = ind == 1 ? $focusable.length - 1 : 0;
+				next = ind == 0 ? $focusable.length - 1 : 0;
 			} else {
 				next = ind > $focusable.length - 1 ? 0 : ++ind;
 			}
@@ -428,7 +432,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
             $scope.tileClickHandler = function($event, tile) {
                 if (tile.class == "bubble") {
                     tile.class="green";
-                    $rootScope.playSound("pop")
+                    $rootScope.playSound("pop");
                 }
             };
 
@@ -438,16 +442,16 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				col = $rootScope.game.level.currTile.col;
 				switch (event.keyCode) {
 					case 37: // left
-						takeAction(row, --col, "left");
+						takeAction(event, row, --col, "left");
 						break;
 					case 38: // top
-						takeAction(--row, col, "up");
+						takeAction(event, --row, col, "up");
 						break;
 					case 39: // right
-						takeAction(row, ++col, "right");
+						takeAction(event, row, ++col, "right");
 						break;
 					case 40: // bottom
-						takeAction(++row, col, "down");
+						takeAction(event, ++row, col, "down");
 						break;
 					default:
 						//console.log(event.keyCode)
@@ -461,7 +465,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			});
 		}
 
-		function takeAction(row, col, dir) {
+		function takeAction(event, row, col, dir) {
 			var ind, inventoryIndex, inventoryItem, switchDelay;
 			ind = _.findWhere($rootScope.game.level.floorplan, {row: row, col: col}).id;
 			$scope.nextTile = $rootScope.game.level.floorplan[ind];
@@ -614,19 +618,26 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 					case "bubble":
 
-						if (--$scope.nextTile.data.attempts % 3 == 0) {
-							$rootScope.updateStatus("Try popping it with your mouse", true);
-						} else {
-							$rootScope.updateStatus("Your way is blocked by balloon");
-						}
-						$scope.nextTile.class = $scope.nextTile.class + " wobble";
-						$rootScope.playSound("boing", {volume: 1});
-						
-						$timeout(function(){
-							var nextTile = arguments[0];
-							nextTile.class = "bubble";
+						if (event.shiftKey && event.ctrlKey) {
+							$scope.nextTile.class = "green";
 							$rootScope.saveState();
-						}, 300, true, $scope.nextTile);
+							moveBlob($scope.nextTile);
+							$rootScope.playSound("pop");
+						} else {
+							if (--$scope.nextTile.data.attempts % 3 == 0) {
+								$rootScope.updateStatus("Try popping it with your mouse <span class='readersonly'> or press Ctrl + Shift + arrow button <span>", true);
+							} else {
+								$rootScope.updateStatus("Your way is blocked by balloon");
+							}
+							$scope.nextTile.class = $scope.nextTile.class + " wobble";
+							$rootScope.playSound("boing", {volume: 1});
+
+							$timeout(function () {
+								var nextTile = arguments[0];
+								nextTile.class = "bubble";
+								$rootScope.saveState();
+							}, 300, true, $scope.nextTile);
+						}
 						break;
 
 					case "puzzle1":
@@ -695,10 +706,10 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$rootScope.focusElement(".content");
 
 		$scope.buttons = [
-			{ pressed: false },
-			{ pressed: false },
-			{ pressed: false },
-			{ pressed: false }
+			{ pressed: false, label: "C" },
+			{ pressed: false, label: "A" },
+			{ pressed: false, label: "D" },
+			{ pressed: false, label: "B" }
 		];
 		$scope.locked = true;
 		$scope.error - true;
@@ -790,6 +801,7 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$scope.buttons.message = "";
 		$scope.message = "";
 		$scope.flippedOver = false;
+		$scope.pictureInFocus = false;
 
 		nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
 		inventoryItem = _.findWhere($rootScope.game.inventory, { "id": nextTile.data.requires });
@@ -836,12 +848,12 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$scope.flipPhoto = function(event) {
 			if (event.keyCode == 13 || event.keyCode == 32) {
 				$scope.flippedOver = !$scope.flippedOver;
-				console.log($scope.flippedOver);
 			}
 		};
 		$scope.showHint = function(hint) {
-			console.log( hint );
+			$scope.pictureInFocus = !!hint.length;
 			$rootScope.actionLog = hint;
+			console.log($scope.pictureInFocus);
 		}
 		$scope.test = function() {
 			$scope.flippedOver = !$scope.flippedOver;
@@ -863,6 +875,7 @@ app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$scope.currentSlide = 0;
 			$scope.continueGame = function($event) {
 				if ($event.type == 'click' || $event.keyCode == 39) {
+					$scope.message = "";
 					if ($scope.currentSlide < $rootScope.outro.length) {
 						$scope.isVisible = false;
 						$timeout(function () {
@@ -870,8 +883,8 @@ app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 							$scope.message = $rootScope.outro[$scope.currentSlide].content;
 							$scope.currentSlide++;
 							$scope.isVisible = true;
-							$rootScope.focusElement("#txtIntro");
-						}, 500, true, $scope);
+							$rootScope.focusElement("#boxContent");
+						}, 800, true, $scope);
 					} else {
 						$scope.isVisible = false;
 						$location.path('/summary/');

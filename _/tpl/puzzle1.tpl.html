@@ -8,15 +8,18 @@
 			<div ng-repeat="item in game.inventory track by item.id" ng-class="item.class"></div>
 		</div>
 	</div>
-	<div class="content" tabindex="1">
+	<div class="content" tabindex="1" role="application" aria-describedby="hint">
 		<div class="main">
-			<div class='hint' ng-show="hint.length">{{hint}}</div>
-			<div class='display' ng-class="{ 'unlocked': !locked, 'blinking': error }">{{ message }}</div>
-			<div class='panel' ng-show="showPanel"><img src='_/img/puzzles/panel_01.png' alt=''></div>
-			<div class='controls'>
-				<div ng-repeat="btn in buttons" class='togglebutton' role='button' aria-pressed="{{btn.pressed}}" tabindex='1' ng-keydown='toggleButton($event, $index)'></div>
+			<div class="hint" id="hint" ng-show="hint.length" ng-bind-html="hint"></div>
+			<div class="display" ng-class="{ 'unlocked': !locked, 'blinking': error }" role="region" aria-live="polite">{{ message }}</div>
+			<div class="panel" ng-show="showPanel"><img src="_/img/puzzles/panel_01.png" alt=""></div>
+			<div class="controls">
+				<div ng-repeat="btn in buttons" class="togglebutton" role="button" tabindex="1" ng-keydown="toggleButton($event, $index)"
+					 aria-pressed="{{btn.pressed}}" aria-label="{{ showPanel ? btn.label : '' }}"></div>
 			</div>
 		</div>
 	</div>
-	<div role="region" aria-live="assertive">&nbsp; {{ actionLog }} &nbsp;</div>
+	<div class="actionLog" role="region" aria-live="assertive">
+		&nbsp;<span ng-bind-html="actionLog"></span>&nbsp;
+	</div>
 </div>

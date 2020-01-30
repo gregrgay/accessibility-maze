@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="content">
-		<div class="map" tabindex="1" role="application" aria-label="Level map">
+		<div class="map" tabindex="1" role="application" aria-label="Level {{game.level.id + 1}} map">
 			<div class="tile" ng-repeat="tile in game.level.floorplan" ng-class="tile.class" ng-click="tileClickHandler($event, tile)"></div>
 		</div>
 		<div class="overlay" ng-show="message.length">
@@ -20,5 +20,7 @@
 			</div>
 		</div>
 	</div>
-	<div role="region" aria-live="assertive">&nbsp; {{ actionLog }} &nbsp;</div>
+	<div class="actionLog" role="region" aria-live="assertive">
+		&nbsp;<span ng-bind-html="actionLog"></span>&nbsp;
+	</div>
 </div>

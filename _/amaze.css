@@ -790,6 +790,7 @@ button [class*=" icon-"] {
   color: #fff;
 }
 .readersonly {
+  display: block;
   position: absolute;
   overflow: hidden;
   height: 1px;

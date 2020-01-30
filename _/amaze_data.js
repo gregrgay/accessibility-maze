@@ -114,7 +114,7 @@
                     "requires": 70,
                     "collected": false,
                     "solved": false,
-                    "hint": "The door is locked. Use Tab/Shift+Tab and Enter keys to punch in the key combination."
+                    "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab / Shift+Tab and Enter keys to punch in the key combination."
                 }
             }
         ],
@@ -140,7 +140,7 @@
                     "row": 1,
                     "col": 5,
                     "data": {
-	                    "content": "<div class='columns'><p><u>Monday, April 1</u></p><p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p><p>I thought leaving the same combination would make it easier to remember:</p><p class='passcode'>D C A B</p><p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p><p><u>Friday, April 19</u></p><p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p><p><img src='_/img/book/figure1-1.png' alt=''></p><p>The plate is detachable and can be stored away when not in use.</p><p>I hope nobody will mix up the buttons anymore!</p></div>"
+	                    "content": "<div class='columns'><p><u>Monday, April 1</u></p><p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p><p>I thought leaving the same combination would make it easier to remember:</p><p class='passcode'> D <span aria-hidden='true' class='readersonly'>.</span> C <span aria-hidden='true' class='readersonly'>.</span> A <span aria-hidden='true' class='readersonly'>.</span> B </p><p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p><p><u>Friday, April 19</u></p><p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p><p><img src='_/img/book/figure1-1.png' alt=''></p><p>The plate is detachable and can be stored away when not in use.</p><p>I hope nobody will mix up the buttons anymore!</p></div>"
                     }
 	            },
                 {
@@ -203,7 +203,7 @@
                         "requires": 38,
                         "collected": false,
                         "solved": false,
-                        "hint": "The door is locked. Use Tab/Shift+Tab and Enter keys to punch in the key combination."
+                        "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab / Shift+Tab and Enter keys to punch in the key combination."
                     }
                 }
             ],
