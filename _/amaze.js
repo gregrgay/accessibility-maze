@@ -613,7 +613,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						
 					case "switch on":
 					case "switch on frozen":
-						$rootScope.updateStatus("The switch is on. A door has opened elsewhere.", true);
+						$rootScope.updateStatus("The switch is frozen on. A door has opened elsewhere.", true);
 						break;
 
 					case "bubble":
