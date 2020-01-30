@@ -625,7 +625,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$rootScope.playSound("pop");
 						} else {
 							if (--$scope.nextTile.data.attempts % 3 == 0) {
-								$rootScope.updateStatus("Try popping it with your mouse <span class='readersonly'> or press Ctrl + Shift + arrow button <span>", true);
+								$rootScope.updateStatus("Try popping it with your mouse <span class='readersonly'> or press Ctrl + Shift + arrow button </span>", true);
 							} else {
 								$rootScope.updateStatus("Your way is blocked by balloon");
 							}
