@@ -1,6 +1,5 @@
 @charset "utf-8";
 
-//@import url("https://fonts.googleapis.com/css?family=Oswald|Shadows+Into+Light+Two&display=swap");
 @import url('https://fonts.googleapis.com/css?family=Oswald|Annie+Use+Your+Telescope&display=swap');
 
 @primary: #fb0;
@@ -483,15 +482,16 @@ a {
 					color: #fff;
 				}
 			}
+			
 			&[disabled] {
 				[class^="icon-"], [class*=" icon-"] {
 					text-shadow: none;
-					color: rgba(0,0,0,.15);
+					color: rgba(0, 0, 0, .15);
 				}
 				
 				
 				&:hover,
-				&:focus{
+				&:focus {
 					[class^="icon-"], [class*=" icon-"] {
 						text-shadow: none;
 						color: inherit;
@@ -500,6 +500,7 @@ a {
 			}
 		}
 	}
+	
 	.inventory {
 		width: 100%;
 		height: @tilesize * .75;
@@ -526,6 +527,7 @@ a {
 			}
 		}
 	}
+}
 .actionLog {
 	flex-grow: 1;
 }
