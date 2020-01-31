@@ -1,9 +1,9 @@
 {
     "gameinfo": {
-	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team at The Chang School of Continuing Education, at Ryerson University. Funding is provided by The Chang School, and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility, to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities encounter.</p></div>",
+	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team at The G. Raymond Chang School of Continuing Education, at Ryerson University. Funding is provided by The Chang School, and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility, to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities experience.</p></div>",
 	    "howto": "<h1>How to Play</h1><div class='message'><p>The goal of the Accessibility Maze is to navigate through the maze, solving puzzles to move between levels, and collecting gems to be exchanged for a reward after completing the game.</p><p>Once in the maze, use your keyboard's arrow keys to move up and down, or left and right, through the squares in the maze.</p><p>Press the arrow keys while next to an object, to bump up against the object and activate it.</p><p>Use the Escape (ESC) key to dismiss any dialog boxes, puzzles, or diary pages that may open, after reading their content.</p><p>Your position in the game is maintained when returning to the menu, so you can continue where you left off in the game by clicking Resume Saved. Choosing New Game will start the game over from the beginning.\n</p></div>",
 	    "contacts": "<h1>Contact Us</h1><div class='message'><p>Questions or comments about the game can be directed to <a href='mailto:dehelp@ryerson.ca'>dehelp@ryerson.ca</a>.</p></div>",
-        "accessibility": "<h1>Accessibility</h1><div class='message'><p>Every effort has been made to make the Accessibility Maze accessible to screen readers.</p><p>The background music can be disabled using the Audio button at the top of the maze, once it opens.</p><p>Next to the audio button, is another button that returns the player to the menu on the opening screen of the game.</p><p>Listen for shortcuts during game play, announced by screen readers.</p></div>",
+        "accessibility": "<h1>Accessibility</h1><div class='message'><p>Effort has been made to make the Accessibility Maze accessible to screen readers. <ul><li>Play the game using NVDA with Firefox, or using ChromeVox with the Chrome web browser.</li><li>The game may not work well with JAWS screen reader.</li><li>Disable background music using the Audio button above the maze.</li><li>The second button above the maze, returns you to the game menu.</li><li>Listen for screen reader shortcuts during game play.</li><li>Navigate slowly to hear all status messages.</ul></div>",
 	    "terms": "<h1>Terms of Use</h1><div><p>Unless otherwise noted this resource is available for public use under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"postop\">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>.</p><p>Under the terms of Creative Commons license, you are free to share and adapt this resource under the following terms: If you share the content from this resource, you must identify the creators of the resource (Ryerson University) in a reasonable manner. </p></div>"
     },
     "intro": [
@@ -25,7 +25,7 @@
         },
         {
             "image": "_/img/intro/intro_05.png",
-            "content": "<p>The Professor was not there yet. Suddenly, I saw a note on the floor. I immediately recognized the Professor's writing.</p>"
+            "content": "<p>The Professor was not there. Suddenly, I saw a note on the floor. I immediately recognized the Professor's writing.</p>"
         },
         {
             "image": "_/img/intro/intro_06.png",
@@ -114,12 +114,12 @@
                     "requires": 70,
                     "collected": false,
                     "solved": false,
-                    "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab key to move forward between interactive controls, Shift+Tab to move in opposite drection, and Enter key to activate them."
+                    "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use the Tab key to move forward, Shift+Tab to move back, and the Enter key to activate interactive items."
                 }
             }
         ],
         "inventory": [],
-        "lesson": "<h1>LESSON 1: All visual content must have a text alternative.</h1><p>When creating content for the Web, one of the most important accessibility features that can be added is text descriptions for meaningful visual content. This ensures that people who are blind get equivalent information to those who can see images. In this puzzle the cat's name on the back of the photo, provides a text alternative for the name that cannot be seen in the image .</p><p>Text alternatives also make it possible for search engines to index images to make them searchable. It makes the same information available for those with images turned off, or perhaps using older technology, or with limited data plans. Learn more about providing text alternatives when you reach the end of the game.</p>"
+        "lesson": "<h1>LESSON 1: All visual content must have a text alternative.</h1><p>When creating content for the Web, one of the most important accessibility features is text descriptions for meaningful visual content. This ensures that people who are blind get equivalent information to those who can see images.</p><p>In this puzzle the cat's name on the back of the photo, provides a text alternative for the name that cannot be seen in the image .</p><p>Learn more about text alternatives when you reach the end of the game.</p>"
     },
     {
             "floorplan": [
@@ -203,12 +203,12 @@
                         "requires": 38,
                         "collected": false,
                         "solved": false,
-                        "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab key to move forward between interactive controls, Shift+Tab to move in opposite drection, and Enter key to activate them."
+                        "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use the Tab key to move forward, Shift+Tab to move back, and the Enter key to activate interactive items."
                     }
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>LESSON 2: Ensure all buttons and form fields are properly labelled</h1><p>You just experienced what happens when buttons are not labelled properly. Remember that simply placing some text or images next to buttons or form fields is not enough — people who use screen readers might not perceive the connection.</p><p>To make buttons and form fields accessible, each one of them must be properly associated with a label. Complete the game to receive tips on how to do this!</p>"
+            "lesson": "<h1>LESSON 2: Ensure all buttons and form fields are properly labelled</h1><p>When buttons are not labelled properly, forms can be difficult to operate for some people. Simply placing text or images next to buttons or form fields is often not enough — people who use screen readers might not perceive the connection.</p><p>In this puzzle, without the metal plate that connects the labels to the buttons, it is difficult to unlock the door, much like a screen reader user would have difficulty completing a form without proper labels.</p><p> Finish the game to learn more about form labels!</p>"
         },
         {
             "floorplan": [
@@ -316,7 +316,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>LESSON 3: Moving or timed content should be easily paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed &mdash; some users require more time to complete a task.</p><p>It is important to always provide a way to completely stop or slow down any moving or timed content on the Web. Complete the game to learn more. </p>"
+            "lesson": "<h1>LESSON 3: Moving or timed content can be paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed &mdash; some people take longer to complete a tasks. It is important to provide a way to stop or slow down any moving or timed content on the Web for this reason.</p><p>In this puzzle the freeze spray allowed you to stop the switch from turning off, providing more time to get to the exit before it closed.</p><p>Learn more about timing and accessibility at the end of the game. </p>"
         },
         {
             "floorplan": [
@@ -411,7 +411,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>Lesson 4: Interactive features must operate with a mouse and a keyboard.</h1><p>Many people are not able to use a mouse, perhaps because they cannot see the mouse pointer, or perhaps they do not have a steady enough hand to target clickable features effectively, among other reasons. </p><p>You may have experienced a moment of frustration yourself trying to access the final room in this puzzle when your keyboard stopped working. This frustration is common for people who rely on a keyboard to navigate the Web. Learn more about \"device independence\" at the end of the game.</p>"
+            "lesson": "<h1>Lesson 4: Interactive features must operate with a mouse and a keyboard.</h1><p>Many people are not able to use a mouse, perhaps because they cannot see the mouse pointer, or maybe they do not have a steady enough hand to target clickable features effectively.</p><p>In this puzzle you may have experienced a moment of frustration while trying to enter the bubble room using your keyboard. This frustration is common for people who rely on a keyboard to navigate the Web, when they encounter features that only work with a mouse.</p> <p>Learn more about keyboard accessibility at the end of the game.</p>"
         },
         {
             "floorplan": [
@@ -460,11 +460,11 @@
         },
         {
             "image": "_/img/intro/outro_02.png",
-            "content": "<p>Wait&hellip; But the room is empty! Where are all the accessibility secrets?! And who the hell are you?</p>"
+            "content": "<p>Wait&hellip; But the room is empty! Where are all the accessibility secrets?! And who the heck are you?</p>"
         },
         {
             "image": "_/img/intro/outro_03.png",
-            "content": "<p>Hello my friends! I am the Accessibility Master. I'll bet you were expecting to discover some accessibility magic here.</p>"
+            "content": "<p>Hello my friend! I am the Accessibility Master. I'll bet you were expecting to discover some accessibility magic here.</p>"
         },
         {
             "image": "_/img/intro/outro_03.png",
@@ -472,7 +472,7 @@
         },
         {
             "image": "_/img/intro/outro_03.png",
-            "content": "<p>Pick up the Accessibility Guide as you leave the maze. It will help you in your new quest.</p>"
+            "content": "<p>Pick up the Accessibility Guide as you leave. It will help you in your new quest. Now go! Make the world more accessible for everyone!</p>"
         }
     ]
 }
