@@ -114,7 +114,7 @@
                     "requires": 70,
                     "collected": false,
                     "solved": false,
-                    "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab / Shift+Tab and Enter keys to punch in the key combination."
+                    "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab key to move forward between interactive controls, Shift+Tab to move in opposite drection, and Enter key to activate them."
                 }
             }
         ],
@@ -203,7 +203,7 @@
                         "requires": 38,
                         "collected": false,
                         "solved": false,
-                        "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab / Shift+Tab and Enter keys to punch in the key combination."
+                        "hint": "<span class=\"readersonly\">Door with combination lock. </span>Use Tab key to move forward between interactive controls, Shift+Tab to move in opposite drection, and Enter key to activate them."
                     }
                 }
             ],
@@ -316,7 +316,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>LESSON 3: Moving or timed content should be easily paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed -- some users require more time to complete a task.</p><p>It is important to always provide a way to completely stop or slow down any moving or timed content on the Web. Complete the game to learn more. </p>"
+            "lesson": "<h1>LESSON 3: Moving or timed content should be easily paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed &mdash; some users require more time to complete a task.</p><p>It is important to always provide a way to completely stop or slow down any moving or timed content on the Web. Complete the game to learn more. </p>"
         },
         {
             "floorplan": [

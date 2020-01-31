@@ -353,7 +353,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .1}, "ambientSound");
 			}
 			if ($rootScope.game.firstTime) {
-				$scope.message = "<h1>How to Play</h1><ul><li>Use arrow keys to move around</li><li>Bump into things to interact</li><li>Use Esc key to close any popup boxes (including this one)</li></li></ul>"
+				$scope.message = "<h1>How to Play</h1><ul><li>Use KEYBOARD to play the game:<ul><li>Arrow keys &mdash; move around</li><li>Enter key &mdash; press buttons</li><li>Esc key &mdash; close popup boxes (including this one)</li></ul></li><li>Bump into things to interact</li><li>Pay attention to status updates below the map</li></ul>"
 				$rootScope.toggleDialogFocus(true);
 				$rootScope.game.firstTime = false;
 				$rootScope.saveState();
@@ -499,7 +499,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				switch ($scope.nextTile.class) {
 
 					case "green":
-						$rootScope.updateStatus("You moved " + dir);
+						$rootScope.updateStatus("<span class='readersonly'>You moved " + dir + "</span>");
 						moveBlob($scope.nextTile);
 						break;
 
