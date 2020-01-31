@@ -624,8 +624,10 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							moveBlob($scope.nextTile);
 							$rootScope.playSound("pop");
 						} else {
-							if (--$scope.nextTile.data.attempts % 3 == 0) {
-								$rootScope.updateStatus("Try popping it with your mouse <span class='readersonly'> or press Ctrl + Shift + arrow button </span>", true);
+							if (--$scope.nextTile.data.attempts % 5 == 0) {
+								
+								//$rootScope.updateStatus("Try popping the ballons with your mouse.", true);
+								$rootScope.updateStatus("<span class='readersonly'>Press Ctrl + Shift + arrow button to pop balloons.</span> Try popping the balloons with your mouse", true);
 							} else {
 								$rootScope.updateStatus("Your way is blocked by balloon");
 							}
