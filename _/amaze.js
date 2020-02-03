@@ -387,7 +387,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							"data": item && item.data ? item.data : null
 						};
 						if (tile == "bubble") {
-							obj.data = { attempts: 3 };
+							obj.data = { attempts: 5 };
 						}
 						$rootScope.game.level.floorplan.push(obj);
 						if (tile == "blob") {
@@ -636,9 +636,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							moveBlob($scope.nextTile);
 							$rootScope.playSound("pop");
 						} else {
-							if (--$scope.nextTile.data.attempts % 5 == 0) {
-								
-								//$rootScope.updateStatus("Try popping the ballons with your mouse.", true);
+							if ( --$scope.nextTile.data.attempts % 5 === 0) {
 								$rootScope.updateStatus("<span class='readersonly'>Press Ctrl + Shift + arrow button to pop balloons.</span> Try popping the balloons with your mouse", true);
 							} else {
 								$rootScope.updateStatus("Your way is blocked by balloon");
