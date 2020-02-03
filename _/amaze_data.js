@@ -1,15 +1,15 @@
 {
     "gameinfo": {
-	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team at The G. Raymond Chang School of Continuing Education, at Ryerson University. Funding is provided by The Chang School, and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility, to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities experience.</p></div>",
-	    "howto": "<h1>How to Play</h1><div class='message'><p>The goal of the Accessibility Maze is to navigate through the maze, solving puzzles to move between levels, and collecting gems to be exchanged for a reward after completing the game.</p><p>Once in the maze, use your keyboard's arrow keys to move up and down, or left and right, through the squares in the maze.</p><p>Press the arrow keys while next to an object, to bump up against the object and activate it.</p><p>Use the Escape (ESC) key to dismiss any dialog boxes, puzzles, or diary pages that may open, after reading their content.</p><p>Your position in the game is maintained when returning to the menu, so you can continue where you left off in the game by clicking Resume Saved. Choosing New Game will start the game over from the beginning.\n</p></div>",
+	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team in The G. Raymond Chang School of Continuing Education at Ryerson University. Funding is provided by The Chang School and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities experience.</p></div>",
+	    "howto": "<h1>How to Play</h1><div class='message'><p>The goal of the Accessibility Maze is to navigate through the maze, solving puzzles to advance and collecting gems to be exchanged for a reward after completing the game.</p><p>Once in the maze use your keyboard's arrow keys to move up and down, or left and right, through the squares in the maze.</p><p>Press the arrow keys while next to an object to bump up against the object and activate it.</p><p>Use the Escape (Esc) key to dismiss any dialog boxes, puzzles, or diary pages after reading their content.</p><p>Your position in the game is maintained when returning to the menu, so you can continue where you left off in the game by clicking Resume Saved. Choosing New Game will start the game over from the beginning.\n</p></div>",
 	    "contacts": "<h1>Contact Us</h1><div class='message'><p>Questions or comments about the game can be directed to <a href='mailto:dehelp@ryerson.ca'>dehelp@ryerson.ca</a>.</p></div>",
-        "accessibility": "<h1>Accessibility</h1><div class='message'><p>Effort has been made to make the Accessibility Maze accessible to screen readers. <ul><li>Play the game using NVDA with Firefox, or using ChromeVox with the Chrome web browser.</li><li>The game may not work well with JAWS screen reader.</li><li>Disable background music using the Audio button above the maze.</li><li>The second button above the maze, returns you to the game menu.</li><li>Listen for screen reader shortcuts during game play.</li><li>Navigate slowly to hear all status messages.</ul></div>",
-	    "terms": "<h1>Terms of Use</h1><div><p>Unless otherwise noted this resource is available for public use under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"postop\">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>.</p><p>Under the terms of Creative Commons license, you are free to share and adapt this resource under the following terms: If you share the content from this resource, you must identify the creators of the resource (Ryerson University) in a reasonable manner. </p></div>"
+        "accessibility": "<h1>Accessibility</h1><div class='message'><p>The Accessibility Maze has been designed to be accessible to screen readers. <ul><li>Play the game using NVDA with Firefox or using ChromeVox with the Chrome web browser.</li><li>The game may not work well with JAWS screen reader.</li><li>Disable background music using the Audio button above the maze.</li><li>The second button above the maze returns you to the game menu.</li><li>Listen for screen reader shortcuts during game play.</li><li>Navigate slowly to hear all status messages.</ul></div>",
+	    "terms": "<h1>Terms of Use</h1><div><p>Unless otherwise noted this resource is available for public use under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"postop\">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>.</p><p>Under the terms of Creative Commons licence, you are free to share and adapt this resource under the following terms: If you share the content from this resource, you must identify the creators of the resource (Ryerson University) in a reasonable manner. </p></div>"
     },
     "intro": [
         {
             "image": "_/img/intro/intro_01.png",
-            "content": "<p>Professor X and I were doing research on the mysterious Accessibility Master. Rumors had it that he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace. Nobody has heard from him since.</p>"
+            "content": "<p>Professor X and I were doing research on the mysterious Accessibility Master. Rumours suggested he had found a great secret that would make the entire world accessible.</p><p>Unfortunately, the Master's work was never published and he himself disappeared without a trace.</p>"
         },
         {
             "image": "_/img/intro/intro_02.png",
@@ -17,7 +17,7 @@
         },
         {
             "image": "_/img/intro/intro_03.png",
-            "content": "<p>I could hardly sleep that night thinking about the reason for the Professor's call. The excitement I'd heard in the Professor's voice raised my curiosity. What in the world had he found?</p>"
+            "content": "<p>I could hardly sleep that night thinking about the reason for the Professor's call. The excitement I'd heard in his voice made me curious. What in the world had he found?</p>"
         },
         {
             "image": "_/img/intro/intro_04.png",
@@ -25,7 +25,7 @@
         },
         {
             "image": "_/img/intro/intro_05.png",
-            "content": "<p>The Professor was not there. Suddenly, I saw a note on the floor. I immediately recognized the Professor's writing.</p>"
+            "content": "<p>The Professor was not there. Then I saw a note on the floor. I immediately recognized the Professor's writing.</p>"
         },
         {
             "image": "_/img/intro/intro_06.png",
@@ -37,7 +37,7 @@
         },
         {
             "image": "_/img/intro/intro_08.png",
-            "content": "<p>But the clock is broken. The hands don't move. So how did the Professor open the passageway? Let me try moving the hands myself...</p>"
+            "content": "<p>But the clock is broken. The hands don't move. So how did the Professor open the passageway? I tried moving the hands myself...</p>"
         },
         {
             "image": "_/img/intro/intro_09.png",
@@ -82,7 +82,7 @@
                 "row": 1,
                 "col": 9,
                 "data": {
-                    "content": "<div class='columns'><p><u>Sunday, March 17</u></p><p>Being Accessibility Master is not easy. With everything that happens around here I need a place to record my thoughts and ideas. So, I decided to start a diary. Maybe it will help me think about things more clearly.</p><p><u>Saturday, March 23</u></p><p>I keep foregeting the password for the combination lock in this room. Today I reprogrammed the lock to use my cat's name.</p><p>I always have his picture on my desk. It would be a good reminder if I ever forget the password again.</p></div>"
+                    "content": "<div class='columns'><p><u>Sunday, March 17</u></p><p>Being Accessibility Master is not easy. With everything that happens around here I need a place to record my thoughts and ideas. So, I decided to start a diary. Maybe it will help me think about things more clearly.</p><p><u>Saturday, March 23</u></p><p>I keep forgetting the password for the combination lock in this room. Today I reprogrammed the lock to use my cat's name.</p><p>I always have his picture on my desk. It would be a good reminder if I ever forget the password again.</p></div>"
                 }
             },
             {
@@ -119,7 +119,7 @@
             }
         ],
         "inventory": [],
-        "lesson": "<h1>LESSON 1: All visual content must have a text alternative.</h1><p>When creating content for the Web, one of the most important accessibility features is text descriptions for meaningful visual content. This ensures that people who are blind get equivalent information to those who can see images.</p><p>In this puzzle the cat's name on the back of the photo, provides a text alternative for the name that cannot be seen in the image .</p><p>Learn more about text alternatives when you reach the end of the game.</p>"
+        "lesson": "<h1>LESSON 1: All visual content must have a text alternative</h1><p>When creating content for the Web, one of the most important accessibility features is text descriptions for meaningful visual content. This ensures that people who are blind get equivalent information to those who can see images.</p><p>In this puzzle the cat's name on the back of the photo provides a text alternative for the name that cannot be seen in the image .</p><p>Learn more about text alternatives when you reach the end of the game.</p>"
     },
     {
             "floorplan": [
@@ -140,7 +140,7 @@
                     "row": 1,
                     "col": 5,
                     "data": {
-	                    "content": "<div class='columns'><p><u>Monday, April 1</u></p><p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p><p>I thought leaving the same combination would make it easier to remember:</p><p class='passcode'> D <span aria-hidden='true' class='readersonly'>.</span> C <span aria-hidden='true' class='readersonly'>.</span> A <span aria-hidden='true' class='readersonly'>.</span> B </p><p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p><p><u>Friday, April 19</u></p><p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p><p><img src='_/img/book/figure1-1.png' alt=''></p><p>The plate is detachable and can be stored away when not in use.</p><p>I hope nobody will mix up the buttons anymore!</p></div>"
+	                    "content": "<div class='columns'><p><u>Monday, April 1</u></p><p>Today the main water pipe burst. It was quickly fixed. However, because of the water damage, we had to rewire all buttons on the combination lock to the next room.</p><p>I thought leaving the same combination would make it easier to remember:</p><p class='passcode'> D <span aria-hidden='true' class='readersonly'>.</span> C <span aria-hidden='true' class='readersonly'>.</span> A <span aria-hidden='true' class='readersonly'>.</span> B </p><p class='column_break_after'>Unfortunately, the labels don't match the buttons anymore! To avoid confusion, I had to draw lines with a marker to connect the buttons to the proper labels.</p><p><u>Friday, April 19</u></p><p>As it turns out, marker lines get easily erased, so I asked my assistant, Tom, to create a metal plate with the connecting lines permanently etched on it.</p><p><img src='_/img/book/figure1-1.png' alt=''></p><p>The plate is detachable and can be stored away when not in use.</p><p>I hope nobody will mix up the buttons again!</p></div>"
                     }
 	            },
                 {
@@ -316,7 +316,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>LESSON 3: Moving or timed content can be paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed &mdash; some people take longer to complete a tasks. It is important to provide a way to stop or slow down any moving or timed content on the Web for this reason.</p><p>In this puzzle the freeze spray allowed you to stop the switch from turning off, providing more time to get to the exit before it closed.</p><p>Learn more about timing and accessibility at the end of the game. </p>"
+            "lesson": "<h1>LESSON 3: Moving or timed content can be paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed &mdash; some people take longer to complete tasks. It is important to provide a way to stop or slow down any moving or timed content on the Web for this reason.</p><p>In this puzzle the freeze spray allowed you to stop the switch from turning off, providing more time to get to the exit before it closed.</p><p>Learn more about timing and accessibility at the end of the game. </p>"
         },
         {
             "floorplan": [
@@ -337,7 +337,7 @@
                     "row": 1,
                     "col": 3,
                     "data": {
-	                    "content": "<div class='columns'><p><u>Tuesday, June 4</u></p><p>This morning I tired to open Tom's particle skimmer holding a molten core specimen with my two hands. After 10 minutes of futile attempts I was ready to stuff that piece of core up his... </p><p class='column_break_after'>Well, Tom is a brilliant engineer, but his attitude sometimes drives me crazy! How many times do I have to tell him, that all those machines and devices that he creates for me have to be easily operated not just by hands, but also by something else, like a foot, an elbow... a long stick, for pity's sake! </p><p><u>Wednesday, June 5</u></p><p>I think I need to teach Tom a lesson and I might just know how! For the last couple of months I have been experimenting with a new insulation material. It is extremely strong and can only be pierced by something sharp and pointy, like an arrow.</p><p>I filled the entire room next to the exit with air balloons made of the material. Now I'd like to see him try and make his way to the exit using his bare hands!</p></div>"
+	                    "content": "<div class='columns'><p><u>Tuesday, June 4</u></p><p>This morning I tried to open Tom's particle skimmer holding a molten core specimen with my two hands. After 10 minutes of futile attempts I was ready to stuff that piece of core up his... </p><p class='column_break_after'>Well, Tom is a brilliant engineer, but his attitude sometimes drives me crazy! How many times do I have to tell him that all those machines and devices he creates for me have to be easily operated not just by hands but also by something else, like a foot, an elbow... a long stick, for pity's sake! </p><p><u>Wednesday, June 5</u></p><p>I think I need to teach Tom a lesson and I might just know how! For the last couple of months I have been experimenting with a new insulation material. It is extremely strong and can only be pierced by something sharp and pointy, like an arrow.</p><p>I filled the entire room next to the exit with air balloons made of the material. Now I'd like to see him try and make his way to the exit using his bare hands!</p></div>"
                     }
 	            },
                 {
@@ -411,7 +411,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>Lesson 4: Interactive features must operate with a mouse and a keyboard.</h1><p>Many people are not able to use a mouse, perhaps because they cannot see the mouse pointer, or maybe they do not have a steady enough hand to target clickable features effectively.</p><p>In this puzzle you may have experienced a moment of frustration while trying to enter the bubble room using your keyboard. This frustration is common for people who rely on a keyboard to navigate the Web, when they encounter features that only work with a mouse.</p> <p>Learn more about keyboard accessibility at the end of the game.</p>"
+            "lesson": "<h1>LESSON 4: Interactive features must operate with a mouse and a keyboard</h1><p>Many people are not able to use a mouse, perhaps because they cannot see the mouse pointer, or maybe they do not have a steady enough hand to target clickable features effectively.</p><p>In this puzzle you may have experienced a moment of frustration while trying to enter the bubble room using your keyboard. This frustration is common for people who rely on a keyboard to navigate the Web when they encounter features that only work with a mouse.</p> <p>Learn more about keyboard accessibility at the end of the game.</p>"
         },
         {
             "floorplan": [
@@ -445,7 +445,7 @@
                     "col": 4,
                     "data": {
                         "long": "<div class='text'><p>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 9.</p><p>Here, take mine. Now, go and open that door!</p></div>",
-                        "short": "<div class='text'><p>Go and to open that door!</p></div>"
+                        "short": "<div class='text'><p>Go and open that door!</p></div>"
                     }
                 }
             ],
@@ -464,7 +464,7 @@
         },
         {
             "image": "_/img/intro/outro_03.png",
-            "content": "<p>Hello my friend! I am the Accessibility Master. I'll bet you were expecting to discover some accessibility magic here.</p>"
+            "content": "<p>Hello, my friend! I am the Accessibility Master. I'll bet you were expecting to discover some accessibility magic here.</p>"
         },
         {
             "image": "_/img/intro/outro_03.png",
