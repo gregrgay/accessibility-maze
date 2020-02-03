@@ -61,8 +61,9 @@ a:focus {
   background-size: cover;
 }
 .container.splash img {
-  height: 50vh;
-  width: auto;
+  height: auto;
+  width: 80vh;
+  max-width: 90%;
 }
 .container.menu img {
   width: 9em;
