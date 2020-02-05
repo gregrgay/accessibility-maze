@@ -254,6 +254,8 @@ app.config(['$routeProvider', '$locationProvider',
 			}
 		};
 
+		//$rootScope.warnMobileAndTabletUsers();
+
 	}
 ]);
 
