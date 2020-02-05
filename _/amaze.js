@@ -293,7 +293,7 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 				$rootScope.game.allGems = false;
 				$rootScope.saveState();
 				$location.path('/intro/');
-				gtag("event", "Start", { event_category: "Gameplay", event_label: "Start new game"});
+				window.gtag("event", "Start", { event_category: "Gameplay", event_label: "Start new game"});
 			};
 			$scope.resumeSaved = function($event) {
 				if ($rootScope.game.completed) {
@@ -301,11 +301,11 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 				} else {
 					$location.path('/level/');
 				}
-				gtag("event", "Resume", { event_category: "Gameplay", event_label: "Resume saved game"});
+				window.gtag("event", "Resume", { event_category: "Gameplay", event_label: "Resume saved game"});
 			};
 			$scope.showInstructions = function($event) {
 				$location.path('/gameinfo/howto');
-				gtag("event", "Instructions", { event_category: "Gameplay", event_label: "Open How To Play"});
+				window.gtag("event", "Instructions", { event_category: "Gameplay", event_label: "Open How To Play"});
 			};
 		}
 	}
@@ -415,7 +415,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				$rootScope.updateStatus("");
 				if ($scope.levelCompleted) {
 					$timeout.cancel($scope.timeout);
-					gtag("event", "Level completed", { event_category: "Gameplay", event_label: "Level " + ($rootScope.game.level.id + 1) + " completed"});
+					window.gtag("event", "Level completed", { event_category: "Gameplay", event_label: "Level " + ($rootScope.game.level.id + 1) + " completed"});
 					if ($rootScope.game.level.id < $rootScope.levels.length - 1) {
 						$rootScope.game.inventory = _.filter($rootScope.game.inventory, function(item) {
 							return item.class.indexOf("gem") >= 0;
@@ -931,7 +931,7 @@ app.controller('summaryCtrl', ['$rootScope', '$scope', '$location',
 		$rootScope.focusElement(".content");
 
 		$scope.trackDownloads = function() {
-			gtag("event", "Download", { event_category: "Gameplay", event_label: "Accessibility Guide downloaded"});
+			window.gtag("event", "Download", { event_category: "Gameplay", event_label: "Accessibility Guide downloaded"});
 		}
 
 	}
