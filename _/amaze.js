@@ -53,6 +53,7 @@ app.config(['$routeProvider', '$locationProvider',
 				},
 				"started": false,
 				"firstTime": true,
+				"completed": false,
 				"allGems": false,
 				"level": {
 					"id": 0,
@@ -292,7 +293,11 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 				$location.path('/intro/');
 			};
 			$scope.resumeSaved = function($event) {
-				$location.path('/level/');
+				if ($rootScope.game.completed) {
+					$location.path('/summary/');
+				} else {
+					$location.path('/level/');
+				}
 			};
 			$scope.showInstructions = function($event) {
 				$location.path('/gameinfo/howto');
@@ -424,6 +429,16 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							class: "tile " + $scope.nextTile.data.treasure.class
 						});
 						$scope.isChest = false;
+					}
+					if ($scope.isProf && !$rootScope.game.allGems) {
+						$rootScope.game.allGems = true;
+						_.each($rootScope.game.inventory, function(item) {
+							item.counter += 3;
+						});
+						$rootScope.playSound("get_item");
+						$timeout( function() { $rootScope.playSound("get_item") }, 50);
+						$timeout( function() { $rootScope.playSound("get_item") }, 100);
+						$timeout( function() { $rootScope.playSound("get_item") }, 150);
 					}
 					$rootScope.saveState();
 					$(".map").focus();
@@ -634,6 +649,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$scope.nextTile.class = "green";
 							$rootScope.saveState();
 							moveBlob($scope.nextTile);
+							$rootScope.updateStatus("<span class='readersonly'>Your popped the balloon and moved " + dir + "</span>", true);
 							$rootScope.playSound("pop");
 						} else {
 							if ( --$scope.nextTile.data.attempts % 5 === 0) {
@@ -674,15 +690,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$scope.message =  $scope.nextTile.data.short;
 						} else {
 							$scope.message =  $scope.nextTile.data.long;
-							_.each($rootScope.game.inventory, function(item) {
-								item.counter += 3;
-							});
-							$rootScope.playSound("get_item");
-							$timeout( function() { $rootScope.playSound("get_item") }, 50);
-							$timeout( function() { $rootScope.playSound("get_item") }, 100);
 						}
-
-						$rootScope.game.allGems = true;
 						$rootScope.saveState();
 						$rootScope.toggleDialogFocus(true);
 						break;
@@ -912,6 +920,8 @@ app.controller('outroCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 app.controller('summaryCtrl', ['$rootScope', '$scope', '$location',
 	function($rootScope, $scope, $location) {
 
+		$rootScope.game.completed = true;
+		$rootScope.saveState();
 		$rootScope.focusElement(".content");
 
 	}

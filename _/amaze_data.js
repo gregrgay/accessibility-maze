@@ -444,8 +444,8 @@
                     "row": 5,
                     "col": 4,
                     "data": {
-                        "long": "<div class='text'><p>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 9.</p><p>Here, take mine. Now, go and open that door!</p></div>",
-                        "short": "<div class='text'><p>Go and open that door!</p></div>"
+                        "long": "<div class='text'><p>Professor X:<br>I'm so glad to see you! I need your help to open the last door. It requires 13 gems to operate. I was only able to find 9. Here, take mine. Now, go and open that door!</p></div>",
+                        "short": "<div class='text'><p>Professor X:<br>Go and open that door!</p></div>"
                     }
                 }
             ],
