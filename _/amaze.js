@@ -158,8 +158,10 @@ app.config(['$routeProvider', '$locationProvider',
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
 				if ($rootScope.game.settings.music) {
 					$rootScope.stopSound(instance);
+					window.gtag("event", "Ambient sound", { event_category: "User Experience", event_label: "Music turned off"});
 				} else {
 					$rootScope.playSound($rootScope.ambientSoundName, {loop: -1, volume: .1}, instance);
+					window.gtag("event", "Ambient sound", { event_category: "User Experience", event_label: "Music turned on"});
 				}
 				$rootScope.game.settings.music = !$rootScope.game.settings.music;
 				$rootScope.saveState();
@@ -212,6 +214,7 @@ app.config(['$routeProvider', '$locationProvider',
 			//$event.stopPropagation();
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
 				$location.path("/menu");
+				window.gtag("event", "Menu", { event_category: "User Experience", event_label: "Exit to Menu"});
 			} else if($event.keyCode == 9) {
 				$rootScope.moveFocusOnTab($event);
 			}
@@ -305,7 +308,7 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			};
 			$scope.showInstructions = function($event) {
 				$location.path('/gameinfo/howto');
-				window.gtag("event", "Instructions", { event_category: "Gameplay", event_label: "Open How To Play"});
+				window.gtag("event", "Instructions", { event_category: "User Experience", event_label: "Open How To Play"});
 			};
 		}
 	}
