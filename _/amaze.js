@@ -750,7 +750,7 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$rootScope.game.inventory = _.without($rootScope.game.inventory, $scope.inventoryItem);
 			$rootScope.actionLog = "";
 		} else {
-			$rootScope.updateStatus("A metal piece is missing from the lock", true);
+			$timeout( function() { $rootScope.updateStatus("A metal piece is missing from the lock", true); }, 3000 );
 		}
 		$scope.showPanel = nextTile.ready;
 		$scope.hint = nextTile.data.hint;
