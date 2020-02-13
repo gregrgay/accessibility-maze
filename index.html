@@ -36,6 +36,13 @@
     </script>
 </head>
 <body ng-controller="splashCtrl">
-    <div ng-view class="view"></div>
+    <div ng-view class="view" ng-hide="isMobile"></div>
+    <div ng-show="isMobile" class="overlay mobile">
+        <img src="_/img/title.png" alt="Accessibility Maze">
+        <div class="dialog">
+            <h1>Warning</h1>
+            <p>This game is designed for desktop computers only.</p>
+        </div>
+    </div>
 </body>
 </html>
