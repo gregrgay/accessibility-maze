@@ -1,5 +1,5 @@
-<div class="container gameinfo">
-	<div class="content">
+<div class="container gameinfo" ng-keydown="gameInfoKeydownHandler($event)" tabindex="0">
+	<div class="content" tabindex="0">
 		<div class="main" ng-bind-html="message"></div>
 		<div>
 			<button  ng-click="openMenu($event)" ng-keydown="openMenu($event)">Close</button>

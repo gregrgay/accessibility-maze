@@ -313,10 +313,20 @@ app.controller('gameInfoCtrl', ['$rootScope', '$scope', '$location', '$route', '
 		page = $route.current.pathParams.page;
 
 		if ( $rootScope.gameinfo[page] ) {
+
 			$scope.message = $rootScope.gameinfo[page];
+			$rootScope.focusElement(".content");
+			$scope.gameInfoKeydownHandler = function ($event) {
+				$event.preventDefault();
+				if (event.keyCode == 27) {
+					$location.path("/menu");
+				}
+			};
+
 		} else {
 			$location.path("/menu");
 		}
+
 	}
 ]);
 
