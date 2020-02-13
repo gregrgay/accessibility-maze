@@ -586,6 +586,7 @@ a {
 }
 .overlay {
 	display: flex;
+	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
 	position: absolute;
@@ -595,8 +596,35 @@ a {
 	left: 0;
 	background-color: rgba(0, 0, 0, .5);
 	
+	&.mobile {
+		background-image: url("img/splash_bg.png");
+		background-position: center center;
+		background-size: cover;
+		justify-content: flex-start;
+		
+		img {
+			max-width: 80%;
+			margin: 2em 0;
+		}
+		.dialog {
+			max-width: 80%;
+			padding: 1em 1.2em;
+			font-size: 1rem;
+			background-color: rgba(0, 0, 0, .75);
+			border: .2em solid #c30;
+			color: #fff;
+			
+			h1 {
+				color: #c30;
+			}
+			p {
+				margin: .3em 0;
+			}
+		}
+	}
 	.dialog {
 		width: 28em;
+		margin: 1em;
 		padding: 1.5em 2em;
 		font-size: 3vh;
 		background-color: #ffc;
