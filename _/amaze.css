@@ -624,6 +624,10 @@ a:focus {
 .overlay .dialog p {
   margin: 0.8em 0;
 }
+.overlay .dialog .message .content {
+  display: block;
+  margin: 0.5em 0;
+}
 .overlay .dialog .footer {
   position: relative;
   padding-bottom: 0;
