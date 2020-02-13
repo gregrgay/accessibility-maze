@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/oswald/v29/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYA.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYA.ttf) format('truetype');
 }
 html,
 body {
@@ -133,6 +133,8 @@ a:focus {
   margin-bottom: 0;
 }
 .container.puzzle1 .content {
+  width: 103vh;
+  height: 77.7vh;
   margin-bottom: 0;
   border: 0.2rem solid #666;
   -webkit-border-radius: 0.2rem;
@@ -141,12 +143,16 @@ a:focus {
   -webkit-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.container.puzzle1 .content:focus {
+  border-color: #fc3;
 }
 .container.puzzle1 .content .main {
   position: relative;
-  width: 108vh;
-  height: 81vh;
-  background: #333 url(img/puzzles/puzzle_01.png) no-repeat center top;
+  width: 100%;
+  height: 100%;
+  background: #666 url(img/puzzles/puzzle_01.png) no-repeat center top;
   background-size: contain;
   border: 0.05em solid #000;
 }
@@ -213,10 +219,10 @@ a:focus {
 }
 .container.puzzle1 .panel {
   position: absolute;
-  top: 20.5vh;
-  bottom: 14.5vh;
+  top: 19.4vh;
+  bottom: 14vh;
   right: 0;
-  width: 31%;
+  width: 30.8%;
 }
 .container.puzzle1 .panel img {
   height: 100%;
@@ -224,6 +230,8 @@ a:focus {
 }
 .container.puzzle2 .content {
   position: relative;
+  width: 103vh;
+  height: 77.7vh;
   margin-bottom: 0;
   border: 0.2rem solid #666;
   -webkit-border-radius: 0.2rem;
@@ -232,12 +240,16 @@ a:focus {
   -webkit-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.container.puzzle2 .content:focus {
+  border-color: #fc3;
 }
 .container.puzzle2 .content .main {
   position: relative;
-  width: 108vh;
-  height: 81vh;
-  background: #333 url(img/puzzles/puzzle_02.png) no-repeat center top;
+  width: 100%;
+  height: 100%;
+  background: #666 url(img/puzzles/puzzle_02.png) no-repeat center top;
   background-size: contain;
   border: 0.05em solid #000;
 }
@@ -300,7 +312,10 @@ a:focus {
 }
 .container.puzzle2 .controls button:focus {
   background-color: #eee39f;
-  box-shadow: inset 0.2em 0.2em 0 rgba(255, 255, 255, 0.5), 0 0 0.3em 0.3em rgba(255, 255, 255, 0.5), 0 0 0.3rem 0.1rem rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0.2em 0.2em 0 rgba(255, 255, 255, 0.5), 0 0 0 0.2em #fff;
+  /*box-shadow: inset 0.2em 0.2em 0 rgba(255, 255, 255, 0.5),
+								0 0 .3em .3em rgba(255, 255, 255, 0.5),
+								0 0 0.3rem .1rem rgba(255, 255, 255, 0.5);*/
 }
 .container.puzzle2 .controls button:active {
   color: #fff;
@@ -330,7 +345,7 @@ a:focus {
 .container.puzzle2 .flip:focus .front,
 .container.puzzle2 .flip:hover .back,
 .container.puzzle2 .flip:focus .back {
-  box-shadow: 0 0 0.5em 0.5em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem 0.1rem rgba(255, 180, 0, 0.5);
+  box-shadow: 0 0 0 0.2em #fc3;
 }
 .container.puzzle2 .flip:hover .hint,
 .container.puzzle2 .flip:focus .hint {
@@ -339,11 +354,20 @@ a:focus {
 .container.puzzle2 .flip .hint {
   display: none;
   top: auto;
-  bottom: -0.9em;
-  right: 1em;
+  bottom: 5em;
+  right: 2em;
+  left: 2em;
   width: auto;
-  padding: 0.3em;
-  font-size: 0.6em;
+  padding: 0.5em;
+  line-height: 1;
+  font-size: 1rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  border: none;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
   box-shadow: none;
 }
 .container.puzzle2 .flip .photo {
@@ -360,7 +384,7 @@ a:focus {
   width: 100%;
   height: 100%;
   background-color: #fff;
-  transition: 0.3s;
+  transition: transform 0.3s;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
@@ -439,7 +463,7 @@ a:focus {
   color: #fff;
 }
 .topbar {
-  width: 109vh;
+  width: 103vh;
   margin-bottom: 1vh;
   display: flex;
   flex-flow: row-reverse nowrap;
@@ -487,14 +511,14 @@ a:focus {
 }
 .topbar .inventory {
   width: 100%;
-  height: 6.75vh;
+  height: 6.375vh;
   display: flex;
   flex-flow: row nowrap;
 }
 .topbar .inventory .tile {
   position: relative;
-  width: 6.75vh;
-  height: 6.75vh;
+  width: 6.375vh;
+  height: 6.375vh;
 }
 .topbar .inventory .tile .counter {
   position: absolute;
@@ -512,14 +536,23 @@ a:focus {
   text-align: center;
 }
 .actionLog {
-  flex-grow: 1;
+  width: 103vh;
+  margin-top: 0.5rem;
+  padding: 0.3rem;
+  background-color: #222;
+  text-align: center;
+  border: 0.2rem solid #666;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.5), inset 0 0.1rem 0.2rem 0.1rem rgba(0, 0, 0, 0.5);
 }
 .map {
   display: grid;
-  grid-template-columns: repeat(12, 9vh);
+  grid-template-columns: repeat(12, 8.5vh);
   background-image: url(img/tiles/path.png);
   background-position: left top;
-  background-size: 9vh 9vh;
+  background-size: 8.5vh 8.5vh;
   border: 0.2rem solid #666;
   -webkit-border-radius: 0.2rem;
   -moz-border-radius: 0.2rem;
@@ -527,6 +560,10 @@ a:focus {
   -webkit-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0.3em 0.3em 0 rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.map:focus {
+  border-color: #fc3;
 }
 .overlay {
   display: flex;
@@ -563,8 +600,8 @@ a:focus {
   font-size: inherit;
 }
 .overlay .dialog.book {
-  width: 95%;
-  height: 95%;
+  width: 99vh;
+  height: 78vh;
   background: transparent url(img/book/book_bg.png) no-repeat center top;
   background-size: contain;
   color: #643;
@@ -658,8 +695,8 @@ a:focus {
   box-shadow: 0 0 0 0.3em rgba(0, 0, 0, 0.25);
 }
 .tile {
-  width: 9vh;
-  height: 9vh;
+  width: 8.5vh;
+  height: 8.5vh;
   background-size: cover;
 }
 .tile.wall {
@@ -756,13 +793,14 @@ button {
   -moz-border-radius: 1.5em;
   border-radius: 1.5em;
   cursor: pointer;
+  outline: none;
   pointer-events: auto;
   background-color: #fb0;
   box-shadow: 0 0.2rem 0.3em rgba(0, 0, 0, 0.5), inset 0 1.5em 0 -0.5em rgba(255, 255, 255, 0.25);
 }
 button:hover,
 button:focus {
-  box-shadow: 0 0 0.3em 0.2em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem 0.1rem rgba(255, 180, 0, 0.5), inset 0 1.5em 0 -0.5em rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 1.5em 0 -0.5em rgba(255, 255, 255, 0.25), 0 0 0 0.2em #fff;
   background-color: #ffc933;
 }
 button:hover [class^="icon-"],

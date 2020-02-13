@@ -4,7 +4,7 @@
 
 @primary: #fb0;
 @secondary: #2cf;
-@tilesize: 9vh;
+@tilesize: 8.5vh;
 
 .border-radius(@r: 1em) {
 	-webkit-border-radius: @r;
@@ -139,16 +139,23 @@ a {
 	}
 	&.puzzle1 {
 		.content {
+			width: 103vh;
+			height: 77.7vh;
 			margin-bottom: 0;
 			border: .2rem solid #666;
 			.border-radius(.2rem);
 			.box-shadow();
+			outline: none;
+			
+			&:focus {
+				border-color: #fc3;
+			}
 			
 			.main {
 				position: relative;
-				width: 108vh;
-				height: 81vh;
-				background: #333 url(img/puzzles/puzzle_01.png) no-repeat center top;
+				width: 100%;
+				height: 100%;
+				background: #666 url(img/puzzles/puzzle_01.png) no-repeat center top;
 				background-size: contain;
 				border: .05em solid #000;
 			}
@@ -214,10 +221,10 @@ a {
 		.panel {
 			//display: none;
 			position: absolute;
-			top: 20.5vh;
-			bottom: 14.5vh;
+			top: 19.4vh;
+			bottom: 14vh;
 			right: 0;
-			width: 31%;
+			width: 30.8%;
 			
 			img {
 				height: 100%;
@@ -228,16 +235,23 @@ a {
 	&.puzzle2 {
 		.content {
 			position: relative;
+			width: 103vh;
+			height: 77.7vh;
 			margin-bottom: 0;
 			border: .2rem solid #666;
 			.border-radius(.2rem);
 			.box-shadow();
+			outline: none;
+			
+			&:focus {
+				border-color: #fc3;
+			}
 			
 			.main {
 				position: relative;
-				width: 108vh;
-				height: 81vh;
-				background: #333 url(img/puzzles/puzzle_02.png) no-repeat center top;
+				width: 100%;
+				height: 100%;
+				background: #666 url(img/puzzles/puzzle_02.png) no-repeat center top;
 				background-size: contain;
 				border: .05em solid #000;
 			}
@@ -296,9 +310,11 @@ a {
 				
 				&:focus {
 					background-color: #eee39f;
-					box-shadow: inset 0.2em 0.2em 0 rgba(255, 255, 255, 0.5),
+					box-shadow: inset .2em .2em 0 rgba(255, 255, 255, .5),
+								0 0 0 .2em #fff;
+					/*box-shadow: inset 0.2em 0.2em 0 rgba(255, 255, 255, 0.5),
 								0 0 .3em .3em rgba(255, 255, 255, 0.5),
-								0 0 0.3rem .1rem rgba(255, 255, 255, 0.5);
+								0 0 0.3rem .1rem rgba(255, 255, 255, 0.5);*/
 				}
 				&:active {
 					color: #fff;
@@ -330,7 +346,8 @@ a {
 			&:focus {
 				.front,
 				.back {
-					box-shadow: 0 0 .5em .5em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem .1rem rgba(255, 180, 0, 0.5);
+					box-shadow: 0 0 0 0.2em #fc3;
+					//box-shadow: 0 0 .5em .5em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem .1rem rgba(255, 180, 0, 0.5);
 				}
 				.hint {
 					display: block;
@@ -340,11 +357,18 @@ a {
 			.hint {
 				display: none;
 				top: auto;
-				bottom: -.9em;
-				right: 1em;
+				bottom: 5em;
+				right: 2em;
+				left: 2em;
 				width: auto;
-				padding: .3em;
-				font-size: .6em;
+				padding: .5em;
+				line-height: 1;
+				font-size: 1rem;
+				text-align: center;
+				background-color: rgba(0,0,0, .65);
+				color: #fff;
+				border: none;
+				.border-radius();
 				box-shadow: none;
 			}
 			
@@ -362,7 +386,7 @@ a {
 					width: 100%;
 					height: 100%;
 					background-color: #fff;
-					transition: 0.3s;
+					transition: transform 0.3s;
 					-webkit-backface-visibility: hidden;
 					-moz-backface-visibility: hidden;
 					-ms-backface-visibility: hidden;
@@ -530,7 +554,16 @@ a {
 	}
 }
 .actionLog {
-	flex-grow: 1;
+	width: @tilesize * 12 + 1;
+	margin-top: .5rem;
+	padding: .3rem;
+	background-color: #222;
+	text-align: center;
+	border: .2rem solid #666;
+	.border-radius(.2rem);
+	box-shadow: 0 .3rem .3rem rgba(0, 0, 0, .5),
+				inset 0 .1rem .2rem .1rem rgba(0, 0, 0, .5);
+	//.box-shadow();
 }
 .map {
 	display: grid;
@@ -541,6 +574,11 @@ a {
 	border: .2rem solid #666;
 	.border-radius(.2rem);
 	.box-shadow();
+	outline: none;
+	
+	&:focus {
+		border-color: #fc3;
+	}
 }
 .overlay {
 	display: flex;
@@ -575,8 +613,8 @@ a {
 			font-size: inherit;
 		}
 		&.book {
-			width: 95%;
-			height: 95%;
+			width: 99vh;
+			height: 78vh;
 			background: transparent url(img/book/book_bg.png) no-repeat center top;
 			background-size: contain;
 			color: #643;
@@ -776,13 +814,17 @@ button {
 	line-height: 1.2;
 	.border-radius(1.5em);
 	cursor: pointer;
+	outline: none;
 	pointer-events: auto;
 	background-color: @primary;
 	box-shadow: 0 .2rem .3em rgba(0, 0, 0, .5), inset 0 1.5em 0 -0.5em rgba(255,255,255, .25);
 	
 	&:hover,
 	&:focus {
-		box-shadow: 0 0 .3em .2em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem .1rem rgba(255, 180, 0, 0.5), inset 0 1.5em 0 -0.5em rgba(255,255,255, .25);
+		box-shadow: inset 0 1.5em 0 -0.5em rgba(255,255,255, .25),
+					0 0 0 .2em #fff;
+		
+		//box-shadow: 0 0 .3em .2em rgba(255, 180, 0, 0.5), 0rem 0rem 0.3rem .1rem rgba(255, 180, 0, 0.5), inset 0 1.5em 0 -0.5em rgba(255,255,255, .25);
 		background-color: lighten(@primary, 10%);
 		
 		[class^="icon-"], [class*=" icon-"] {

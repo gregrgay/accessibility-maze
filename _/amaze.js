@@ -259,6 +259,11 @@ app.config(['$routeProvider', '$locationProvider',
 
 		//$rootScope.warnMobileAndTabletUsers();
 
+		$(document).on("click", function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		})
+
 	}
 ]);
 
@@ -286,6 +291,7 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$scope.startNew = function() {
 				$rootScope.game.started = true;
 				$rootScope.game.firstTime = true;
+				$rootScope.game.completed = false;
 				$rootScope.game.level = {
 					id: 0,
 					floorplan: [],
@@ -309,6 +315,10 @@ app.controller('menuCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 			$scope.showInstructions = function($event) {
 				$location.path('/gameinfo/howto');
 				window.gtag("event", "Instructions", { event_category: "User Experience", event_label: "Open How To Play"});
+			};
+			$scope.showObjectives = function($event) {
+				$location.path('/gameinfo/objectives');
+				window.gtag("event", "Objectives", { event_category: "User Experience", event_label: "Open Learning Objectives"});
 			};
 		}
 	}
@@ -537,7 +547,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						break;
 
 					case "wall":
-						$rootScope.actionLog = "You bumped into wall";
+						$rootScope.updateStatus("You bumped into wall");
 						break;
 
 					case "exit":
@@ -680,6 +690,8 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					case "puzzle1":
 
 						$rootScope.game.level.nextTileId = ind;
+						$rootScope.updateStatus("You found a locked door");
+						$rootScope.playSound("hit_wall");
 						$rootScope.saveState();
 						$location.path('/puzzle1');
 						break;
@@ -687,6 +699,8 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					case "puzzle2":
 
 						$rootScope.game.level.nextTileId = ind;
+						$rootScope.updateStatus("You found a locked door");
+						$rootScope.playSound("hit_wall");
 						$rootScope.saveState();
 						$location.path('/puzzle2');
 						break;
@@ -744,16 +758,22 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$scope.error - true;
 		$scope.message = "LOCKED";
 		nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
-		$scope.inventoryItem = _.findWhere($rootScope.game.inventory, { "id": nextTile.data.requires });
-		if ( $scope.inventoryItem ) {
-			nextTile.ready = true;
-			$rootScope.game.inventory = _.without($rootScope.game.inventory, $scope.inventoryItem);
-			$rootScope.actionLog = "";
-		} else {
-			$timeout( function() { $rootScope.updateStatus("A metal piece is missing from the lock", true); }, 3000 );
-		}
 		$scope.showPanel = nextTile.ready;
 		$scope.hint = nextTile.data.hint;
+
+		$scope.checkForMissingPlate = function() {
+			$scope.inventoryItem = _.findWhere($rootScope.game.inventory, { "id": nextTile.data.requires });
+			if ( $scope.inventoryItem ) {
+				nextTile.ready = true;
+				$scope.showPanel = nextTile.ready;
+				$rootScope.game.inventory = _.without($rootScope.game.inventory, $scope.inventoryItem);
+				$rootScope.actionLog = "";
+				$rootScope.saveState();
+			}
+			if (!$scope.showPanel) {
+				$rootScope.updateStatus("A metal piece is missing from the lock", true);
+			}
+		};
 
 		$scope.puzzle1KeyDownHandler = function(event) {
 			if (event.keyCode == 27) {

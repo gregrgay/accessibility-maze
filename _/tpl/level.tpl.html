@@ -14,13 +14,13 @@
 		<div class="map" tabindex="1" role="application" aria-label="Level {{game.level.id + 1}} map">
 			<div class="tile" ng-repeat="tile in game.level.floorplan" ng-class="tile.class" ng-click="tileClickHandler($event, tile)"></div>
 		</div>
-		<div class="overlay" ng-show="message.length"> 
-			<div ng-class="{'book' : isBook, 'chest' : isChest, 'prof': isProf}" class="dialog" tabindex="0" ng-keydown="dialogKeyDownHandler($event)">
-				<div class="message" ng-bind-html="message"></div>
-			</div>
-		</div>
 	</div>
 	<div class="actionLog" role="region" aria-live="assertive">
-		&nbsp;<span ng-bind-html="actionLog"></span>&nbsp;
+		<span ng-bind-html="actionLog"></span>&nbsp;
+	</div>
+	<div class="overlay" ng-show="message.length"  ng-keydown="dialogKeyDownHandler($event)" tabindex="0">
+		<div ng-class="{'book' : isBook, 'chest' : isChest, 'prof': isProf}" class="dialog" tabindex="0">
+			<div class="message" ng-bind-html="message"></div>
+		</div>
 	</div>
 </div>
