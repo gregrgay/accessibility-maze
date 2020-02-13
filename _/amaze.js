@@ -902,7 +902,6 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		$scope.showHint = function(hint) {
 			$scope.pictureInFocus = !!hint.length;
 			$rootScope.actionLog = hint;
-			console.log($scope.pictureInFocus);
 		}
 		$scope.test = function() {
 			$scope.flippedOver = !$scope.flippedOver;

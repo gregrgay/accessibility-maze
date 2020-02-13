@@ -13,7 +13,7 @@
 			<div class="hint" id="hint" ng-show="hint.length" ng-bind-html="hint"></div>
 			<div class="display" ng-class="{ 'unlocked': !locked, 'blinking': error }" role="region" aria-live="polite">{{ message }}</div>
 			<div class="flip" tabindex="1" aria-hidden="{{!pictureInFocus}}"
-				 ng-focus="showHint('Press Enter key to flip the photo')"
+				 ng-focus="showHint('Press Spacebar to flip the photo')"
 				 ng-blur="showHint('')"
 				 ng-keydown="flipPhoto($event)"
 				 ng-class="{ 'flipped': flippedOver }"
@@ -22,7 +22,7 @@
 					<div class="front" aria-hidden="{{flippedOver}}">
 						<img src="_/img/chest/cat_large.png" alt="">
 						<div class="readersonly">Picture of cat</div>
-						<div class="hint">Press Enter</div>
+						<div class="hint">Press Spacebar</div>
 					</div>
 					<div class="back" aria-hidden="{{!flippedOver}}">
 						<div>V<span aria-hidden='true' class='readersonly'>.</span>A<span aria-hidden='true' class='readersonly'>.</span>S<span aria-hidden='true' class='readersonly'>.</span>Y<span aria-hidden='true' class='readersonly'>.</span>A</div>
