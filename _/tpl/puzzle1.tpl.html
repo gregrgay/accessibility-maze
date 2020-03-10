@@ -14,7 +14,7 @@
 			<div class="display" ng-class="{ 'unlocked': !locked, 'blinking': error }" role="region" aria-live="polite">{{ message }}</div>
 			<div class="panel" ng-show="showPanel"><img src="_/img/puzzles/panel_01.png" alt=""></div>
 			<div class="controls">
-				<div ng-repeat="btn in buttons" class="togglebutton" role="button" tabindex="1"
+				<div ng-repeat="btn in buttons" class="togglebutton" role="button" tabindex="1" ng-click="noMouseMessage();"
 					 ng-keydown="toggleButton($event, $index)" ng-focus="checkForMissingPlate()"
 					 aria-pressed="{{btn.pressed}}" aria-label="{{ showPanel ? btn.label : '' }}"></div>
 			</div>

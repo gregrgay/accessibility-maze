@@ -25,14 +25,14 @@
 						<div class="hint">Press Spacebar</div>
 					</div>
 					<div class="back" aria-hidden="{{!flippedOver}}">
-						<div>V<span aria-hidden='true' class='readersonly'>.</span>A<span aria-hidden='true' class='readersonly'>.</span>S<span aria-hidden='true' class='readersonly'>.</span>Y<span aria-hidden='true' class='readersonly'>.</span>A</div>
+						<div>F<span aria-hidden='true' class='readersonly'>.</span>E<span aria-hidden='true' class='readersonly'>.</span>L<span aria-hidden='true' class='readersonly'>.</span>I<span aria-hidden='true' class='readersonly'>.</span>X</div>
 					</div>
 				</div>
 			</div>
 			<div class="controls">
-				<button ng-repeat="btn in buttons" ng-keydown="enterCode($event, btn)" tabindex="1">{{btn}}</button>
-				<button class="cancel" ng-keydown="clearCode($event)" tabindex="1" aria-label="Clear">C</button>
-				<button class="enter" ng-keydown="validateCode($event)" tabindex="1">Enter</button>
+				<button ng-repeat="btn in buttons" ng-keydown="enterCode($event, btn)" ng-click="noMouseMessage();" tabindex="1">{{btn}}</button>
+				<button class="cancel" ng-keydown="clearCode($event)" ng-click="noMouseMessage();" tabindex="1" aria-label="Clear">C</button>
+				<button class="enter" ng-keydown="validateCode($event)" ng-click="noMouseMessage();" tabindex="1">Enter</button>
 			</div>
 		</div>
 	</div>

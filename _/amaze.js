@@ -232,6 +232,10 @@ app.config(['$routeProvider', '$locationProvider',
 				$focusable.eq(next).focus();
 			}
 		};
+		$rootScope.noMouseMessage = function() {
+			$rootScope.updateStatus("Mouse doesn't work here. Use keyboard only.", true);
+		}
+
 
 		$rootScope.actionLog = "";
 
@@ -317,8 +321,8 @@ app.controller('gameInfoCtrl', ['$rootScope', '$scope', '$location', '$route', '
 			$scope.message = $rootScope.gameinfo[page];
 			$rootScope.focusElement(".content");
 			$scope.gameInfoKeydownHandler = function ($event) {
-				$event.preventDefault();
-				if (event.keyCode == 27) {
+				//$event.preventDefault();
+				if ($event.keyCode == 27) {
 					$location.path("/menu");
 				}
 			};
@@ -413,6 +417,17 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			}
 			$rootScope.game.level.lesson = level.lesson;
 
+			$scope.openHelp = function($event) {
+				if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+					$scope.message = $rootScope.gameinfo.howto;
+					$rootScope.toggleDialogFocus(true);
+					window.gtag("event", "Instructions", {
+						event_category: "User Experience",
+						event_label: "Open How To Play"
+					});
+				}
+			};
+
 			$scope.closePopupDialog = function() {
 				$rootScope.toggleDialogFocus(false);
 				$scope.message = "";
@@ -459,7 +474,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			$scope.dialogKeyDownHandler = function(event) {
 				event.preventDefault();
 				event.stopPropagation();
-				if ( event.keyCode == 13 || event.keyCode == 27 || event.keyCode == 32 ) {
+				if ( event.keyCode == 27) {
 					$scope.closePopupDialog();
 				}
 			};
@@ -846,7 +861,7 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 
 		$rootScope.focusElement(".content");
 
-		$scope.buttons = 'KVABSYDEW';
+		$scope.buttons = 'AFEKBLOIX';
 		$scope.buttons.message = "";
 		$scope.message = "";
 		$scope.flippedOver = false;
@@ -872,7 +887,11 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		};
 		$scope.enterCode = function(event, letter) {
 			if (event.keyCode == 13 || event.keyCode == 32) {
-				$scope.message += letter;
+				if ($scope.message.length < 8) {
+					$scope.message += letter;
+				} else {
+					$rootScope.updateStatus("The key combination is too long", true);
+				}
 			}
 		};
 		$scope.clearCode = function(event) {
@@ -882,7 +901,7 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		};
 		$scope.validateCode = function(event) {
 			if (event.keyCode == 13 || event.keyCode == 32) {
-				if ($scope.message == "VASYA") {
+				if ($scope.message == "FELIX") {
 					$scope.locked = false;
 					$scope.message = "UNLOCKED";
 					$scope.hint = "";

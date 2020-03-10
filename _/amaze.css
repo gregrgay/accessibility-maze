@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYA.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/oswald/v31/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYA.ttf) format('truetype');
 }
 html,
 body {
@@ -359,8 +359,8 @@ a:focus {
   display: none;
   top: auto;
   bottom: 5em;
-  right: 2em;
-  left: 2em;
+  right: 1em;
+  left: 1em;
   width: auto;
   padding: 0.5em;
   line-height: 1;
