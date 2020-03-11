@@ -50,7 +50,7 @@
         "floorplan": [
             ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"],
             ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],
-            ["wall", "green", "green", "blob", "green", "green", "green", "green", "green", "green", "green", "wall"],
+            ["blob", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "wall"],
             ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],
             ["wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "green", "green", "green", "wall"],
             ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],

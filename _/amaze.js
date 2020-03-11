@@ -410,6 +410,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						}
 						$rootScope.game.level.floorplan.push(obj);
 						if (tile == "blob") {
+							obj.class += " entry";
 							$rootScope.game.level.currTile = $rootScope.game.level.floorplan[$rootScope.game.level.floorplan.length - 1];
 						}
 					});
@@ -522,7 +523,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			var ind, inventoryIndex, inventoryItem, switchDelay;
 			ind = _.findWhere($rootScope.game.level.floorplan, {row: row, col: col}).id;
 			$scope.nextTile = $rootScope.game.level.floorplan[ind];
-
+			console.log($scope.nextTile);
 			if ($scope.nextTile.collectable) {
 
 				if ($scope.nextTile.class.indexOf("gem") >=0) {
@@ -544,6 +545,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				}
 
 				$scope.nextTile.collectable = false;
+				$scope.nextTile.class = "green";
 				$rootScope.updateStatus("You collected " + $scope.nextTile.class, true);
 				$rootScope.playSound("get_item");
 				moveBlob($scope.nextTile);
@@ -558,6 +560,11 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 					case "wall":
 						$rootScope.updateStatus("<span class='readersonly'>You bumped into wall</span>");
+						break;
+
+					case "green entry":
+						$rootScope.updateStatus("This is where you've entered the room. You cannot go back.", true);
+						moveBlob($scope.nextTile);
 						break;
 
 					case "exit":
@@ -741,9 +748,10 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 		function moveBlob(nextTile) {
 			var currTile = _.findWhere($rootScope.game.level.floorplan, {"id": $rootScope.game.level.currTile.id});
-			currTile.class = "green";
-			nextTile.class = "blob";
+			currTile.class = currTile.class.replace("blob", "green");
+			nextTile.class = nextTile.class.replace("green", "blob");
 			$rootScope.game.level.currTile = nextTile;
+			console.log(currTile, nextTile);
 		}
 	}
 ]);

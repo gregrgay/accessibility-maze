@@ -467,7 +467,7 @@ a:focus {
   color: #fff;
 }
 .topbar {
-  width: 103vh;
+  width: 103.5vh;
   margin-bottom: 1vh;
   display: flex;
   flex-flow: row-reverse nowrap;
@@ -540,7 +540,7 @@ a:focus {
   text-align: center;
 }
 .actionLog {
-  width: 103vh;
+  width: 103.5vh;
   margin-top: 0.5rem;
   padding: 0.3rem;
   background-color: #222;
