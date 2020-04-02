@@ -1,11 +1,11 @@
 {
     "gameinfo": {
-	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team in <a href='https://continuing.ryerson.ca'>The G. Raymond Chang School of Continuing Education</a> at <a href='https://ryerson.ca'>Ryerson University</a>. Funding is provided by The Chang School and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities experience.</p><p>To learn more visit The Chang School's <a href='https://de.ryerson.ca/wa/'>Digital Accessibility Teaching and Learning Resources</a> </p></div>",
-        "objectives": "<h1>Learning Objectives</h1><div class='message'><p>The purpose of the game is to introduce those new to web accessibility to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities experience.</p><p>The learning objectives of this game are:</p><ol><li>Learn how images, and other visuals, are made accessible</li><li>Understand how web forms are made accessible</li><li>Experience how timed elements can create barriers</li><li>Discover why mouse only features are inaccessible to many people</li></ol></div>",
-        "howto": "<h1>How to Play</h1><div class='message'><p>This game works best in current versions of Chrome, Firefox or Safari browsers. To play the game:</p><ul><li>Use KEYBOARD:<ul><li>Arrow keys &mdash; move around</li><li>Enter key &mdash; press buttons</li><li>Esc key &mdash; close popup boxes (including this one)</li></ul></li><li>Bump into things to interact</li><li>Pay attention to status messages below the map</li></ul></div>",
+	    "about": "<h1>About</h1><div class='message'><p>The Accessibility Maze was developed by the Digital Education Strategies team in <a href='https://continuing.ryerson.ca'>The G. Raymond Chang School of Continuing Education</a> at <a href='https://ryerson.ca'>Ryerson University</a>. Funding is provided by The Chang School and the Government of Ontario.</p><p>The purpose of the game is to introduce those new to web accessibility to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities experience.</p><p>To learn more visit The Chang School's <a href='https://de.ryerson.ca/wa/'>Digital Accessibility Teaching and Learning Resources</a>. </p></div>",
+        "objectives": "<h1>Learning Objectives</h1><div class='message'><p>The purpose of the game is to introduce those new to web accessibility to potential barriers on the Web that may prevent some people from accessing content. You will experience the challenges of navigating the Web that some people with disabilities experience.</p><p>The learning objectives of this game are:</p><ol><li>Learn how images, and other visuals, are made accessible</li><li>Understand how web forms are made accessible</li><li>Experience how timed elements can create barriers</li><li>Discover why mouse-only features are inaccessible to many people</li></ol></div>",
+        "howto": "<h1>How to Play</h1><div class='message'><p>This game works best in current versions of Chrome, Firefox or Safari browsers. To play the game:</p><ul><li>Use KEYBOARD:<ul><li><strong>Arrow keys</strong> &mdash; move around</li><li><strong>Enter key</strong> &mdash; press buttons</li><li><strong>Esc key</strong> &mdash; close popup boxes (including this one)</li></ul></li><li>Bump into things to interact</li><li>Pay attention to status messages below the map</li></ul></div>",
 	    "contacts": "<h1>Contact Us</h1><div class='message'><p>Questions or comments about the game can be directed to <a href='mailto:dehelp@ryerson.ca'>dehelp@ryerson.ca</a>.</p></div>",
-        "accessibility": "<h1>Accessibility</h1><div class='message'><p>The Accessibility Maze has been designed to be accessible to screen readers. <ul><li>Play the game using NVDA with Firefox or using ChromeVox with the Chrome web browser.</li><li>Or, use JAWS 2020, or newer, with the current Chrome of Firefox web browser.</li><li>Disable background music using the Audio button above the maze.</li><li>The second button above the maze returns you to the game menu.</li><li>Listen for screen reader shortcuts during game play.</li><li>Navigate slowly to hear all status messages.</ul></div>",
-	    "terms": "<h1>Terms of Use</h1><div class='message'><p>Unless otherwise noted this resource is available for public use under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"postop\">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>.</p><p>Under the terms of Creative Commons licence, you are free to share and adapt this resource under the following terms: If you share the content from this resource, you must identify the creators of the resource (Ryerson University) in a reasonable manner. </p></div>"
+        "accessibility": "<h1>Accessibility</h1><div class='message'><p>The Accessibility Maze has been designed to be accessible to screen readers. <ul><li>Play the game using NVDA with Firefox or using ChromeVox with the Chrome web browser.</li><li>Or, use JAWS 2020, or newer, with the current Chrome or Firefox web browser.</li><li>Disable background music using the Audio button above the maze.</li><li>The second button above the maze returns you to the game menu.</li><li>Listen for screen reader shortcuts during game play.</li><li>Navigate slowly to hear all status messages.</ul></div>",
+	    "terms": "<h1>Terms of Use</h1><div class='message'><p>Unless otherwise noted this resource is available for public use under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"postop\">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>.</p><p>Under the terms of the Creative Commons licence, you are free to share and adapt this resource under the following terms: If you share the content from this resource, you must identify the creators of the resource (Ryerson University) in a reasonable manner. </p></div>"
     },
     "intro": [
         {
@@ -58,6 +58,7 @@
             ["wall", "green", "green", "green", "green", "green", "green", "wall", "green", "green", "green", "wall"],
             ["wall", "wall", "wall", "exit down", "wall", "wall", "wall", "wall", "wall", "wall", "wall", "wall"]
         ],
+        "description": "3 gems, one key, a diary, a chest, and a locked door",
         "items": [
             {
                 "class": "blue gem",
@@ -120,7 +121,7 @@
             }
         ],
         "inventory": [],
-        "lesson": "<h1>LESSON 1: All visual content must have a text alternative</h1><p>When creating content for the Web, one of the most important accessibility features is text descriptions for meaningful visual content. This ensures that people who are blind get equivalent information to those who can see images.</p><p>In this puzzle the cat's name on the back of the photo provides a text alternative for the name that cannot be seen in the image .</p><p>Learn more about text alternatives when you reach the end of the game.</p>"
+        "lesson": "<h1>LESSON 1: All visual content must have a text alternative</h1><p>When creating content for the Web, one of the most important accessibility features is text descriptions for meaningful visual content. This ensures that people who are blind get equivalent information to those who can see images.</p><p>In this puzzle the cat's name on the back of the photo provides a text alternative for the name that cannot be seen in the image.</p><p>Learn more about text alternatives when you reach the end of the game.</p>"
     },
     {
             "floorplan": [
@@ -134,6 +135,7 @@
                 ["wall", "green", "green", "green", "green", "green", "green", "wall",  "wall",  "wall",  "wall",  "wall"],
                 ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"]
             ],
+            "description": "3 gems, one key, one secret wall, a diary, a chest, and a locked door",
             "items": [
                 {
 		            "class": "book",
@@ -223,6 +225,7 @@
                 ["wall",  "green", "green", "green", "green", "green", "green", "wall",  "green", "green", "green", "exit"],
                 ["wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall",  "wall"]
             ],
+            "description": "3 gems, one key, two secret walls, a diary, a chest, aremote switch, and a locked door",
             "items": [
 	            {
 		            "class": "book",
@@ -317,7 +320,7 @@
                 }
             ],
             "inventory": [],
-            "lesson": "<h1>LESSON 3: Moving or timed content can be paused, or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed &mdash; some people take longer to complete tasks. It is important to provide a way to stop or slow down any moving or timed content on the Web for this reason.</p><p>In this puzzle the freeze spray allowed you to stop the switch from turning off, providing more time to get to the exit before it closed.</p><p>Learn more about timing and accessibility at the end of the game. </p>"
+            "lesson": "<h1>LESSON 3: Moving or timed content can be paused or slowed down</h1><p>Not everyone can interact with websites or devices at the same speed &mdash; some people take longer to complete tasks. It is important to provide a way to stop or slow down any moving or timed content on the Web for this reason.</p><p>In this puzzle the freeze spray allowed you to stop the switch from turning off, providing more time to get to the exit before it closed.</p><p>Learn more about timing and accessibility at the end of the game.</p>"
         },
         {
             "floorplan": [
@@ -331,6 +334,7 @@
 	            ["blob", "green", "green", "green", "wall",  "wall",  "bubble", "bubble", "bubble",    "bubble", "bubble", "wall"],
 	            ["wall", "wall",  "wall",  "wall",  "wall",  "wall",  "wall",   "wall",   "exit down", "wall",   "wall",   "wall"]
             ],
+            "description": "3 gems, one key, a diary, three secret walls, and a locked door",
             "items": [
 	            {
 		            "class": "book",
@@ -426,6 +430,7 @@
                 ["wall", "wall", "wall", "wall", "green", "green", "green", "green", "green", "wall", "wall", "wall"],
                 ["wall", "wall", "wall", "wall", "wall", "wall", "green", "wall", "wall", "wall", "wall", "wall"]
             ],
+            "description": "Prof. X and a locked door",
             "items": [
                 {
                     "class": "door last",

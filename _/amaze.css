@@ -90,6 +90,10 @@ a:focus {
   margin: 0.5em 0;
   overflow-y: auto;
 }
+.container.gameinfo .content .message strong,
+.container.summary .content .message strong {
+  text-decoration: underline;
+}
 .container.gameinfo .content .footer,
 .container.summary .content .footer {
   position: relative;
@@ -492,14 +496,13 @@ a:focus {
 .topbar .tools button [class*=" icon-"] {
   color: #000;
 }
-.topbar .tools button:hover [class^="icon-"],
-.topbar .tools button:focus [class^="icon-"],
+.topbar .tools button.pressed {
+  background-color: #f60;
+  color: white;
+}
 .topbar .tools button.pressed [class^="icon-"],
-.topbar .tools button:hover [class*=" icon-"],
-.topbar .tools button:focus [class*=" icon-"],
 .topbar .tools button.pressed [class*=" icon-"] {
-  text-shadow: 0 0 5px #fff, 0 0 15px #fff;
-  color: #fff;
+  color: inherit;
 }
 .topbar .tools button[disabled] [class^="icon-"],
 .topbar .tools button[disabled] [class*=" icon-"] {
@@ -589,21 +592,26 @@ a:focus {
 }
 .overlay.mobile img {
   max-width: 80%;
-  margin: 2em 0;
+  margin: 2em 0 1em 0;
 }
 .overlay.mobile .dialog {
   max-width: 80%;
-  padding: 1em 1.2em;
-  font-size: 1rem;
-  background-color: rgba(0, 0, 0, 0.75);
-  border: 0.2em solid #c30;
-  color: #fff;
+  margin-bottom: 2em;
+  padding: 0.8em 1em;
+  font-size: 0.7rem;
+  background-color: rgba(0, 0, 0, 0.65);
+  border-radius: 9px;
+  color: #fc3;
 }
 .overlay.mobile .dialog h1 {
-  color: #c30;
+  color: #e60;
+  text-transform: uppercase;
 }
 .overlay.mobile .dialog p {
-  margin: 0.3em 0;
+  margin: 0.5em 0;
+}
+.overlay.mobile .dialog strong {
+  text-decoration: underline;
 }
 .overlay .dialog {
   width: 28em;
@@ -627,6 +635,9 @@ a:focus {
 .overlay .dialog .message .content {
   display: block;
   margin: 0.5em 0;
+}
+.overlay .dialog .message strong {
+  text-decoration: underline;
 }
 .overlay .dialog .footer {
   position: relative;
@@ -741,6 +752,9 @@ a:focus {
 }
 .tile.blob {
   background-image: url("img/tiles/hero.png");
+}
+.tile.blob_animated {
+  background-image: url("img/tiles/hero.png");
   transform-origin: bottom;
   animation: happyjump 0.4s infinite;
 }
@@ -775,9 +789,15 @@ a:focus {
 }
 .tile.exit {
   background-image: url("img/tiles/exit.png");
-  animation: bounceright 0.4s infinite;
 }
 .tile.exit.down {
+  transform: rotate(90deg);
+}
+.tile.exit_animated {
+  background-image: url("img/tiles/exit.png");
+  animation: bounceright 0.4s infinite;
+}
+.tile.exit_animated.down {
   animation: bouncedown 0.4s infinite;
 }
 .tile.shaking {
@@ -842,6 +862,9 @@ button:focus [class^="icon-"],
 button:hover [class*=" icon-"],
 button:focus [class*=" icon-"] {
   text-shadow: 0 0 5px #fff, 0 0 15px #fff;
+}
+button:active {
+  background-color: #f60;
 }
 button[disabled] {
   color: rgba(0, 0, 0, 0.15);

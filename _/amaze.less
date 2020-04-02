@@ -94,6 +94,10 @@ a {
 				max-height: 40vh;
 				margin: .5em 0;
 				overflow-y: auto;
+				
+				strong {
+					text-decoration: underline;
+				}
 			}
 			.footer {
 				position: relative;
@@ -503,15 +507,14 @@ a {
 				color: #000;
 			}
 			
-			&:hover,
-			&:focus,
 			&.pressed {
+				background-color: #f60;
+				color: white;
+				
 				[class^="icon-"], [class*=" icon-"] {
-					text-shadow: 0 0 5px #fff, 0 0 15px #fff;
-					color: #fff;
+					color: inherit;
 				}
 			}
-			
 			&[disabled] {
 				[class^="icon-"], [class*=" icon-"] {
 					text-shadow: none;
@@ -604,21 +607,27 @@ a {
 		
 		img {
 			max-width: 80%;
-			margin: 2em 0;
+			margin: 2em 0 1em 0;
 		}
 		.dialog {
 			max-width: 80%;
-			padding: 1em 1.2em;
-			font-size: 1rem;
-			background-color: rgba(0, 0, 0, .75);
-			border: .2em solid #c30;
-			color: #fff;
+			margin-bottom: 2em;
+			padding: .8em 1em;
+			font-size: .7rem;
+			background-color: rgba(0, 0, 0, .65);
+			//border: .2em solid #fc3;
+			border-radius: 9px;
+			color: #fc3;
 			
 			h1 {
-				color: #c30;
+				color: #e60;
+				text-transform: uppercase;
 			}
 			p {
-				margin: .3em 0;
+				margin: .5em 0;
+			}
+			strong {
+				text-decoration: underline;
 			}
 		}
 	}
@@ -643,6 +652,9 @@ a {
 			.content {
 				display: block;
 				margin: .5em 0;
+			}
+			strong {
+				text-decoration: underline;
 			}
 		}
 		.footer {
@@ -761,6 +773,9 @@ a {
 	}
 	&.blob {
 		background-image: url("img/tiles/hero.png");
+	}
+	&.blob_animated {
+		background-image: url("img/tiles/hero.png");
 		transform-origin: bottom;
 		animation: happyjump .4s infinite;
 	}
@@ -795,6 +810,13 @@ a {
 		background-image: url("img/tiles/key.png");
 	}
 	&.exit {
+		background-image: url("img/tiles/exit.png");
+		
+		&.down {
+			transform: rotate(90deg);
+		}
+	}
+	&.exit_animated {
 		background-image: url("img/tiles/exit.png");
 		animation: bounceright .4s infinite;
 		
@@ -869,6 +891,9 @@ button {
 		[class^="icon-"], [class*=" icon-"] {
 			text-shadow: 0 0 5px #fff, 0 0 15px #fff;
 		}
+	}
+	&:active {
+		background-color: #f60;;
 	}
 	
 	&[disabled] {

@@ -54,6 +54,7 @@ app.config(['$routeProvider', '$locationProvider',
 				"uuid": generateUUID(),
 				"settings": {
 					"music": true,
+					"animation": true,
 					"fullscreen": false
 				},
 				"started": false,
@@ -169,8 +170,32 @@ app.config(['$routeProvider', '$locationProvider',
 				$rootScope.game.settings.music = !$rootScope.game.settings.music;
 				$rootScope.saveState();
 			}
+			$(".map").focus();
 		};
-
+		
+		$rootScope.toggleAnimation = function($event) {
+			var exit, blob;
+			$event.preventDefault();
+			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+				exit = _.filter($rootScope.game.level.floorplan, function(item) {
+					return item.class.indexOf("exit") >= 0;
+				});
+				blob = _.filter($rootScope.game.level.floorplan, function(item) {
+					return item.class.indexOf("blob") >= 0;
+				});
+				if ($rootScope.game.settings.animation) {
+					exit[0].class = exit[0].class.replace("exit_animated", "exit");
+					blob[0].class = blob[0].class.replace("blob_animated", "blob");
+				} else {
+					exit[0].class = exit[0].class.replace("exit", "exit_animated");
+					blob[0].class = blob[0].class.replace("blob", "blob_animated");
+				}
+				$rootScope.game.settings.animation = !$rootScope.game.settings.animation;
+				$rootScope.saveState();
+			}
+			$(".map").focus();
+		};
+		
 		$rootScope.toggleDialogFocus = function(show) {
 			var $focusable, $overlay;
 
@@ -371,7 +396,7 @@ app.controller('introCtrl', ['$rootScope', '$scope', '$location', '$timeout',
 app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$route', '$timeout',
 	function($rootScope, $scope, $location, $storage, $route, $timeout) {
 
-		var level, item, obj, ind = 0;
+		var level, item, obj, ind = 0, blobClass;
 
 		if (!$rootScope.assetsLoaded) {
 			$location.path('/menu/');
@@ -405,11 +430,17 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							"col": y,
 							"data": item && item.data ? item.data : null
 						};
+						if (tile.indexOf("exit") >= 0 ) {
+							if ($rootScope.game.settings.animation) {
+								obj.class.replace("exit", "exit_animated");
+							}
+						}
 						if (tile == "bubble") {
 							obj.data = { attempts: 5 };
 						}
 						$rootScope.game.level.floorplan.push(obj);
 						if (tile == "blob") {
+							obj.class = $rootScope.game.settings.animation ? "blob_animated" : "blob";
 							obj.class += " entry";
 							$rootScope.game.level.currTile = $rootScope.game.level.floorplan[$rootScope.game.level.floorplan.length - 1];
 						}
@@ -417,6 +448,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 				});
 			}
 			$rootScope.game.level.lesson = level.lesson;
+			$rootScope.game.level.description = level.description;
 
 			$scope.openHelp = function($event) {
 				if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
@@ -523,7 +555,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 			var ind, inventoryIndex, inventoryItem, switchDelay;
 			ind = _.findWhere($rootScope.game.level.floorplan, {row: row, col: col}).id;
 			$scope.nextTile = $rootScope.game.level.floorplan[ind];
-			console.log($scope.nextTile);
+			
 			if ($scope.nextTile.collectable) {
 
 				if ($scope.nextTile.class.indexOf("gem") >=0) {
@@ -543,14 +575,15 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						class: "tile " + $scope.nextTile.class
 					});
 				}
-
-				$scope.nextTile.collectable = false;
-				$scope.nextTile.class = "green";
+				
 				$rootScope.updateStatus("You collected " + $scope.nextTile.class, true);
 				$rootScope.playSound("get_item");
+				$scope.nextTile.collectable = false;
+				$scope.nextTile.class = "green";
 				moveBlob($scope.nextTile);
+				
 			} else {
-
+				console.log($scope.nextTile.class);
 				switch ($scope.nextTile.class) {
 
 					case "green":
@@ -563,14 +596,15 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						break;
 
 					case "green entry":
-						$rootScope.updateStatus("This is where you've entered the room. You cannot go back.", true);
+						console.log("entry");
+						$rootScope.updateStatus("<span class='readersonly'>Level " + ($rootScope.game.level.id + 1) + " entrance: " + $rootScope.game.level.description + "</span>", true);
 						moveBlob($scope.nextTile);
 						break;
 
 					case "exit":
 					case "exit down":
 
-						$rootScope.updateStatus("You found exit");
+						$rootScope.updateStatus("You found exit", true);
 						$scope.message = level.lesson;
 						$rootScope.toggleDialogFocus(true);
 						$scope.levelCompleted = true;
@@ -593,15 +627,15 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							inventoryItem = _.findWhere($rootScope.game.inventory, { "id": $scope.nextTile.data.requires });
 							if ( inventoryItem ) {
 								$rootScope.game.inventory = _.without($rootScope.game.inventory, inventoryItem);
-								$rootScope.updateStatus("You opened a door");
+								$rootScope.updateStatus("You opened a door", true);
 								$scope.nextTile.class = "green";
 								$rootScope.playSound("success");
 							} else {
-								$rootScope.updateStatus("You found a locked door");
+								$rootScope.updateStatus("You found a locked door", true);
 								$rootScope.playSound("hit_wall");
 							}
 						} else {
-							$rootScope.updateStatus("This door is opened remotely");
+							$rootScope.updateStatus("This door is opened remotely", true);
 							$rootScope.playSound("hit_wall");
 						}
 						break;
@@ -609,13 +643,20 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					case "secret":
 
 						if($scope.nextTile.data.attempts > 1) {
-							$rootScope.updateStatus("You found cracked wall");
+							switch($scope.nextTile.data.attempts) {
+								case 3:
+									$rootScope.updateStatus("You found cracked wall", true);
+									break;
+								case 2:
+									$rootScope.updateStatus("The wall gave in a little.", true);
+									break;
+							}
 							$scope.nextTile.data.attempts--;
 							$rootScope.playSound("hit_wall");
 							$scope.nextTile.class = "secret shaking";
 							$timeout( function () { $scope.nextTile.class = "secret"; }, 100 );
 						} else {
-							$rootScope.updateStatus("You found a secret");
+							$rootScope.updateStatus("You found a secret", true);
 							$scope.nextTile.class = $scope.nextTile.data.treasure.class;
 							$scope.nextTile.collectable = $scope.nextTile.data.treasure.collectable;
 							$rootScope.playSound("explosion");
@@ -634,13 +675,13 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$rootScope.toggleDialogFocus(true);
 							$rootScope.playSound("success");
 						} else {
-							$rootScope.updateStatus("You found locked chest");
+							$rootScope.updateStatus("You found locked chest", true);
 							$rootScope.playSound("hit_wall");
 						}
 						break;
 						
 					case "chest unlocked":
-						$rootScope.updateStatus("You found empty unlocked chest");
+						$rootScope.updateStatus("You found empty unlocked chest", true);
 						$rootScope.playSound("hit_wall");
 						break;
 
@@ -685,7 +726,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							$scope.nextTile.class = "green";
 							$rootScope.saveState();
 							moveBlob($scope.nextTile);
-							$rootScope.updateStatus("<span class='readersonly'>Your popped the balloon and moved " + dir + "</span>", true);
+						$rootScope.updateStatus("<span class='readersonly'>You popped the balloon and moved " + dir + "</span>", true);
 							$rootScope.playSound("pop");
 						} else {
 							if ( --$scope.nextTile.data.attempts % 5 === 0) {
@@ -707,7 +748,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					case "puzzle1":
 
 						$rootScope.game.level.nextTileId = ind;
-						$rootScope.updateStatus("You found a locked door");
+						$rootScope.updateStatus("You found a locked door", true);
 						$rootScope.playSound("hit_wall");
 						$rootScope.saveState();
 						$location.path('/puzzle1');
@@ -716,7 +757,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 					case "puzzle2":
 
 						$rootScope.game.level.nextTileId = ind;
-						$rootScope.updateStatus("You found a locked door");
+						$rootScope.updateStatus("You found a locked door", true);
 						$rootScope.playSound("hit_wall");
 						$rootScope.saveState();
 						$location.path('/puzzle2');
@@ -724,7 +765,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 					case "prof":
 
-						$rootScope.updateStatus("You found Prof. X");
+						$rootScope.updateStatus("You found Prof. X", true);
 						$scope.isProf = true;
 						if ($rootScope.game.allGems) {
 							$scope.message =  $scope.nextTile.data.short;
@@ -739,7 +780,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						if ($rootScope.game.allGems) {
 							$location.path("/outro");
 						} else {
-							$rootScope.updateStatus("You don't have enough gems to open this door");
+							$rootScope.updateStatus("You don't have enough gems to open this door", true);
 						}
 						break;
 				}
@@ -747,9 +788,11 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 		}
 
 		function moveBlob(nextTile) {
-			var currTile = _.findWhere($rootScope.game.level.floorplan, {"id": $rootScope.game.level.currTile.id});
-			currTile.class = currTile.class.replace("blob", "green");
-			nextTile.class = nextTile.class.replace("green", "blob");
+			var blobClass, currTile;
+			blobClass = $rootScope.game.settings.animation ? "blob_animated" : "blob";
+			currTile = _.findWhere($rootScope.game.level.floorplan, {"id": $rootScope.game.level.currTile.id});
+			currTile.class = currTile.class.replace(blobClass, "green");
+			nextTile.class = nextTile.class.replace("green", blobClass);
 			$rootScope.game.level.currTile = nextTile;
 			console.log(currTile, nextTile);
 		}
@@ -778,7 +821,18 @@ app.controller('puzzle1Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		nextTile = $rootScope.game.level.floorplan[$rootScope.game.level.nextTileId];
 		$scope.showPanel = nextTile.ready;
 		$scope.hint = nextTile.data.hint;
-
+		
+		$scope.openHelp = function($event) {
+			/*if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+				$scope.message = "Under construction...";
+				$rootScope.toggleDialogFocus(true);
+				window.gtag("event", "Instructions", {
+					event_category: "User Experience",
+					event_label: "Open How To Play"
+				});
+			}*/
+		};
+		
 		$scope.checkForMissingPlate = function() {
 			$scope.inventoryItem = _.findWhere($rootScope.game.inventory, { "id": nextTile.data.requires });
 			if ( $scope.inventoryItem ) {
@@ -880,6 +934,8 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 		if ( inventoryItem ) {
 			nextTile.ready = true;
 			$rootScope.game.inventory = _.without($rootScope.game.inventory, inventoryItem);
+		} else {
+			$rootScope.updateStatus("Find a photo of a cat to solve this puzzle", true);
 		}
 		$scope.showPhoto = nextTile.ready;
 		$scope.hint = nextTile.data.hint;
@@ -893,6 +949,18 @@ app.controller('puzzle2Ctrl', ['$rootScope', '$scope', '$location', '$timeout',
 					break;
 			}
 		};
+		
+		$scope.openHelp = function($event) {
+			/*if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+				$scope.message = "Under construction...";
+				$rootScope.toggleDialogFocus(true);
+				window.gtag("event", "Instructions", {
+					event_category: "User Experience",
+					event_label: "Open How To Play"
+				});
+			}*/
+		};
+		
 		$scope.enterCode = function(event, letter) {
 			if (event.keyCode == 13 || event.keyCode == 32) {
 				if ($scope.message.length < 8) {
