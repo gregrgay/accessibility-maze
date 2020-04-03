@@ -503,6 +503,7 @@ a:focus {
 .topbar .tools button.pressed [class^="icon-"],
 .topbar .tools button.pressed [class*=" icon-"] {
   color: inherit;
+  text-shadow: none;
 }
 .topbar .tools button[disabled] [class^="icon-"],
 .topbar .tools button[disabled] [class*=" icon-"] {

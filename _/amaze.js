@@ -186,9 +186,11 @@ app.config(['$routeProvider', '$locationProvider',
 				if ($rootScope.game.settings.animation) {
 					exit[0].class = exit[0].class.replace("exit_animated", "exit");
 					blob[0].class = blob[0].class.replace("blob_animated", "blob");
+					window.gtag("event", "Animation", { event_category: "User Experience", event_label: "Animation turned off"});
 				} else {
 					exit[0].class = exit[0].class.replace("exit", "exit_animated");
 					blob[0].class = blob[0].class.replace("blob", "blob_animated");
+					window.gtag("event", "Animation", { event_category: "User Experience", event_label: "Animation turned on"});
 				}
 				$rootScope.game.settings.animation = !$rootScope.game.settings.animation;
 				$rootScope.saveState();
@@ -431,8 +433,9 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							"data": item && item.data ? item.data : null
 						};
 						if (tile.indexOf("exit") >= 0 ) {
+							console.log(obj.class);
 							if ($rootScope.game.settings.animation) {
-								obj.class.replace("exit", "exit_animated");
+								obj.class = obj.class.replace("exit", "exit_animated");
 							}
 						}
 						if (tile == "bubble") {

@@ -4,9 +4,9 @@
 			<button ng-click="openHelp($event)" ng-keydown="openHelp($event)" title="Open Help" aria-label="how to play">?</button>
 			<button ng-click="openMenu($event)" ng-keydown="openMenu($event)" title="Go to Menu" aria-label="main menu"><span class="icon-menu"></span></button>
 			<button ng-click="toggleAnimation($event)" ng-keydown="toggleAnimation($event)"  aria-label="toggle animation"
-					ng-class="{ 'pressed' : game.settings.animation }" title="Toggle animation">A</button>
+					ng-class="{ 'pressed' : game.settings.animation }" title="Toggle animation"><span class="icon-play"></span></button>
 			<button ng-click="toggleAmbientSound($event)" ng-keydown="toggleAmbientSound($event)"  aria-label="toggle music"
-					ng-class="{ 'pressed' : game.settings.music }" title="Toggle music"><span ng-class="game.settings.music ? 'icon-volume-2' : 'icon-volume-x' "></span></button>
+					ng-class="{ 'pressed' : game.settings.music }" title="Toggle music"><span class="icon-volume-2"></span></button>
 		</div>
 		<div class="inventory">
 			<div ng-repeat="item in game.inventory track by item.id" ng-class="item.class">
