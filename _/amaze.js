@@ -174,7 +174,7 @@ app.config(['$routeProvider', '$locationProvider',
 		};
 		
 		$rootScope.toggleAnimation = function($event) {
-			var exit, blob;
+			var exit, blob, prof;
 			$event.preventDefault();
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
 				exit = _.filter($rootScope.game.level.floorplan, function(item) {
@@ -183,13 +183,19 @@ app.config(['$routeProvider', '$locationProvider',
 				blob = _.filter($rootScope.game.level.floorplan, function(item) {
 					return item.class.indexOf("blob") >= 0;
 				});
+				prof = _.filter($rootScope.game.level.floorplan, function(item) {
+					return item.class.indexOf("prof") >= 0;
+				});
+				
 				if ($rootScope.game.settings.animation) {
-					exit[0].class = exit[0].class.replace("exit_animated", "exit");
-					blob[0].class = blob[0].class.replace("blob_animated", "blob");
+					if (exit.length) { exit[0].class = exit[0].class.replace("exit_animated", "exit"); }
+					if (blob.length) { blob[0].class = blob[0].class.replace("blob_animated", "blob"); }
+					if (prof.length) { prof[0].class = prof[0].class.replace("prof_animated", "prof"); }
 					window.gtag("event", "Animation", { event_category: "User Experience", event_label: "Animation turned off"});
 				} else {
-					exit[0].class = exit[0].class.replace("exit", "exit_animated");
-					blob[0].class = blob[0].class.replace("blob", "blob_animated");
+					if (exit.length) { exit[0].class = exit[0].class.replace("exit", "exit_animated"); }
+					if (blob.length) { blob[0].class = blob[0].class.replace("blob", "blob_animated"); }
+					if (prof.length) { prof[0].class = prof[0].class.replace("prof", "prof_animated"); }
 					window.gtag("event", "Animation", { event_category: "User Experience", event_label: "Animation turned on"});
 				}
 				$rootScope.game.settings.animation = !$rootScope.game.settings.animation;
@@ -433,9 +439,13 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 							"data": item && item.data ? item.data : null
 						};
 						if (tile.indexOf("exit") >= 0 ) {
-							console.log(obj.class);
 							if ($rootScope.game.settings.animation) {
 								obj.class = obj.class.replace("exit", "exit_animated");
+							}
+						}
+						if (tile.indexOf("prof") >= 0 ) {
+							if ($rootScope.game.settings.animation) {
+								obj.class = obj.class.replace("prof", "prof_animated");
 							}
 						}
 						if (tile == "bubble") {
@@ -606,6 +616,8 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 
 					case "exit":
 					case "exit down":
+					case "exit_animated":
+					case "exit_animated down":
 
 						$rootScope.updateStatus("You found exit", true);
 						$scope.message = level.lesson;
