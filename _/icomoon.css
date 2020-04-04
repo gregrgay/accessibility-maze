@@ -25,19 +25,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-arrow-left:before {
+  content: "\e906";
+}
+.icon-arrow-right:before {
+  content: "\e907";
+}
+.icon-download:before {
+  content: "\e901";
+}
 .icon-menu:before {
   content: "\e900";
 }
-.icon-pause:before {
-  content: "\e901";
-}
 .icon-play:before {
   content: "\e902";
-  margin-left: .3em;
 }
 .icon-volume-2:before {
   content: "\e903";
-}
-.icon-volume-x:before {
-  content: "\e904";
 }

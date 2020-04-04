@@ -46,6 +46,9 @@ a:hover,
 a:focus {
   text-decoration: underline;
 }
+form {
+  display: inline-block;
+}
 .view,
 .container {
   width: 100%;
@@ -613,6 +616,9 @@ a:focus {
 }
 .overlay.mobile .dialog strong {
   text-decoration: underline;
+}
+.overlay.mobile .dialog a {
+  color: #fff;
 }
 .overlay .dialog {
   width: 28em;

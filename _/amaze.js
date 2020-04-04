@@ -158,8 +158,8 @@ app.config(['$routeProvider', '$locationProvider',
 
 		$rootScope.toggleAmbientSound = function($event) {
 			var instance = "ambientSound";
-			$event.preventDefault();
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+				$event.preventDefault();
 				if ($rootScope.game.settings.music) {
 					$rootScope.stopSound(instance);
 					window.gtag("event", "Ambient sound", { event_category: "User Experience", event_label: "Music turned off"});
@@ -169,14 +169,14 @@ app.config(['$routeProvider', '$locationProvider',
 				}
 				$rootScope.game.settings.music = !$rootScope.game.settings.music;
 				$rootScope.saveState();
+				$(".map").focus();
 			}
-			$(".map").focus();
 		};
 		
 		$rootScope.toggleAnimation = function($event) {
 			var exit, blob, prof;
-			$event.preventDefault();
 			if ($event.type == 'click' || $event.keyCode == 32 || $event.keyCode == 13) {
+				$event.preventDefault();
 				exit = _.filter($rootScope.game.level.floorplan, function(item) {
 					return item.class.indexOf("exit") >= 0;
 				});
@@ -200,8 +200,8 @@ app.config(['$routeProvider', '$locationProvider',
 				}
 				$rootScope.game.settings.animation = !$rootScope.game.settings.animation;
 				$rootScope.saveState();
+				$(".map").focus();
 			}
-			$(".map").focus();
 		};
 		
 		$rootScope.toggleDialogFocus = function(show) {
@@ -779,6 +779,7 @@ app.controller('levelCtrl', ['$rootScope', '$scope', '$location', '$storage', '$
 						break;
 
 					case "prof":
+					case "prof_animated":
 
 						$rootScope.updateStatus("You found Prof. X", true);
 						$scope.isProf = true;
